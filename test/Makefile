@@ -12,6 +12,7 @@ HEADERS_TEST					= 			-Icriterion-2.4.2/include/criterion
 FLAGS 							= 			-Wall -Werror -Wextra -g3 -O3 -MMD -MP
 MINIRT_LIB						=			-I../minirt/includes
 LIBFT_PATH						=			../minirt/libft
+LIBFT_LIB						=			../minirt/libft/includes
 VALGRIND_FLAG					=			valgrind --trace-children=yes --leak-check=full -q
 LIB_CRITERION					=			-Lcriterion-2.4.2/lib -lcriterion
 DEBUG							=			-g3
@@ -30,7 +31,10 @@ SRC_EXCLUDED					=			$(addprefix $(OBJS_PROJECT),		\
 SRC_PROJECT						=			$(filter-out $(SRC_EXCLUDED),		\
 											$(wildcard $(OBJS_PROJECT)*.o))
 ######################## TEST SOURCES ###############################
-PARSER							=			parser_test.c
+PARSER							=			atod_test.c							\
+											validate_double_test.c				\
+											validate_int_test.c					\
+											validate_color_test.c
 SRC								=			$(PARSER)
 OBJ								=			$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
 DEP								=			$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
@@ -41,7 +45,7 @@ ONE_TEST						=			$(patsubst %.c, $(PATH_OBJ)%.o, $(TEST_NAME))
 all: create_outs_dir make_minirobt $(PATH_OBJ) $(OBJ) $(EXEC_OUTS)
 
 $(PATH_OBJ)%.o:	%.c
-	@			$(CC)  $(FLAGS) $(MINIRT_LIB) -I$(LIBFT_PATH) $(HEADERS_TEST) -I$(UNIT_PATH) -c $< -o $@
+	@			$(CC)  $(FLAGS) $(MINIRT_LIB) -I$(LIBFT_LIB) $(HEADERS_TEST) -I$(UNIT_PATH) -c $< -o $@
 	@			$(CC)  $(FLAGS) $(MINIRT_LIB) $(FLAG_MLX) $(HEADERS_TEST) -L$(LIBFT_PATH) $(LIB_CRITERION) -I$(UNIT_PATH) -g \
 				$@ $(SRC_PROJECT) -o $(subst $(PATH_OBJ), $(DIR_OUTS), $(basename $@)) -lm -lft
 	@			echo "$(L_GREEN)[$(subst objs/,,$@) compiled]$(L_WHITE)"
