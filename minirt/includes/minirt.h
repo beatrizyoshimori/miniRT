@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/19 17:58:10 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:20:57 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,9 @@ void	parser(t_rt *rt);
 void	free_ptrptr(char **ptrptr);
 void	print_error(char *error, int f, t_rt *rt);
 
-int	validate_double(char *number);
-int	validate_int(char *color);
-int	validate_color(char **color);
+int		validate_double(char *number);
+int		validate_int(char *color);
+int		validate_color(char **color);
+void	validate_amb_light(t_rt *rt);
 
 #endif
