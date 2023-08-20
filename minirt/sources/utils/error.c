@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 21:44:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/19 17:09:53 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:49:49 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_ptrptr(char **ptrptr)
 	int	i;
 
 	i = 0;
-	while (ptrptr[i])
+	while (ptrptr && ptrptr[i])
 	{
 		free(ptrptr[i]);
 		i++;
@@ -33,6 +33,7 @@ void	print_error(char *error, int f, t_rt *rt)
 	{
 		free_ptrptr(rt->elements);
 		free_ptrptr(rt->element);
+		free_ptrptr(rt->color);
 		free(rt);
 	}
 	exit(1);
