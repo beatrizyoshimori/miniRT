@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/19 17:52:39 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/19 21:06:37 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	validate_double(char *number)
 		return (0);
 	while (ft_isdigit(number[i]))
 		i++;
+	if (!number[i])
+		return (1);
 	if (number[i] == '.')
 		i++;
 	if (!number[i])
@@ -35,12 +37,13 @@ int	validate_double(char *number)
 		return (1);
 	return (0);
 }
+
 int	validate_int(char *color)
 {
 	int	i;
 
 	i = 0;
-	while (ft_isdigit(color[i]))
+	while (color && ft_isdigit(color[i]))
 		i++;
 	if (!color[i] && i && ft_strlen(color) <= 3)
 		return (1);
@@ -67,6 +70,8 @@ void	validate_amb_light(t_rt *rt)
 {
 	int	i;
 
+	if (rt->element[3])
+		print_error("Invalid ambient light number of arguments.", FREE, rt);
 	i = 0;
 	if (validate_double(rt->element[1]))
 	{
@@ -102,8 +107,10 @@ void	split_elements(t_rt *rt)
 	{
 		rt->element = ft_split(rt->elements[i], ' ');
 		validate_element(rt);
+		free_ptrptr(rt->element);
 		i++;
 	}
+	free_ptrptr(rt->elements);
 }
 
 void	parser(t_rt *rt)
