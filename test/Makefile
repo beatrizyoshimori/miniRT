@@ -34,7 +34,8 @@ SRC_PROJECT						=			$(filter-out $(SRC_EXCLUDED),		\
 PARSER							=			atod_test.c							\
 											validate_double_test.c				\
 											validate_int_test.c					\
-											validate_color_test.c
+											validate_color_test.c				\
+											validate_amb_light_test.c
 SRC								=			$(PARSER)
 OBJ								=			$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
 DEP								=			$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
