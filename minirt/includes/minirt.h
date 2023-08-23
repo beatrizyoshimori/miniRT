@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/22 21:45:13 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:58:54 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ typedef struct s_color
 
 typedef struct s_amb_light
 {
+	int		amb_light;
 	double	ratio;
 	t_color	color;
 }	t_amb_light;
 
 typedef struct s_camera
 {
+	int				camera;
 	t_coordinates	point;
 	t_coordinates	vector;
 	double			fov;
@@ -52,6 +54,7 @@ typedef struct s_camera
 
 typedef struct s_light
 {
+	int				light;
 	t_coordinates	point;
 	double			brightness;
 	t_color			color;
@@ -102,8 +105,8 @@ typedef struct s_rt
 void	parser(t_rt *rt);
 
 // set_data.c functions
-void	set_coordinates(t_coordinates dest, char **src);
-void	set_color(t_color dest, char **src);
+void	set_coordinates(t_coordinates *dest, char **src);
+void	set_color(t_color *dest, char **src);
 
 // validate_data.c functions
 int		validate_color(char **color);
@@ -120,9 +123,13 @@ void	validate_light(t_rt *rt);
 int		validate_double(char *number);
 int		validate_int(char *number);
 
+// validate_objects.c functions
+void	validate_sphere(t_rt *rt, int sp);
+void	validate_plane(t_rt *rt, int pl);
+
 // utils folder
 // error.c function
-void	free_ptrptr(char **ptrptr);
+void	free_ptrptr(char ***ptrptr);
 void	print_error(char *error, int f, t_rt *rt);
 
 int		validate_double(char *number);
