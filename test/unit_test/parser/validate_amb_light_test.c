@@ -2,12 +2,44 @@
 #include "new/assert.h"
 #include "unit_test.h"
 
+# define __PATH_TEST_ "fd_test/%s.test"
+
+void	set_output(int *fd, char *name)
+{
+	char	path[300] = {0};
+	sprintf(path, __PATH_TEST_, name);
+	*fd = open(path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU | S_IRWXG | S_IRWXO);
+	dup2(*fd, 1);
+}
+
+void	unset_output(int *fd, int *bkp)
+{
+	dup2(*bkp, 1);
+	close(*fd);
+}
+
+char	*read_output(char *name)
+{
+	int		fd;
+	int		rd;
+	char	c;
+	char	*buffer;
+
+	fd = open(name, O_RDONLY);
+	rd = read(fd, &c, 1);
+	while (read(fd, &c, 1))
+		rd++;
+	close(fd);
+	buffer = (char *)ft_calloc(rd + 1, sizeof(char));
+	fd = open(name, O_RDONLY);
+	read(fd, buffer, rd);
+	close(fd);
+	return (buffer);
+}
+
 Test(parser, test_validate_amb_light_1_0_0_0) {
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
-	rt->element = ft_calloc(4, sizeof(char *));
-	rt->element[0] = ft_strdup("A");
-	rt->element[1] = ft_strdup("1");
-	rt->element[2] = ft_strdup("0,0,0");
+	rt->element = ft_split("A 1 0,0,0", ' ');
 	t_rt	expected = (t_rt){.amb_light.ratio = 1, .amb_light.color.red = 0, .amb_light.color.green = 0, .amb_light.color.blue = 0};
 
 	validate_amb_light(rt);
@@ -20,19 +52,91 @@ Test(parser, test_validate_amb_light_1_0_0_0) {
 	free(rt);
 }
 
-// Test(parser, test_validate_amb_light_1_0_0_0_1) {
-// 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
-// 	rt->element = ft_calloc(5, sizeof(char *));
-// 	rt->element[0] = ft_strdup("A");
-// 	rt->element[1] = ft_strdup("1");
-// 	rt->element[2] = ft_strdup("0,0,0");
-// 	rt->element[3] = ft_strdup("1");
-// 	rt->elements = NULL;
-// 	char	*expected = (t_rt){.amb_light.ratio = 1, .amb_light.color.red = 0, .amb_light.color.green = 0, .amb_light.color.blue = 0};
+Test(parser, test_validate_amb_light_1_0_0_0_1, .exit_code = 1) {
+	int		fd;
+	int		bkp = dup(1);
+	char	*name = "validate_amb_light_error";
+	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
+	// char	*read_str;
+	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
+	rt->element = ft_split("A 1 0,0,0 1", ' ');
+	rt->color = NULL;
+	rt->elements = NULL;
 
-// 	validate_amb_light(rt);
+	set_output(&fd, name);
+	validate_amb_light(rt);
+	// read_str = read_output(name);
+	unset_output(&fd, &bkp);
 
-// 	cr_assert(epsilon_eq(flt, expected.amb_light.ratio, rt->amb_light.ratio, EPSILON));
-// 	free_ptrptr(rt->element);
-// 	free(rt);
-// }
+	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free_ptrptr(rt->element);
+	free(rt);
+	// free(read_str);
+}
+
+Test(parser, test_validate_amb_light_1f_0_0_0, .exit_code = 1) {
+	int		fd;
+	int		bkp = dup(1);
+	char	*name = "validate_amb_light_error";
+	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
+	// char	*read_str;
+	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
+	rt->element = ft_split("A 1f 0,0,0", ' ');
+	rt->color = NULL;
+	rt->elements = NULL;
+
+	set_output(&fd, name);
+	validate_amb_light(rt);
+	// read_str = read_output(name);
+	unset_output(&fd, &bkp);
+
+	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free_ptrptr(rt->element);
+	free(rt);
+	// free(read_str);
+}
+
+Test(parser, test_validate_amb_light_1_point_2_0_0_0, .exit_code = 1) {
+	int		fd;
+	int		bkp = dup(1);
+	char	*name = "validate_amb_light_error.txt";
+	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
+	// char	*read_str;
+	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
+	rt->element = ft_split("A 1.2 0,0,0", ' ');
+	printf("element[1]: %s\n", rt->element[1]);
+	rt->color = NULL;
+	rt->elements = NULL;
+
+	set_output(&fd, name);
+	validate_amb_light(rt);
+	// read_str = read_output(name);
+	unset_output(&fd, &bkp);
+
+	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free_ptrptr(rt->element);
+	free(rt);
+	// free(read_str);
+}
+
+Test(parser, test_validate_amb_light_1_0_0_256, .exit_code = 1) {
+	int		fd;
+	int		bkp = dup(1);
+	char	*name = "validate_amb_light_error";
+	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
+	// char	*read_str;
+	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
+	rt->element = ft_split("A 1 0,0,256", ' ');
+	rt->color = NULL;
+	rt->elements = NULL;
+
+	set_output(&fd, name);
+	validate_amb_light(rt);
+	// read_str = read_output(name);
+	unset_output(&fd, &bkp);
+
+	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free_ptrptr(rt->element);
+	free(rt);
+	// free(read_str);
+}

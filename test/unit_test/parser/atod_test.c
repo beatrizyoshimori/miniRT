@@ -12,6 +12,17 @@ Test(parser, test_atod_fifty_point_eight) {
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
 }
 
+Test(parser, test_atod_one_point_two) {
+	char	*number = "1.2";
+	double	expected = 1.2;
+	double	result;
+
+	result = ft_atod(number);
+	printf("expected: %f, result: %f\n", expected, result);
+
+	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
+}
+
 Test(parser, test_atod_zero) {
 	char	*number = "0";
 	double	expected = 0;

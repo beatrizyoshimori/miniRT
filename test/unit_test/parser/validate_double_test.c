@@ -174,3 +174,13 @@ Test(parser, test_validate_double_one) {
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
 }
+
+Test(parser, test_validate_double_one_point_two) {
+	char	*number = "1.2";
+	int		expected = 1;
+	int		result;
+
+	result = validate_double(number);
+
+	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
+}
