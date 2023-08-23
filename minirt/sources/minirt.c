@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 17:56:11 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:17:01 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static void	check_arg(int argc, char *argv[])
 
 static int	check_number_elements(char **elements)
 {
-	if (!elements || !elements[0] || !elements[1] \
-		|| !elements[2] || elements[3])
+	if (!elements || !elements[0] || !elements[1] || !elements[2])
 		return (0);
 	return (1);
 }
