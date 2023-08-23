@@ -6,24 +6,24 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 21:44:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/19 20:49:49 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:48:14 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	free_ptrptr(char **ptrptr)
+void	free_ptrptr(char ***ptrptr)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (ptrptr && ptrptr[i])
+	while (*ptrptr && (*ptrptr)[i])
 	{
-		free(ptrptr[i]);
+		free((*ptrptr)[i]);
 		i++;
 	}
-	free(ptrptr);
-	ptrptr = NULL;
+	free(*ptrptr);
+	*ptrptr = NULL;
 }
 
 void	print_error(char *error, int f, t_rt *rt)
@@ -31,9 +31,9 @@ void	print_error(char *error, int f, t_rt *rt)
 	printf("Error\n%s\n", error);
 	if (f == FREE)
 	{
-		free_ptrptr(rt->elements);
-		free_ptrptr(rt->element);
-		free_ptrptr(rt->color);
+		free_ptrptr(&rt->elements);
+		free_ptrptr(&rt->element);
+		free_ptrptr(&rt->color);
 		free(rt);
 	}
 	exit(1);
