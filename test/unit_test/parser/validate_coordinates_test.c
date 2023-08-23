@@ -2,6 +2,17 @@
 #include "new/assert.h"
 #include "unit_test.h"
 
+Test(parser, test_validate_coordinates_null) {
+	char	**coordinates = NULL;
+	int		expected = 0;
+	int		result;
+
+	result = validate_coordinates(coordinates);
+
+	cr_assert(epsilon_eq(flt, expected, result, EPSILON)); 
+	free_ptrptr(coordinates);
+}
+
 Test(parser, test_validate_coordinates_empty) {
 	char	**coordinates = (char **)ft_calloc(2, sizeof(char *));
 	coordinates[0] = ft_strdup("");

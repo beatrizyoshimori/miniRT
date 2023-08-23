@@ -2,6 +2,16 @@
 #include "new/assert.h"
 #include "unit_test.h"
 
+Test(parser, test_validate_int_null) {
+	char	*color = NULL;
+	double	expected = 0;
+	double	result;
+
+	result = validate_int(color);
+
+	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
+}
+
 Test(parser, test_validate_int_empty) {
 	char	*color = "";
 	double	expected = 0;

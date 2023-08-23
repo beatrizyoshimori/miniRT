@@ -32,11 +32,13 @@ SRC_PROJECT						=			$(filter-out $(SRC_EXCLUDED),		\
 											$(wildcard $(OBJS_PROJECT)*.o))
 ######################## TEST SOURCES ###############################
 PARSER							=			atod_test.c							\
+											validate_amb_light_test.c			\
+											validate_angle_test.c				\
+											validate_color_test.c				\
+											validate_coordinates_test.c			\
 											validate_double_test.c				\
 											validate_int_test.c					\
-											validate_color_test.c				\
-											validate_amb_light_test.c			\
-											validate_coordinates_test.c
+											validate_normalized_vector_test.c
 SRC								=			$(PARSER)
 OBJ								=			$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
 DEP								=			$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
@@ -44,7 +46,7 @@ EXEC_OUTS						=			$(wildcard $(DIR_OUTS)*)
 ONE_TEST						=			$(patsubst %.c, $(PATH_OBJ)%.o, $(TEST_NAME))
 ######################## RULES		  ###############################
 
-all: create_outs_dir make_minirobt $(PATH_OBJ) $(OBJ) $(EXEC_OUTS)
+all: create_outs_dir make_minirt $(PATH_OBJ) $(OBJ) $(EXEC_OUTS)
 
 $(PATH_OBJ)%.o:	%.c
 	@			$(CC)  $(FLAGS) $(MINIRT_LIB) -I$(LIBFT_LIB) $(HEADERS_TEST) -I$(UNIT_PATH) -c $< -o $@
@@ -52,7 +54,7 @@ $(PATH_OBJ)%.o:	%.c
 				$@ $(SRC_PROJECT) -o $(subst $(PATH_OBJ), $(DIR_OUTS), $(basename $@)) -lm -lft
 	@			echo "$(L_GREEN)[$(subst objs/,,$@) compiled]$(L_WHITE)"
 
-run-test: rm-obj create_outs_dir make_minirobt $(PATH_OBJ) $(ONE_TEST)
+run-test: rm-obj create_outs_dir make_minirt $(PATH_OBJ) $(ONE_TEST)
 	@			echo $(ONE_TEST%)
 	@			echo "$(L_YELLOWB)[Run Test: $(L_WHITEB) $(TEST_NAME) $(L_YELLOWB)]: $(L_WHITE)"
 	@			$(VALGRIND_FLAG) $(addprefix ./outs/, $(notdir $(basename $(TEST_NAME))))
@@ -77,9 +79,9 @@ bypass: create_outs_dir $(TESTS)
 		./$(DIR_OUTS)/$${name}; echo ; \
 	done
 
-make_minirobt:
+make_minirt:
 	@			$(MAKE) -s -C ../minirt
-	@			echo "$(L_YELLOWB)[Make MiniRobT Objects]$(L_WHITE)"
+	@			echo "$(L_YELLOWB)[Make miniRT Objects]$(L_WHITE)"
 
 create_outs_dir:
 	@			mkdir -p $(DIR_OUTS)

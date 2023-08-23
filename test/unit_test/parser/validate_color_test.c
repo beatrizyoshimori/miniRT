@@ -2,6 +2,17 @@
 #include "new/assert.h"
 #include "unit_test.h"
 
+Test(parser, test_validate_color_null) {
+	char	**color = NULL;
+	int		expected = 0;
+	int		result;
+
+	result = validate_color(color);
+
+	cr_assert(epsilon_eq(flt, expected, result, EPSILON)); 
+	free_ptrptr(color);
+}
+
 Test(parser, test_validate_color_empty) {
 	char	**color = (char **)ft_calloc(2, sizeof(char *));
 	color[0] = ft_strdup("");
