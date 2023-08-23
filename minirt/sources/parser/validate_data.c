@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:19:14 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 17:11:55 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:07:15 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	validate_normalized_vector(t_coordinates coordinates)
 	double	norm;
 	double	aux;
 
-	aux = pow(coordinates.x, 2) + pow(coordinates.y, 2) \
-		+ pow(coordinates.z, 2);
+	aux = pow(coordinates.x, 2) + pow(coordinates.y, 2) + pow(coordinates.z, 2);
 	norm = sqrt(aux);
 	norm = round(norm * pow(10, 6)) / pow(10, 6);
 	if (norm == 1)
