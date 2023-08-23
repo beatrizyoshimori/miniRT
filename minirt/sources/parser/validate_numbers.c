@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_numbers.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:17:13 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/22 21:17:52 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:00:27 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	validate_double(char *number)
 	int	i;
 
 	i = 0;
-	if (!number[i])
+	if (!number || !number[i])
 		return (0);
 	if (number[i] == '+' || number[i] == '-')
 		i++;
@@ -43,9 +43,11 @@ int	validate_int(char *number)
 	int	i;
 
 	i = 0;
+	if (!number || !number[i] || ft_strlen(number) > 3)
+		return (0);
 	while (ft_isdigit(number[i]))
 		i++;
-	if (!number[i] && i && ft_strlen(number) <= 3)
+	if (!number[i])
 		return (1);
 	return (0);
 }
