@@ -19,7 +19,8 @@ PARSER			=		parser.c \
 						set_data.c \
 						validate_data.c \
 						validate_elements.c \
-						validate_numbers.c
+						validate_numbers.c \
+						validate_objects.c
 UTILS			=		error.c
 SOURCES			=		minirt.c \
 						$(PARSER) \
