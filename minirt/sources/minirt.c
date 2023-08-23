@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/19 17:11:04 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:56:11 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	check_arg(int argc, char *argv[])
+static void	check_arg(int argc, char *argv[])
 {
 	if (argc != 2)
 		print_error("Wrong number of arguments.\nUsage: ./miniRT scene.rt", \
@@ -22,7 +22,15 @@ void	check_arg(int argc, char *argv[])
 			NO_FREE, NULL);
 }
 
-void	read_rt(t_rt *rt, char *file)
+static int	check_number_elements(char **elements)
+{
+	if (!elements || !elements[0] || !elements[1] \
+		|| !elements[2] || elements[3])
+		return (0);
+	return (1);
+}
+
+static void	read_rt(t_rt *rt, char *file)
 {
 	int		fd;
 	int		rd;
@@ -42,6 +50,8 @@ void	read_rt(t_rt *rt, char *file)
 	close(fd);
 	rt->elements = ft_split(buffer, '\n');
 	free(buffer);
+	if (!check_number_elements(rt->elements))
+		print_error("Invalid numbers of elements.", FREE, rt);
 }
 
 int	main(int argc, char *argv[])
