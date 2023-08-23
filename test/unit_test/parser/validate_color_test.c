@@ -10,7 +10,7 @@ Test(parser, test_validate_color_null) {
 	result = validate_color(color);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON)); 
-	free_ptrptr(color);
+	free_ptrptr(&color);
 }
 
 Test(parser, test_validate_color_empty) {
@@ -22,7 +22,7 @@ Test(parser, test_validate_color_empty) {
 	result = validate_color(color);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON)); 
-	free_ptrptr(color);
+	free_ptrptr(&color);
 }
 
 Test(parser, test_validate_color_empty_empty) {
@@ -35,7 +35,7 @@ Test(parser, test_validate_color_empty_empty) {
 	result = validate_color(color);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(color);
+	free_ptrptr(&color);
 }
 
 Test(parser, test_validate_color_space) {
@@ -47,7 +47,7 @@ Test(parser, test_validate_color_space) {
 	result = validate_color(color);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(color);
+	free_ptrptr(&color);
 }
 
 Test(parser, test_validate_color_letter) {
@@ -59,7 +59,7 @@ Test(parser, test_validate_color_letter) {
 	result = validate_color(color);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(color);
+	free_ptrptr(&color);
 }
 
 Test(parser, test_validate_color_255_25_5) {
@@ -73,7 +73,7 @@ Test(parser, test_validate_color_255_25_5) {
 	result = validate_color(color);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(color);
+	free_ptrptr(&color);
 }
 
 Test(parser, test_validate_color_256_25_5) {
@@ -87,7 +87,7 @@ Test(parser, test_validate_color_256_25_5) {
 	result = validate_color(color);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(color);
+	free_ptrptr(&color);
 }
 
 Test(parser, test_validate_color_minus_255_25_5) {
@@ -101,7 +101,7 @@ Test(parser, test_validate_color_minus_255_25_5) {
 	result = validate_color(color);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(color);
+	free_ptrptr(&color);
 }
 
 Test(parser, test_validate_color_255_25_5_45) {
@@ -115,6 +115,6 @@ Test(parser, test_validate_color_255_25_5_45) {
 
 	result = validate_color(color);
 
-	free_ptrptr(color);
+	free_ptrptr(&color);
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
 }

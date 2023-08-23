@@ -18,7 +18,6 @@ Test(parser, test_atod_one_point_two) {
 	double	result;
 
 	result = ft_atod(number);
-	printf("expected: %f, result: %f\n", expected, result);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
 }

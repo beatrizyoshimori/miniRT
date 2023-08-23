@@ -10,7 +10,7 @@ Test(parser, test_validate_coordinates_null) {
 	result = validate_coordinates(coordinates);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON)); 
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 }
 
 Test(parser, test_validate_coordinates_empty) {
@@ -22,7 +22,7 @@ Test(parser, test_validate_coordinates_empty) {
 	result = validate_coordinates(coordinates);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON)); 
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 }
 
 Test(parser, test_validate_coordinates_empty_empty) {
@@ -35,7 +35,7 @@ Test(parser, test_validate_coordinates_empty_empty) {
 	result = validate_coordinates(coordinates);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 }
 
 Test(parser, test_validate_coordinates_space) {
@@ -47,7 +47,7 @@ Test(parser, test_validate_coordinates_space) {
 	result = validate_coordinates(coordinates);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 }
 
 Test(parser, test_validate_coordinates_letter) {
@@ -59,7 +59,7 @@ Test(parser, test_validate_coordinates_letter) {
 	result = validate_coordinates(coordinates);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 }
 
 Test(parser, test_validate_coordinates_255_25_5) {
@@ -73,7 +73,7 @@ Test(parser, test_validate_coordinates_255_25_5) {
 	result = validate_coordinates(coordinates);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 }
 
 Test(parser, test_validate_coordinates_256_25_5) {
@@ -87,7 +87,7 @@ Test(parser, test_validate_coordinates_256_25_5) {
 	result = validate_coordinates(coordinates);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 }
 
 Test(parser, test_validate_coordinates_minus_255_25_5) {
@@ -101,7 +101,7 @@ Test(parser, test_validate_coordinates_minus_255_25_5) {
 	result = validate_coordinates(coordinates);
 
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 }
 
 Test(parser, test_validate_coordinates_255_25_5_45) {
@@ -115,6 +115,6 @@ Test(parser, test_validate_coordinates_255_25_5_45) {
 
 	result = validate_coordinates(coordinates);
 
-	free_ptrptr(coordinates);
+	free_ptrptr(&coordinates);
 	cr_assert(epsilon_eq(flt, expected, result, EPSILON));
 }
