@@ -15,7 +15,11 @@ LIBFT_H			=		$(addprefix $(LIBFT_PATH), $(HEADER_PATH))
 LIBFT			=		$(addprefix $(LIBFT_PATH), libft.a)
 
 ######################### SOURCES #############################
-PARSER			=		parser.c
+PARSER			=		parser.c \
+						set_data.c \
+						validate_data.c \
+						validate_elements.c \
+						validate_numbers.c
 UTILS			=		error.c
 SOURCES			=		minirt.c \
 						$(PARSER) \
@@ -30,6 +34,7 @@ RM				=		rm -rf
 
 ######################### FLAGS ###############################
 C_FLAGS			=		-Wall -Werror -Wextra -I$(HEADER_PATH) -I$(LIBFT_H)
+FLAGS			=		-lm
 LIBFT_FLAGS		=		-L$(LIBFT_PATH) -lft
 FLAGS_EXTRA		=		-g3 -O3 -MP
 
@@ -44,7 +49,7 @@ $(OBJECTS_PATH)%.o: %.c
 						@$(CC) $(FLAGS_EXTRA) $(C_FLAGS) -c $< -o $@
 
 $(NAME):				$(OBJECTS)
-						@$(CC) $(C_FLAGS) $(OBJECTS) $(LIBFT_FLAGS) -o $@
+						@$(CC) $(C_FLAGS) $(OBJECTS) $(FLAGS) $(LIBFT_FLAGS) -o $@
 
 clean:
 						@$(RM) $(OBJECTS_PATH)
