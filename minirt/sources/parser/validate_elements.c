@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:21:50 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 22:54:37 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/24 13:57:34 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	validate_light(t_rt *rt)
 	set_coordinates(&rt->light.point, rt->coordinates);
 	free_ptrptr(&rt->coordinates);
 	if (!validate_double(rt->element[2]))
-		print_error("Invalid light brightness. Brightness is a double", \
+		print_error("Invalid light brightness. Brightness is not a double.", \
 			FREE, rt);
 	rt->light.brightness = ft_atod(rt->element[2]);
 	if (rt->light.brightness < 0 || rt->light.brightness > 1)
