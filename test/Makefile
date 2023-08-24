@@ -34,9 +34,11 @@ SRC_PROJECT						=			$(filter-out $(SRC_EXCLUDED),		\
 PARSER							=			atod_test.c							\
 											validate_amb_light_test.c			\
 											validate_angle_test.c				\
+											validate_camera_test.c				\
 											validate_color_test.c				\
 											validate_coordinates_test.c			\
 											validate_double_test.c				\
+											validate_light_test.c				\
 											validate_int_test.c					\
 											validate_normalized_vector_test.c
 SRC								=			$(PARSER)
