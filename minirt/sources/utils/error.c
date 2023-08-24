@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 21:44:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 18:48:14 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/23 22:54:45 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	print_error(char *error, int f, t_rt *rt)
 		free_ptrptr(&rt->elements);
 		free_ptrptr(&rt->element);
 		free_ptrptr(&rt->color);
+		free(rt->spheres);
+		free(rt->planes);
+		free(rt->cylinders);
 		free(rt);
 	}
 	exit(1);
