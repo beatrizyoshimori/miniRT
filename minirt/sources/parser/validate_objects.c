@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 21:01:37 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/24 18:48:58 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	validate_sphere(t_rt *rt, int sp)
 			FREE, rt);
 	rt->spheres[sp].diameter = ft_atod(rt->element[2]);
 	if (rt->spheres[sp].diameter <= 0)
-		print_error("Invalid sphere diameter. \
-			Diameter must be greater than 0.", FREE, rt);
+		print_error("Invalid sphere diameter. Diameter isn't greater than 0.", \
+			FREE, rt);
 	rt->color = ft_split(rt->element[3], ',');
 	if (!validate_color(rt->color))
 		print_error("Invalid sphere color.", FREE, rt);
@@ -66,8 +66,8 @@ static void	validate_cylinder_aux(t_rt *rt, int cy)
 			FREE, rt);
 	rt->cylinders[cy].height = ft_atod(rt->element[4]);
 	if (rt->cylinders[cy].height <= 0)
-		print_error("Invalid cylinder height. \
-			Height must be greater than 0.", FREE, rt);
+		print_error("Invalid cylinder height. Height isn't greater than 0.", \
+			FREE, rt);
 	rt->color = ft_split(rt->element[5], ',');
 	if (!validate_color(rt->color))
 		print_error("Invalid cylinder color.", FREE, rt);
@@ -97,7 +97,7 @@ void	validate_cylinder(t_rt *rt, int cy)
 			FREE, rt);
 	rt->cylinders[cy].diameter = ft_atod(rt->element[3]);
 	if (rt->cylinders[cy].diameter <= 0)
-		print_error("Invalid cylinder diameter. \
-			Diameter must be greater than 0.", FREE, rt);
+		print_error("Invalid cylinder diameter. Diameter isn't greater than 0."\
+			, FREE, rt);
 	validate_cylinder_aux(rt, cy);
 }
