@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 19:59:04 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/23 21:08:59 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ static void	validate_object(t_rt *rt)
 		validate_plane(rt, pl);
 		pl++;
 	}
-	// else if (!ft_strncmp(rt->element[0], "cy", 3))
-	// {
-	// 	validate_cylinder(rt, cy);
-	// 	cy++;
-	// }
+	else if (!ft_strncmp(rt->element[0], "cy", 3))
+	{
+		validate_cylinder(rt, cy);
+		cy++;
+	}
 }
 
-static void	add_elements(t_rt *rt)
+void	parser(t_rt *rt)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (rt->elements[i])
@@ -80,9 +80,4 @@ static void	add_elements(t_rt *rt)
 		i++;
 	}
 	free_ptrptr(&rt->elements);
-}
-
-void	parser(t_rt *rt)
-{
-	add_elements(rt);
 }
