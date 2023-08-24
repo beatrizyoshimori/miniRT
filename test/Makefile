@@ -37,10 +37,13 @@ PARSER							=			atod_test.c							\
 											validate_camera_test.c				\
 											validate_color_test.c				\
 											validate_coordinates_test.c			\
+											validate_cylinder_test.c			\
 											validate_double_test.c				\
 											validate_light_test.c				\
 											validate_int_test.c					\
-											validate_normalized_vector_test.c
+											validate_normalized_vector_test.c	\
+											validate_plane_test.c				\
+											validate_sphere_test.c
 SRC								=			$(PARSER)
 OBJ								=			$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
 DEP								=			$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
@@ -100,7 +103,7 @@ clean:
 
 fclean: clean
 	@			$(MAKE) -s -C ../minirt $@
-	@			rm -rf outs
+	@			rm -rf outs fd_test
 	@			echo "$(L_RED)[$(L_YELLOW)Removed! $(L_RED)$(EXEC_OUTS)]$(L_WHITE)"
 
 re: fclean all

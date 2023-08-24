@@ -1,14 +1,18 @@
 #include "criterion.h"
 #include "new/assert.h"
 #include "unit_test.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
-void	set_output(int *fd, char *name)
+void	set_output(int *fd)
 {
 	char	path[300] = {0};
+	char	*name = "validate_camera_error";
+
 	sprintf(path, __PATH_TEST_, name);
-	*fd = open(path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU | S_IRWXG | S_IRWXO);
+	*fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU | S_IRWXG | S_IRWXO);
 	dup2(*fd, 1);
 }
 
@@ -18,12 +22,13 @@ void	unset_output(int *fd, int *bkp)
 	close(*fd);
 }
 
-char	*read_output(char *name)
+char	*read_output()
 {
 	int		fd;
 	int		rd;
 	char	c;
 	char	*buffer;
+	char	*name = "fd_test/validate_camera_error.test";
 
 	fd = open(name, O_RDONLY);
 	rd = read(fd, &c, 1);
@@ -77,122 +82,134 @@ Test(parser, test_validate_camera_minus_75_minus_10_20__0_267261_minus_0_534522_
 	free(rt);
 }
 
-Test(parser, test_validate_camera_50_0_20__0_0_1__70__185, .exit_code = 1) {
+Test(parser, test_validate_camera_50_0_20__0_0_1__70__185) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_camera_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid number of arguments on camera.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("C 50,0,20 0,0,1 70 185", ' ');
 
-	set_output(&fd, name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
 	validate_camera(rt);
-	// read_str = read_output(name);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(error, read_str, "value expected [ %s ], result [ %s ].\n", error, read_str);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_camera_50_0f_20__0_0_1__70, .exit_code = 1) {
+Test(parser, test_validate_camera_50_0f_20__0_0_1__70) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_camera_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid camera point.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("C 50,0f,20 0,0,1 70", ' ');
 
-	set_output(&fd, name);
-	validate_camera(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_camera(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_camera_50_0_20__0_0_1l__70, .exit_code = 1) {
+Test(parser, test_validate_camera_50_0_20__0_0_1l__70) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_camera_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid camera vector.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("C 50,0,20 0,0,1l 70", ' ');
 
-	set_output(&fd, name);
-	validate_camera(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_camera(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_camera_50_0_20__0_0_2__70, .exit_code = 1) {
+Test(parser, test_validate_camera_50_0_20__0_0_2__70) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_camera_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid camera vector. Vector is not normalized.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("C 50,0,20 0,0,2 70", ' ');
 
-	set_output(&fd, name);
-	validate_camera(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_camera(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_camera_50_0_20__0_0_1__70k, .exit_code = 1) {
+Test(parser, test_validate_camera_50_0_20__0_0_1__70k) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_camera_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid camera horizontal field of view.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("C 50,0,20 0,0,1 70k", ' ');
 
-	set_output(&fd, name);
-	validate_camera(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_camera(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_camera_50_0_20__0_0_1__250, .exit_code = 1) {
+Test(parser, test_validate_camera_50_0_20__0_0_1__250) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_camera_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid camera horizontal field of view.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("C 50,0,20 0,0,1 250", ' ');
 
-	set_output(&fd, name);
-	validate_camera(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_camera(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }

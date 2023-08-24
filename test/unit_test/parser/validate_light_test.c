@@ -1,14 +1,18 @@
 #include "criterion.h"
 #include "new/assert.h"
 #include "unit_test.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
-void	set_output(int *fd, char *name)
+void	set_output(int *fd)
 {
 	char	path[300] = {0};
+	char	*name = "validate_light_error";
+
 	sprintf(path, __PATH_TEST_, name);
-	*fd = open(path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU | S_IRWXG | S_IRWXO);
+	*fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU | S_IRWXG | S_IRWXO);
 	dup2(*fd, 1);
 }
 
@@ -18,12 +22,13 @@ void	unset_output(int *fd, int *bkp)
 	close(*fd);
 }
 
-char	*read_output(char *name)
+char	*read_output()
 {
 	int		fd;
 	int		rd;
 	char	c;
 	char	*buffer;
+	char	*name = "fd_test/validate_light_error.test";
 
 	fd = open(name, O_RDONLY);
 	rd = read(fd, &c, 1);
@@ -58,122 +63,134 @@ Test(parser, test_validate_light_minus_40_10_0_point_5__0_point_7__125_1_70) {
 	free(rt);
 }
 
-Test(parser, test_validate_light_50_0_20__0_point_8__18_25_185__359, .exit_code = 1) {
+Test(parser, test_validate_light_50_0_20__0_point_8__18_25_185__359) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_light_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid number of arguments on light.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("L 50,0,20 0.8 18,25,185 359", ' ');
 
-	set_output(&fd, name);
-	validate_light(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_light(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_light_5j0_0_20__0_point_8__18_25_185, .exit_code = 1) {
+Test(parser, test_validate_light_5j0_0_20__0_point_8__18_25_185) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_light_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid light point.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("L 5j0,0,20 0.8 18,25,185", ' ');
 
-	set_output(&fd, name);
-	validate_light(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_light(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_light_50_0_20__0_point__18_25_185, .exit_code = 1) {
+Test(parser, test_validate_light_50_0_20__0_point__18_25_185) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_light_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid light brightness. Brightness is not a double.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("L 50,0,20 0. 18,25,185", ' ');
 
-	set_output(&fd, name);
-	validate_light(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_light(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_light_50_0_20__1_point_8__18_25_185, .exit_code = 1) {
+Test(parser, test_validate_light_50_0_20__1_point_8__18_25_185) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_light_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid light brightness.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("L 50,0,20 1.8 18,25,185", ' ');
 
-	set_output(&fd, name);
-	validate_light(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_light(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_light_50_0_20__0_point_8__18_2f5_185, .exit_code = 1) {
+Test(parser, test_validate_light_50_0_20__0_point_8__18_2f5_185) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_light_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid light color.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("L 50,0,20 0.8 18,2f5,185", ' ');
 
-	set_output(&fd, name);
-	validate_light(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_light(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
 
-Test(parser, test_validate_light_50_0_20__0_point_8__18_2655_185, .exit_code = 1) {
+Test(parser, test_validate_light_50_0_20__0_point_8__18_2655_185) {
 	int		fd;
 	int		bkp = dup(1);
-	char	*name = "validate_light_error";
-	// char	*error = "Error\nInvalid number of arguments on ambient light.\n";
-	// char	*read_str;
+	pid_t	pid;
+	char	*error = "Error\nInvalid light color.\n";
+	char	*read_str;
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("L 50,0,20 0.8 18,2655,185", ' ');
 
-	set_output(&fd, name);
-	validate_light(rt);
-	// read_str = read_output(name);
+	pid = fork();
+	set_output(&fd);
+	if (!pid)
+		validate_light(rt);
+	wait(NULL);
 	unset_output(&fd, &bkp);
-
+	read_str = read_output();
+	cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
 	free_ptrptr(&rt->element);
 	free(rt);
-	// free(read_str);
-	// cr_assert_str_eq(read_str, error, "value expected [ %s ], result [ %s ].\n", read_str, error);
+	free(read_str);
 }
