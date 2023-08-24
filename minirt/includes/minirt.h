@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 19:58:54 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/23 21:02:14 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int		validate_int(char *number);
 // validate_objects.c functions
 void	validate_sphere(t_rt *rt, int sp);
 void	validate_plane(t_rt *rt, int pl);
+void	validate_cylinder(t_rt *rt, int cy);
 
 // utils folder
 // error.c function
