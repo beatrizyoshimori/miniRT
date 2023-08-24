@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 21:08:59 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:19:58 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void	parser(t_rt *rt)
 		free_ptrptr(&rt->element);
 		i++;
 	}
+	if (!rt->amb_light.amb_light || !rt->light.light || !rt->camera.camera)
+		print_error("Some element (ambient light, camera, light) is missing.", \
+			FREE, rt);
 	rt->spheres = (t_sphere *)ft_calloc(rt->num_sp + 1, sizeof(t_sphere));
 	rt->planes = (t_plane *)ft_calloc(rt->num_sp + 1, sizeof(t_plane));
 	rt->cylinders = (t_cylinder *)ft_calloc(rt->num_sp + 1, sizeof(t_cylinder));
