@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/24 17:19:58 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:38:42 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ static void	validate_element(t_rt *rt)
 
 static void	validate_object(t_rt *rt)
 {
-	int	sp;
-	int	pl;
-	int	cy;
+	static int	sp = 0;
+	static int	pl = 0;
+	static int	cy = 0;
 
-	sp = 0;
-	pl = 0;
-	cy = 0;
 	if (!ft_strncmp(rt->element[0], "sp", 3))
 	{
 		validate_sphere(rt, sp);
@@ -53,6 +50,20 @@ static void	validate_object(t_rt *rt)
 	{
 		validate_cylinder(rt, cy);
 		cy++;
+	}
+}
+
+static void	add_objects(t_rt *rt)
+{
+	int	i;
+
+	i = 0;
+	while (rt->elements[i])
+	{
+		rt->element = ft_split(rt->elements[i], ' ');
+		validate_object(rt);
+		free_ptrptr(&rt->element);
+		i++;
 	}
 }
 
@@ -71,16 +82,13 @@ void	parser(t_rt *rt)
 	if (!rt->amb_light.amb_light || !rt->light.light || !rt->camera.camera)
 		print_error("Some element (ambient light, camera, light) is missing.", \
 			FREE, rt);
-	rt->spheres = (t_sphere *)ft_calloc(rt->num_sp + 1, sizeof(t_sphere));
-	rt->planes = (t_plane *)ft_calloc(rt->num_sp + 1, sizeof(t_plane));
-	rt->cylinders = (t_cylinder *)ft_calloc(rt->num_sp + 1, sizeof(t_cylinder));
-	i = 0;
-	while (rt->elements[i])
-	{
-		rt->element = ft_split(rt->elements[i], ' ');
-		validate_object(rt);
-		free_ptrptr(&rt->element);
-		i++;
-	}
+	if (rt->num_sp)
+		rt->spheres = (t_sphere *)ft_calloc(rt->num_sp + 1, sizeof(t_sphere));
+	if (rt->num_pl)
+		rt->planes = (t_plane *)ft_calloc(rt->num_sp + 1, sizeof(t_plane));
+	if (rt->num_cy)
+		rt->cylinders = (t_cylinder *)ft_calloc(rt->num_sp + 1, \
+			sizeof(t_cylinder));
+	add_objects(rt);
 	free_ptrptr(&rt->elements);
 }
