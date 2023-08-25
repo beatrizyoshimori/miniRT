@@ -62,7 +62,7 @@ char	*read_output()
 }
 
 Test(parser, test_parser_test0) {
-	char	*read_in = read_input("unit_test/parser/test0.txt");
+	char	*read_in = read_input("unit_test/parser/test_files/test0.txt");
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->elements = ft_split(read_in, '\n');
 
@@ -92,7 +92,7 @@ Test(parser, test_parser_test0) {
 	cr_assert(epsilon_eq(flt, 15, rt->spheres[0].color.red, EPSILON));
 	cr_assert(epsilon_eq(flt, 25, rt->spheres[0].color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 255, rt->spheres[0].color.blue, EPSILON));
-	cr_assert(epsilon_eq(flt, 12.5, rt->spheres[0].diameter, EPSILON));cr_assert(epsilon_eq(flt, 0, rt->spheres[0].center.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 12.5, rt->spheres[0].diameter, EPSILON));
 	cr_assert(epsilon_eq(flt, 9, rt->spheres[1].center.x, EPSILON));
 	cr_assert(epsilon_eq(flt, 8, rt->spheres[1].center.y, EPSILON));
 	cr_assert(epsilon_eq(flt, 7, rt->spheres[1].center.z, EPSILON));
@@ -107,7 +107,7 @@ Test(parser, test_parser_test0) {
 }
 
 Test(parser, test_parser_test1) {
-	char	*read_in = read_input("unit_test/parser/test1.txt");
+	char	*read_in = read_input("unit_test/parser/test_files/test1.txt");
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->elements = ft_split(read_in, '\n');
 
@@ -181,7 +181,7 @@ Test(parser, test_parser_test2) {
 	pid_t	pid;
 	char	*error = "Error\nInvalid element.\n";
 	char	*read_str;
-	char	*read_in = read_input("unit_test/parser/test2.txt");
+	char	*read_in = read_input("unit_test/parser/test_files/test2.txt");
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->elements = ft_split(read_in, '\n');
 
@@ -206,7 +206,7 @@ Test(parser, test_parser_test3) {
 	pid_t	pid;
 	char	*error = "Error\nSome element (ambient light, camera, light) is missing.\n";
 	char	*read_str;
-	char	*read_in = read_input("unit_test/parser/test3.txt");
+	char	*read_in = read_input("unit_test/parser/test_files/test3.txt");
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->elements = ft_split(read_in, '\n');
 
