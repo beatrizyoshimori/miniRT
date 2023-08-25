@@ -32,6 +32,7 @@ SRC_PROJECT						=			$(filter-out $(SRC_EXCLUDED),		\
 											$(wildcard $(OBJS_PROJECT)*.o))
 ######################## TEST SOURCES ###############################
 PARSER							=			atod_test.c							\
+											parser_test.c						\
 											validate_amb_light_test.c			\
 											validate_angle_test.c				\
 											validate_camera_test.c				\
