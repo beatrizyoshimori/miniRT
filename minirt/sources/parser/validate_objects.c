@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_objects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/24 18:48:58 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:34:51 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	validate_sphere(t_rt *rt, int sp)
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error("Invalid sphere center coordinates.", FREE, rt);
-	set_coordinates(&rt->spheres[sp].center, rt->coordinates);
+	set_coordinates(&rt->spheres[sp].point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	if (!validate_double(rt->element[2]))
 		print_error("Invalid sphere diameter. Diameter is not a double.", \
@@ -42,13 +42,13 @@ void	validate_plane(t_rt *rt, int pl)
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error("Invalid plane point.", FREE, rt);
-	set_coordinates(&rt->planes[pl].point, rt->coordinates);
+	set_coordinates(&rt->planes[pl].point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	rt->coordinates = ft_split(rt->element[2], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error("Invalid plane normal.", FREE, rt);
-	set_coordinates(&rt->planes[pl].normal, rt->coordinates);
-	if (!validate_normalized_vector(rt->planes[pl].normal))
+	set_coordinates(&rt->planes[pl].vector, rt->coordinates, VECTOR);
+	if (!validate_normalized_vector(rt->planes[pl].vector))
 		print_error("Invalid plane normal. Normal is not normalized.", \
 			FREE, rt);
 	free_ptrptr(&rt->coordinates);
@@ -82,12 +82,12 @@ void	validate_cylinder(t_rt *rt, int cy)
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error("Invalid cylinder center coordinates.", FREE, rt);
-	set_coordinates(&rt->cylinders[cy].center, rt->coordinates);
+	set_coordinates(&rt->cylinders[cy].point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	rt->coordinates = ft_split(rt->element[2], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error("Invalid cylinder vector.", FREE, rt);
-	set_coordinates(&rt->cylinders[cy].vector, rt->coordinates);
+	set_coordinates(&rt->cylinders[cy].vector, rt->coordinates, VECTOR);
 	if (!validate_normalized_vector(rt->cylinders[cy].vector))
 		print_error("Invalid cylinder vector. Vector is not normalized.", \
 			FREE, rt);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_elements.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:21:50 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/24 13:57:34 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:32:37 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	validate_camera(t_rt *rt)
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error("Invalid camera point.", FREE, rt);
-	set_coordinates(&rt->camera.point, rt->coordinates);
+	set_coordinates(&rt->camera.point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	rt->coordinates = ft_split(rt->element[2], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error("Invalid camera vector.", FREE, rt);
-	set_coordinates(&rt->camera.vector, rt->coordinates);
+	set_coordinates(&rt->camera.vector, rt->coordinates, VECTOR);
 	if (!validate_normalized_vector(rt->camera.vector))
 		print_error("Invalid camera vector. Vector is not normalized.", \
 			FREE, rt);
@@ -67,7 +67,7 @@ void	validate_light(t_rt *rt)
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error("Invalid light point.", FREE, rt);
-	set_coordinates(&rt->light.point, rt->coordinates);
+	set_coordinates(&rt->light.point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	if (!validate_double(rt->element[2]))
 		print_error("Invalid light brightness. Brightness is not a double.", \

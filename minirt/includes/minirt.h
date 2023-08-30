@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/29 21:48:26 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:34:33 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define NO_FREE 1
 # define HEIGHT 400
 # define WIDTH 400
+# define VECTOR 0
+# define POINT 1
 
 typedef struct s_coordinates
 {
@@ -65,7 +67,7 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-	t_coordinates	center;
+	t_coordinates	point;
 	double			diameter;
 	t_color			color;
 }	t_sphere;
@@ -73,13 +75,13 @@ typedef struct s_sphere
 typedef struct s_plane
 {
 	t_coordinates	point;
-	t_coordinates	normal;
+	t_coordinates	vector;
 	t_color			color;
 }	t_plane;
 
 typedef struct s_cylinder
 {
-	t_coordinates	center;
+	t_coordinates	point;
 	t_coordinates	vector;
 	double			diameter;
 	double			height;
@@ -108,7 +110,7 @@ typedef struct s_rt
 void	parser(t_rt *rt);
 
 // set_data.c functions
-void	set_coordinates(t_coordinates *dest, char **src);
+void	set_coordinates(t_coordinates *dest, char **src, double w);
 void	set_color(t_color *dest, char **src);
 
 // validate_data.c functions
