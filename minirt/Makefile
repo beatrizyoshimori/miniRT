@@ -10,6 +10,10 @@ VPATH			=		$(SOURCES_PATH) \
 						$(addprefix $(SOURCES_PATH),	parser \
 														utils)
 
+######################### MLX #################################
+MLX_H			=		$(addprefix $(HEADER_PATH), mlx/)
+MLX				=		$(addprefix $(MLX_H), libmlx42.a)
+
 ######################### LIBFT ###############################
 LIBFT_H			=		$(addprefix $(LIBFT_PATH), $(HEADER_PATH))
 LIBFT			=		$(addprefix $(LIBFT_PATH), libft.a)
@@ -35,9 +39,10 @@ RM				=		rm -rf
 
 ######################### FLAGS ###############################
 C_FLAGS			=		-Wall -Werror -Wextra -I$(HEADER_PATH) -I$(LIBFT_H)
-FLAGS			=		-lm
+FLAGS			=		-lm -ldl -lglfw -pthread
 LIBFT_FLAGS		=		-L$(LIBFT_PATH) -lft
 FLAGS_EXTRA		=		-g3 -O3 -MP
+FLAGS_MLX		=		-I$(MLX_H)
 
 ######################### RECIPES #############################
 all:					$(LIBFT) $(NAME)
@@ -47,10 +52,10 @@ $(LIBFT):
 
 $(OBJECTS_PATH)%.o: %.c
 						@mkdir -p $(dir $@)
-						@$(CC) $(FLAGS_EXTRA) $(C_FLAGS) -c $< -o $@
+						@$(CC) $(FLAGS_EXTRA) $(C_FLAGS) -c $< -o $@ $(FLAGS_MLX)
 
 $(NAME):				$(OBJECTS)
-						@$(CC) $(C_FLAGS) $(OBJECTS) $(FLAGS) $(LIBFT_FLAGS) -o $@
+						@$(CC) $(C_FLAGS) $(OBJECTS) $(MLX) $(FLAGS_MLX) $(FLAGS) $(LIBFT_FLAGS) -o $@
 
 clean:
 						@$(RM) $(OBJECTS_PATH)

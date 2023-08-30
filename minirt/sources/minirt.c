@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 18:17:01 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/29 22:15:24 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,14 @@ static void	read_rt(t_rt *rt, char *file)
 int	main(int argc, char *argv[])
 {
 	t_rt	*rt;
+	mlx_t	*mlx;
 
 	rt = (t_rt *)ft_calloc(1, sizeof(t_rt));
 	check_arg(argc, argv);
 	read_rt(rt, argv[1]);
 	parser(rt);
+	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 	return (0);
 }

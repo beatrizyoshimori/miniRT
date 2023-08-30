@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 21:02:14 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/08/29 21:48:26 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_H
 
 # include "libft.h"
+# include "mlx.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
@@ -21,6 +22,8 @@
 # define EPSILON 0.0001
 # define FREE 0
 # define NO_FREE 1
+# define HEIGHT 400
+# define WIDTH 400
 
 typedef struct s_coordinates
 {
