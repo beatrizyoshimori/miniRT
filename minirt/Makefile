@@ -25,7 +25,11 @@ PARSER			=		parser.c \
 						validate_elements.c \
 						validate_numbers.c \
 						validate_objects.c
-UTILS			=		error.c
+UTILS			=		create.c \
+						equal.c \
+						error.c \
+						operations.c \
+						vector_operations.c
 SOURCES			=		minirt.c \
 						$(PARSER) \
 						$(UTILS)

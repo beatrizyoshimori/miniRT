@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/30 18:34:33 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/08/30 22:02:21 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define MINIRT_H
 
 # include "libft.h"
-# include "mlx.h"
+# include "MLX42.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
 
-# define EPSILON 0.0001
+# define EPSILON 0.00001
 # define FREE 0
 # define NO_FREE 1
 # define HEIGHT 400
@@ -107,41 +107,56 @@ typedef struct s_rt
 
 // parser folder
 // parser.c function
-void	parser(t_rt *rt);
+void			parser(t_rt *rt);
 
 // set_data.c functions
-void	set_coordinates(t_coordinates *dest, char **src, double w);
-void	set_color(t_color *dest, char **src);
+void			set_coordinates(t_coordinates *dest, char **src, double w);
+void			set_color(t_color *dest, char **src);
 
 // validate_data.c functions
-int		validate_color(char **color);
-int		validate_coordinates(char **coordinates);
-int		validate_normalized_vector(t_coordinates coordinates);
-int		validate_angle(char *angle);
+int				validate_color(char **color);
+int				validate_coordinates(char **coordinates);
+int				validate_normalized_vector(t_coordinates coordinates);
+int				validate_angle(char *angle);
 
 // validate_elements.c functions
-void	validate_amb_light(t_rt *rt);
-void	validate_camera(t_rt *rt);
-void	validate_light(t_rt *rt);
+void			validate_amb_light(t_rt *rt);
+void			validate_camera(t_rt *rt);
+void			validate_light(t_rt *rt);
 
 // validate_numbers.c functions
-int		validate_double(char *number);
-int		validate_int(char *number);
+int				validate_double(char *number);
+int				validate_int(char *number);
 
 // validate_objects.c functions
-void	validate_sphere(t_rt *rt, int sp);
-void	validate_plane(t_rt *rt, int pl);
-void	validate_cylinder(t_rt *rt, int cy);
+void			validate_sphere(t_rt *rt, int sp);
+void			validate_plane(t_rt *rt, int pl);
+void			validate_cylinder(t_rt *rt, int cy);
 
 // utils folder
-// error.c function
-void	free_ptrptr(char ***ptrptr);
-void	print_error(char *error, int f, t_rt *rt);
+// create.c functions
+t_coordinates	create_point(double x, double y, double z);
+t_coordinates	create_vector(double x, double y, double z);
 
-int		validate_double(char *number);
-int		validate_int(char *color);
-int		validate_color(char **color);
-void	validate_amb_light(t_rt *rt);
-int		validate_coordinates(char **coordinates);
+// equal.c functions
+int				are_equals(double a, double b);
+int				are_equals_tuples(t_coordinates a, t_coordinates b);
+
+// error.c functions
+void			free_ptrptr(char ***ptrptr);
+void			print_error(char *error, int f, t_rt *rt);
+
+// operations.c functions
+t_coordinates	add_tuples(t_coordinates a, t_coordinates b);
+t_coordinates	subtract_tuples(t_coordinates a, t_coordinates b);
+t_coordinates	negate_tuple(t_coordinates a);
+t_coordinates	multiply_tuple(double scalar, t_coordinates a);
+t_coordinates	divide_tuple(double scalar, t_coordinates a);
+
+// vector_operations.c functions
+double			get_vector_magnitude(t_coordinates v);
+t_coordinates	normalize_vector(t_coordinates v);
+double			get_dot_product(t_coordinates v, t_coordinates u);
+t_coordinates	get_cross_product(t_coordinates v, t_coordinates u);
 
 #endif
