@@ -24,7 +24,8 @@ DIR_FILES						=			fd_test/
 OBJS_PROJECT					=			../minirt/objects/
 UNIT_PATH						=			./unit_test/
 VPATH							=			$(addprefix $(UNIT_PATH),			\
-											parser)
+											parser								\
+											utils)
 ######################## PROJECT FILES ##############################
 SRC_EXCLUDED					=			$(addprefix $(OBJS_PROJECT),		\
 											minirt.o)
@@ -45,7 +46,18 @@ PARSER							=			atod_test.c							\
 											validate_normalized_vector_test.c	\
 											validate_plane_test.c				\
 											validate_sphere_test.c
-SRC								=			$(PARSER)
+UTILS							=			add_tuples_test.c					\
+											are_equals_test.c					\
+											are_equals_tuples_test.c			\
+											divide_tuple_test.c					\
+											get_cross_product_test.c			\
+											get_dot_product_test.c				\
+											multiply_tuple_test.c				\
+											negate_tuple_test.c					\
+											normalize_vector_test.c				\
+											subtract_tuples_test.c
+SRC								=			$(PARSER)							\
+											$(UTILS)
 OBJ								=			$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
 DEP								=			$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
 EXEC_OUTS						=			$(wildcard $(DIR_OUTS)*)
