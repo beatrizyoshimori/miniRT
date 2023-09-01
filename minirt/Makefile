@@ -54,7 +54,7 @@ all:					$(LIBFT) $(NAME)
 $(LIBFT):
 						@make -C $(LIBFT_PATH) --no-print-directory
 
-$(OBJECTS_PATH)%.o: %.c
+$(OBJECTS_PATH)%.o:		%.c $(HEADER_PATH)minirt.h $(HEADER_PATH)error.h
 						@mkdir -p $(dir $@)
 						@$(CC) $(FLAGS_EXTRA) $(C_FLAGS) -c $< -o $@ $(FLAGS_MLX)
 
