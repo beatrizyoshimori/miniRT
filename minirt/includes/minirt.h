@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/30 22:02:21 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:28:31 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# include "error.h"
 # include "libft.h"
 # include "MLX42.h"
 # include <stdio.h>
@@ -20,8 +21,6 @@
 # include <math.h>
 
 # define EPSILON 0.00001
-# define FREE 0
-# define NO_FREE 1
 # define HEIGHT 400
 # define WIDTH 400
 # define VECTOR 0
@@ -144,7 +143,7 @@ int				are_equals_tuples(t_coordinates a, t_coordinates b);
 
 // error.c functions
 void			free_ptrptr(char ***ptrptr);
-void			print_error(char *error, int f, t_rt *rt);
+void			print_error(char *error, t_rt *rt);
 
 // operations.c functions
 t_coordinates	add_tuples(t_coordinates a, t_coordinates b);
