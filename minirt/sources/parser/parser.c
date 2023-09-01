@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/25 16:38:42 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:29:08 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	validate_element(t_rt *rt)
 	else if (!ft_strncmp(rt->element[0], "cy", 3))
 		rt->num_cy++;
 	else
-		print_error("Invalid element.", FREE, rt);
+		print_error(INV_ELEMENT, rt);
 }
 
 static void	validate_object(t_rt *rt)
@@ -80,8 +80,7 @@ void	parser(t_rt *rt)
 		i++;
 	}
 	if (!rt->amb_light.amb_light || !rt->light.light || !rt->camera.camera)
-		print_error("Some element (ambient light, camera, light) is missing.", \
-			FREE, rt);
+		print_error(MISS_ELEMENT, rt);
 	if (rt->num_sp)
 		rt->spheres = (t_sphere *)ft_calloc(rt->num_sp + 1, sizeof(t_sphere));
 	if (rt->num_pl)

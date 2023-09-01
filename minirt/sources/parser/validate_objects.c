@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_objects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/30 18:34:51 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:13:28 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,20 @@
 void	validate_sphere(t_rt *rt, int sp)
 {
 	if (rt->element[4])
-		print_error("Invalid number of arguments on sphere.", FREE, rt);
+		print_error(ARG_SP, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
-		print_error("Invalid sphere center coordinates.", FREE, rt);
+		print_error(CENTER_SP, rt);
 	set_coordinates(&rt->spheres[sp].point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	if (!validate_double(rt->element[2]))
-		print_error("Invalid sphere diameter. Diameter is not a double.", \
-			FREE, rt);
+		print_error(D_DIAM_SP, rt);
 	rt->spheres[sp].diameter = ft_atod(rt->element[2]);
 	if (rt->spheres[sp].diameter <= 0)
-		print_error("Invalid sphere diameter. Diameter isn't greater than 0.", \
-			FREE, rt);
+		print_error(R_DIAM_SP, rt);
 	rt->color = ft_split(rt->element[3], ',');
 	if (!validate_color(rt->color))
-		print_error("Invalid sphere color.", FREE, rt);
+		print_error(COLOR_SP, rt);
 	set_color(&rt->spheres[sp].color, rt->color);
 	free_ptrptr(&rt->color);
 }
@@ -38,23 +36,22 @@ void	validate_sphere(t_rt *rt, int sp)
 void	validate_plane(t_rt *rt, int pl)
 {
 	if (rt->element[4])
-		print_error("Invalid number of arguments on plane.", FREE, rt);
+		print_error(ARG_PL, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
-		print_error("Invalid plane point.", FREE, rt);
+		print_error(POINT_PL, rt);
 	set_coordinates(&rt->planes[pl].point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	rt->coordinates = ft_split(rt->element[2], ',');
 	if (!validate_coordinates(rt->coordinates))
-		print_error("Invalid plane normal.", FREE, rt);
+		print_error(NORMAL_PL, rt);
 	set_coordinates(&rt->planes[pl].vector, rt->coordinates, VECTOR);
 	if (!validate_normalized_vector(rt->planes[pl].vector))
-		print_error("Invalid plane normal. Normal is not normalized.", \
-			FREE, rt);
+		print_error(N_NORMAL_PL, rt);
 	free_ptrptr(&rt->coordinates);
 	rt->color = ft_split(rt->element[3], ',');
 	if (!validate_color(rt->color))
-		print_error("Invalid plane color.", FREE, rt);
+		print_error(COLOR_PL, rt);
 	set_color(&rt->planes[pl].color, rt->color);
 	free_ptrptr(&rt->color);
 }
@@ -62,15 +59,13 @@ void	validate_plane(t_rt *rt, int pl)
 static void	validate_cylinder_aux(t_rt *rt, int cy)
 {
 	if (!validate_double(rt->element[4]))
-		print_error("Invalid cylinder height. Height is not a double.", \
-			FREE, rt);
+		print_error(D_HEIGHT_CY, rt);
 	rt->cylinders[cy].height = ft_atod(rt->element[4]);
 	if (rt->cylinders[cy].height <= 0)
-		print_error("Invalid cylinder height. Height isn't greater than 0.", \
-			FREE, rt);
+		print_error(R_HEIGHT_CY, rt);
 	rt->color = ft_split(rt->element[5], ',');
 	if (!validate_color(rt->color))
-		print_error("Invalid cylinder color.", FREE, rt);
+		print_error(COLOR_CY, rt);
 	set_color(&rt->cylinders[cy].color, rt->color);
 	free_ptrptr(&rt->color);
 }
@@ -78,26 +73,23 @@ static void	validate_cylinder_aux(t_rt *rt, int cy)
 void	validate_cylinder(t_rt *rt, int cy)
 {
 	if (rt->element[6])
-		print_error("Invalid number of arguments on cylinder.", FREE, rt);
+		print_error(ARG_CY, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
-		print_error("Invalid cylinder center coordinates.", FREE, rt);
+		print_error(CENTER_CY, rt);
 	set_coordinates(&rt->cylinders[cy].point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	rt->coordinates = ft_split(rt->element[2], ',');
 	if (!validate_coordinates(rt->coordinates))
-		print_error("Invalid cylinder vector.", FREE, rt);
+		print_error(VECTOR_CY, rt);
 	set_coordinates(&rt->cylinders[cy].vector, rt->coordinates, VECTOR);
 	if (!validate_normalized_vector(rt->cylinders[cy].vector))
-		print_error("Invalid cylinder vector. Vector is not normalized.", \
-			FREE, rt);
+		print_error(N_VECTOR_CY, rt);
 	free_ptrptr(&rt->coordinates);
 	if (!validate_double(rt->element[3]))
-		print_error("Invalid cylinder diameter. Diameter is not a double.", \
-			FREE, rt);
+		print_error(D_DIAM_CY, rt);
 	rt->cylinders[cy].diameter = ft_atod(rt->element[3]);
 	if (rt->cylinders[cy].diameter <= 0)
-		print_error("Invalid cylinder diameter. Diameter isn't greater than 0."\
-			, FREE, rt);
+		print_error(R_DIAM_CY, rt);
 	validate_cylinder_aux(rt, cy);
 }
