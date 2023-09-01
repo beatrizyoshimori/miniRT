@@ -1,8 +1,4 @@
-#include "criterion.h"
-#include "new/assert.h"
 #include "unit_test.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
@@ -45,21 +41,18 @@ char	*read_output()
 Test(parser, test_validate_camera_50_0_20__0_0_1__70) {
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("C 50,0,20 0,0,1 70", ' ');
-	t_rt	expected = (t_rt){.camera.point.x = 50, .camera.point.y = 0, .camera.point.z = 20, \
-							.camera.point.w = 1, .camera.vector.x = 0, .camera.vector.y = 0, \
-							.camera.vector.z = 1, .camera.vector.w = 0, .camera.fov = 70};
 
 	validate_camera(rt);
 
-	cr_assert(epsilon_eq(flt, expected.camera.point.x, rt->camera.point.x, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.point.y, rt->camera.point.y, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.point.z, rt->camera.point.z, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.point.w, rt->camera.point.w, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.vector.x, rt->camera.vector.x, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.vector.y, rt->camera.vector.y, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.vector.z, rt->camera.vector.z, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.vector.w, rt->camera.vector.w, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.fov, rt->camera.fov, EPSILON));
+	cr_assert(epsilon_eq(flt, 50, rt->camera.point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->camera.point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 20, rt->camera.point.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->camera.point.w, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->camera.vector.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->camera.vector.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->camera.vector.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->camera.vector.w, EPSILON));
+	cr_assert(epsilon_eq(flt, 70, rt->camera.fov, EPSILON));
 	free_ptrptr(&rt->element);
 	free(rt);
 }
@@ -73,15 +66,15 @@ Test(parser, test_validate_camera_minus_75_minus_10_20__0_267261_minus_0_534522_
 
 	validate_camera(rt);
 
-	cr_assert(epsilon_eq(flt, expected.camera.point.x, rt->camera.point.x, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.point.y, rt->camera.point.y, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.point.z, rt->camera.point.z, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.point.w, rt->camera.point.w, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.vector.x, rt->camera.vector.x, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.vector.y, rt->camera.vector.y, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.vector.z, rt->camera.vector.z, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.vector.w, rt->camera.vector.w, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.camera.fov, rt->camera.fov, EPSILON));
+	cr_assert(epsilon_eq(flt, -75, rt->camera.point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, -10, rt->camera.point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 20, rt->camera.point.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->camera.point.w, EPSILON));
+	cr_assert(epsilon_eq(flt, 0.267261, rt->camera.vector.x, EPSILON));
+	cr_assert(epsilon_eq(flt, -0.534522, rt->camera.vector.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 0.801784, rt->camera.vector.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->camera.vector.w, EPSILON));
+	cr_assert(epsilon_eq(flt, 179, rt->camera.fov, EPSILON));
 	free_ptrptr(&rt->element);
 	free(rt);
 }

@@ -1,8 +1,4 @@
-#include "criterion.h"
-#include "new/assert.h"
 #include "unit_test.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
@@ -49,12 +45,14 @@ Test(parser, test_validate_cylinders_minus_10_0_point_5_20__1_0_0__14_point_2__2
 
 	validate_cylinder(rt, 0);
 
-	cr_assert(epsilon_eq(flt, -10, rt->cylinders[0].center.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 0.5, rt->cylinders[0].center.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 20, rt->cylinders[0].center.z, EPSILON));
+	cr_assert(epsilon_eq(flt, -10, rt->cylinders[0].point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0.5, rt->cylinders[0].point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 20, rt->cylinders[0].point.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->cylinders[0].point.w, EPSILON));
 	cr_assert(epsilon_eq(flt, 1, rt->cylinders[0].vector.x, EPSILON));
 	cr_assert(epsilon_eq(flt, 0, rt->cylinders[0].vector.y, EPSILON));
 	cr_assert(epsilon_eq(flt, 0, rt->cylinders[0].vector.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->cylinders[0].vector.w, EPSILON));
 	cr_assert(epsilon_eq(flt, 14.2, rt->cylinders[0].diameter, EPSILON));
 	cr_assert(epsilon_eq(flt, 25, rt->cylinders[0].height, EPSILON));
 	cr_assert(epsilon_eq(flt, 20, rt->cylinders[0].color.red, EPSILON));

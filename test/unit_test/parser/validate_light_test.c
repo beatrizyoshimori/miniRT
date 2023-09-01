@@ -1,8 +1,4 @@
-#include "criterion.h"
-#include "new/assert.h"
 #include "unit_test.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
@@ -45,20 +41,17 @@ char	*read_output()
 Test(parser, test_validate_light_minus_40_10_0_point_5__0_point_7__125_1_70) {
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("L -40,10,0.5 0.7 125,1,70", ' ');
-	t_rt	expected = (t_rt){.light.point.x = -40, .light.point.y = 10, .light.point.z = 0.5, \
-								.light.brightness = 0.7, \
-								.light.color.red = 125, .light.color.green = 1, .light.color.blue = 70, \
-							};
 
 	validate_light(rt);
 
-	cr_assert(epsilon_eq(flt, expected.light.point.x, rt->light.point.x, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.light.point.y, rt->light.point.y, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.light.point.z, rt->light.point.z, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.light.color.red, rt->light.color.red, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.light.color.green, rt->light.color.green, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.light.color.blue, rt->light.color.blue, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.light.brightness, rt->light.brightness, EPSILON));
+	cr_assert(epsilon_eq(flt, -40, rt->light.point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 10, rt->light.point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 0.5, rt->light.point.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->light.point.w, EPSILON));
+	cr_assert(epsilon_eq(flt, 125, rt->light.color.red, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->light.color.green, EPSILON));
+	cr_assert(epsilon_eq(flt, 70, rt->light.color.blue, EPSILON));
+	cr_assert(epsilon_eq(flt, 0.7, rt->light.brightness, EPSILON));
 	free_ptrptr(&rt->element);
 	free(rt);
 }

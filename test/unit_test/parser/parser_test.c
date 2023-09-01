@@ -1,8 +1,4 @@
-#include "criterion.h"
-#include "new/assert.h"
 #include "unit_test.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
@@ -86,16 +82,16 @@ Test(parser, test_parser_test0) {
 	cr_assert(epsilon_eq(flt, 0, rt->light.color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 255, rt->light.color.blue, EPSILON));
 	cr_assert(epsilon_eq(flt, 0.6, rt->light.brightness, EPSILON));
-	cr_assert(epsilon_eq(flt, 0, rt->spheres[0].center.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 0.5, rt->spheres[0].center.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 20, rt->spheres[0].center.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->spheres[0].point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0.5, rt->spheres[0].point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 20, rt->spheres[0].point.z, EPSILON));
 	cr_assert(epsilon_eq(flt, 15, rt->spheres[0].color.red, EPSILON));
 	cr_assert(epsilon_eq(flt, 25, rt->spheres[0].color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 255, rt->spheres[0].color.blue, EPSILON));
 	cr_assert(epsilon_eq(flt, 12.5, rt->spheres[0].diameter, EPSILON));
-	cr_assert(epsilon_eq(flt, 9, rt->spheres[1].center.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 8, rt->spheres[1].center.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 7, rt->spheres[1].center.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 9, rt->spheres[1].point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 8, rt->spheres[1].point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 7, rt->spheres[1].point.z, EPSILON));
 	cr_assert(epsilon_eq(flt, 10, rt->spheres[1].color.red, EPSILON));
 	cr_assert(epsilon_eq(flt, 255, rt->spheres[1].color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 245, rt->spheres[1].color.blue, EPSILON));
@@ -131,9 +127,9 @@ Test(parser, test_parser_test1) {
 	cr_assert(epsilon_eq(flt, 10, rt->light.color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 255, rt->light.color.blue, EPSILON));
 	cr_assert(epsilon_eq(flt, 0.1, rt->light.brightness, EPSILON));
-	cr_assert(epsilon_eq(flt, -23.6, rt->spheres[0].center.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 0.55555, rt->spheres[0].center.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 20.33, rt->spheres[0].center.z, EPSILON));
+	cr_assert(epsilon_eq(flt, -23.6, rt->spheres[0].point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0.55555, rt->spheres[0].point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 20.33, rt->spheres[0].point.z, EPSILON));
 	cr_assert(epsilon_eq(flt, 151, rt->spheres[0].color.red, EPSILON));
 	cr_assert(epsilon_eq(flt, 215, rt->spheres[0].color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 255, rt->spheres[0].color.blue, EPSILON));
@@ -141,24 +137,24 @@ Test(parser, test_parser_test1) {
 	cr_assert(epsilon_eq(flt, 0, rt->planes[0].point.x, EPSILON));
 	cr_assert(epsilon_eq(flt, 1, rt->planes[0].point.y, EPSILON));
 	cr_assert(epsilon_eq(flt, -15, rt->planes[0].point.z, EPSILON));
-	cr_assert(epsilon_eq(flt, 0, rt->planes[0].normal.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 1, rt->planes[0].normal.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 0, rt->planes[0].normal.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->planes[0].vector.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->planes[0].vector.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->planes[0].vector.z, EPSILON));
 	cr_assert(epsilon_eq(flt, 25, rt->planes[0].color.red, EPSILON));
 	cr_assert(epsilon_eq(flt, 36, rt->planes[0].color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 85, rt->planes[0].color.blue, EPSILON));
 	cr_assert(epsilon_eq(flt, -0.9, rt->planes[1].point.x, EPSILON));
 	cr_assert(epsilon_eq(flt, 158, rt->planes[1].point.y, EPSILON));
 	cr_assert(epsilon_eq(flt, 15.23, rt->planes[1].point.z, EPSILON));
-	cr_assert(epsilon_eq(flt, 1, rt->planes[1].normal.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 0, rt->planes[1].normal.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 0, rt->planes[1].normal.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->planes[1].vector.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->planes[1].vector.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->planes[1].vector.z, EPSILON));
 	cr_assert(epsilon_eq(flt, 255, rt->planes[1].color.red, EPSILON));
 	cr_assert(epsilon_eq(flt, 136, rt->planes[1].color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 18, rt->planes[1].color.blue, EPSILON));
-	cr_assert(epsilon_eq(flt, -63.9998, rt->cylinders[0].center.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 0, rt->cylinders[0].center.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 125, rt->cylinders[0].center.z, EPSILON));
+	cr_assert(epsilon_eq(flt, -63.9998, rt->cylinders[0].point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->cylinders[0].point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 125, rt->cylinders[0].point.z, EPSILON));
 	cr_assert(epsilon_eq(flt, 0, rt->cylinders[0].vector.x, EPSILON));
 	cr_assert(epsilon_eq(flt, 0, rt->cylinders[0].vector.y, EPSILON));
 	cr_assert(epsilon_eq(flt, 1, rt->cylinders[0].vector.z, EPSILON));

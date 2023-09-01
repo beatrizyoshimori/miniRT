@@ -1,8 +1,4 @@
-#include "criterion.h"
-#include "new/assert.h"
 #include "unit_test.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
@@ -52,9 +48,11 @@ Test(parser, test_validate_plane_minus_10_0_point_5_20__1_0_0__20_0_254) {
 	cr_assert(epsilon_eq(flt, -10, rt->planes[0].point.x, EPSILON));
 	cr_assert(epsilon_eq(flt, 0.5, rt->planes[0].point.y, EPSILON));
 	cr_assert(epsilon_eq(flt, 20, rt->planes[0].point.z, EPSILON));
-	cr_assert(epsilon_eq(flt, 1, rt->planes[0].normal.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 0, rt->planes[0].normal.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 0, rt->planes[0].normal.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->planes[0].point.w, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->planes[0].vector.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->planes[0].vector.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->planes[0].vector.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->planes[0].vector.w, EPSILON));
 	cr_assert(epsilon_eq(flt, 20, rt->planes[0].color.red, EPSILON));
 	cr_assert(epsilon_eq(flt, 0, rt->planes[0].color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 254, rt->planes[0].color.blue, EPSILON));

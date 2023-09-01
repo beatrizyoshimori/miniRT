@@ -1,74 +1,76 @@
-######################## COLORS	      ###############################
-L_RED							=			\033[0;31m
-L_REDB							=			\033[1;31m
-L_WHITE							=			\033[0;37m
-L_WHITEB						=			\033[1;37m
-L_YELLOW						=			\033[0;33m
-L_YELLOWB						=			\033[1;33m
-L_GREEN							=			\033[0;32m
-L_GREENB						=			\033[1;32m
+######################## COLORS       ###############################
+L_RED				=		\033[0;31m
+L_REDB				=		\033[1;31m
+L_WHITE				=		\033[0;37m
+L_WHITEB			=		\033[1;37m
+L_YELLOW			=		\033[0;33m
+L_YELLOWB			=		\033[1;33m
+L_GREEN				=		\033[0;32m
+L_GREENB			=		\033[1;32m
 ######################## CONFIG	TESTS ###############################
-HEADERS_TEST					= 			-Icriterion-2.4.2/include/criterion
-FLAGS 							= 			-Wall -Werror -Wextra -g3 -O3 -MMD -MP
-MINIRT_LIB						=			-I../minirt/includes
-LIBFT_PATH						=			../minirt/libft
-LIBFT_LIB						=			../minirt/libft/includes
-VALGRIND_FLAG					=			valgrind --trace-children=yes --leak-check=full -q
-LIB_CRITERION					=			-Lcriterion-2.4.2/lib -lcriterion
-DEBUG							=			-g3
-FLAG_MLX						=			-lmlx -lX11 -lXext
-######################## PATHS 		  ###############################
-PATH_OBJ						=			objs/
-DIR_OUTS						=			outs/
-DIR_FILES						=			fd_test/
-OBJS_PROJECT					=			../minirt/objects/
-UNIT_PATH						=			./unit_test/
-VPATH							=			$(addprefix $(UNIT_PATH),			\
-											parser								\
-											utils)
+HEADERS_TEST		=		-Icriterion-2.4.2/include/criterion
+FLAGS 				=		-Wall -Werror -Wextra -g3 -O3 -MMD -MP
+MINIRT_LIB			=		-I../minirt/includes
+LIBFT_PATH			=		../minirt/libft
+LIBFT_LIB			=		../minirt/libft/includes
+MLX_PATH			=		../minirt/includes
+MLX_LIB				=		../minirt/includes/mlx
+VALGRIND_FLAG		=		valgrind --trace-children=yes --leak-check=full -q
+LIB_CRITERION		=		-Lcriterion-2.4.2/lib -lcriterion
+DEBUG				=		-g3
+FLAG_MLX			=		-lmlx -lX11 -lXext
+######################## PATHS        ###############################
+PATH_OBJ			=		objs/
+DIR_OUTS			=		outs/
+DIR_FILES			=		fd_test/
+OBJS_PROJECT		=		../minirt/objects/
+UNIT_PATH			=		./unit_test/
+VPATH				=		$(addprefix $(UNIT_PATH),			\
+							parser								\
+							utils)
 ######################## PROJECT FILES ##############################
-SRC_EXCLUDED					=			$(addprefix $(OBJS_PROJECT),		\
-											minirt.o)
-SRC_PROJECT						=			$(filter-out $(SRC_EXCLUDED),		\
-											$(wildcard $(OBJS_PROJECT)*.o))
+SRC_EXCLUDED		=		$(addprefix $(OBJS_PROJECT),		\
+							minirt.o)
+SRC_PROJECT			=		$(filter-out $(SRC_EXCLUDED),		\
+							$(wildcard $(OBJS_PROJECT)*.o))
 ######################## TEST SOURCES ###############################
-PARSER							=			atod_test.c							\
-											parser_test.c						\
-											validate_amb_light_test.c			\
-											validate_angle_test.c				\
-											validate_camera_test.c				\
-											validate_color_test.c				\
-											validate_coordinates_test.c			\
-											validate_cylinder_test.c			\
-											validate_double_test.c				\
-											validate_light_test.c				\
-											validate_int_test.c					\
-											validate_normalized_vector_test.c	\
-											validate_plane_test.c				\
-											validate_sphere_test.c
-UTILS							=			add_tuples_test.c					\
-											are_equals_test.c					\
-											are_equals_tuples_test.c			\
-											divide_tuple_test.c					\
-											get_cross_product_test.c			\
-											get_dot_product_test.c				\
-											multiply_tuple_test.c				\
-											negate_tuple_test.c					\
-											normalize_vector_test.c				\
-											subtract_tuples_test.c
-SRC								=			$(PARSER)							\
-											$(UTILS)
-OBJ								=			$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
-DEP								=			$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
-EXEC_OUTS						=			$(wildcard $(DIR_OUTS)*)
-ONE_TEST						=			$(patsubst %.c, $(PATH_OBJ)%.o, $(TEST_NAME))
-######################## RULES		  ###############################
+PARSER				=		atod_test.c							\
+							parser_test.c						\
+							validate_amb_light_test.c			\
+							validate_angle_test.c				\
+							validate_camera_test.c				\
+							validate_color_test.c				\
+							validate_coordinates_test.c			\
+							validate_cylinder_test.c			\
+							validate_double_test.c				\
+							validate_light_test.c				\
+							validate_int_test.c					\
+							validate_normalized_vector_test.c	\
+							validate_plane_test.c				\
+							validate_sphere_test.c
+UTILS				=		add_tuples_test.c					\
+							are_equals_test.c					\
+							are_equals_tuples_test.c			\
+							divide_tuple_test.c					\
+							get_cross_product_test.c			\
+							get_dot_product_test.c				\
+							multiply_tuple_test.c				\
+							negate_tuple_test.c					\
+							normalize_vector_test.c				\
+							subtract_tuples_test.c
+SRC					=		$(PARSER)							\
+							$(UTILS)
+OBJ					=		$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
+DEP					=		$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
+EXEC_OUTS			=		$(wildcard $(DIR_OUTS)*)
+ONE_TEST			=		$(patsubst %.c, $(PATH_OBJ)%.o, $(TEST_NAME))
+######################## RULES        ###############################
 
 all: create_outs_dir make_minirt $(PATH_OBJ) $(OBJ) $(EXEC_OUTS)
 
 $(PATH_OBJ)%.o:	%.c
-	@			$(CC)  $(FLAGS) $(MINIRT_LIB) -I$(LIBFT_LIB) $(HEADERS_TEST) -I$(UNIT_PATH) -c $< -o $@
-	@			$(CC)  $(FLAGS) $(MINIRT_LIB) $(FLAG_MLX) $(HEADERS_TEST) -L$(LIBFT_PATH) $(LIB_CRITERION) -I$(UNIT_PATH) -g \
+	@			$(CC)  $(FLAGS) $(MINIRT_LIB) -I$(LIBFT_LIB) -I$(MLX_LIB) $(HEADERS_TEST) -I$(UNIT_PATH) -c $< -o $@
+	@			$(CC)  $(FLAGS) $(MINIRT_LIB) $(FLAG_MLX) $(HEADERS_TEST) -L$(LIBFT_PATH) -L$(MLX_PATH) $(LIB_CRITERION) -I$(UNIT_PATH) -g \
 				$@ $(SRC_PROJECT) -o $(subst $(PATH_OBJ), $(DIR_OUTS), $(basename $@)) -lm -lft
 	@			echo "$(L_GREEN)[$(subst objs/,,$@) compiled]$(L_WHITE)"
 

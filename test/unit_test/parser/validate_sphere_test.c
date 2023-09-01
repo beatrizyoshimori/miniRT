@@ -1,8 +1,4 @@
-#include "criterion.h"
-#include "new/assert.h"
 #include "unit_test.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
@@ -49,9 +45,10 @@ Test(parser, test_validate_sphere_minus_10_0_point_5_20__15_point_8__20_0_254) {
 
 	validate_sphere(rt, 0);
 
-	cr_assert(epsilon_eq(flt, -10, rt->spheres[0].center.x, EPSILON));
-	cr_assert(epsilon_eq(flt, 0.5, rt->spheres[0].center.y, EPSILON));
-	cr_assert(epsilon_eq(flt, 20, rt->spheres[0].center.z, EPSILON));
+	cr_assert(epsilon_eq(flt, -10, rt->spheres[0].point.x, EPSILON));
+	cr_assert(epsilon_eq(flt, 0.5, rt->spheres[0].point.y, EPSILON));
+	cr_assert(epsilon_eq(flt, 20, rt->spheres[0].point.z, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->spheres[0].point.w, EPSILON));
 	cr_assert(epsilon_eq(flt, 20, rt->spheres[0].color.red, EPSILON));
 	cr_assert(epsilon_eq(flt, 0, rt->spheres[0].color.green, EPSILON));
 	cr_assert(epsilon_eq(flt, 254, rt->spheres[0].color.blue, EPSILON));

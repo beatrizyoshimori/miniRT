@@ -1,8 +1,4 @@
-#include "criterion.h"
-#include "new/assert.h"
 #include "unit_test.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
 # define __PATH_TEST_ "fd_test/%s.test"
 
@@ -45,15 +41,13 @@ char	*read_output()
 Test(parser, test_validate_amb_light_1__0_0_0) {
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("A 1 0,0,0", ' ');
-	t_rt	expected = (t_rt){.amb_light.ratio = 1, .amb_light.color.red = 0, \
-								.amb_light.color.green = 0, .amb_light.color.blue = 0};
 
 	validate_amb_light(rt);
 
-	cr_assert(epsilon_eq(flt, expected.amb_light.ratio, rt->amb_light.ratio, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.amb_light.color.red, rt->amb_light.color.red, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.amb_light.color.green, rt->amb_light.color.green, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.amb_light.color.blue, rt->amb_light.color.blue, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->amb_light.ratio, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->amb_light.color.red, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->amb_light.color.green, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->amb_light.color.blue, EPSILON));
 	free_ptrptr(&rt->element);
 	free(rt);
 }
@@ -61,15 +55,13 @@ Test(parser, test_validate_amb_light_1__0_0_0) {
 Test(parser, test_validate_amb_light_1__0_1_0) {
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("A 1 0,1,0", ' ');
-	t_rt	expected = (t_rt){.amb_light.ratio = 1, .amb_light.color.red = 0, \
-								.amb_light.color.green = 1, .amb_light.color.blue = 0};
 
 	validate_amb_light(rt);
 
-	cr_assert(epsilon_eq(flt, expected.amb_light.ratio, rt->amb_light.ratio, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.amb_light.color.red, rt->amb_light.color.red, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.amb_light.color.green, rt->amb_light.color.green, EPSILON));
-	cr_assert(epsilon_eq(flt, expected.amb_light.color.blue, rt->amb_light.color.blue, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->amb_light.ratio, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->amb_light.color.red, EPSILON));
+	cr_assert(epsilon_eq(flt, 1, rt->amb_light.color.green, EPSILON));
+	cr_assert(epsilon_eq(flt, 0, rt->amb_light.color.blue, EPSILON));
 	free_ptrptr(&rt->element);
 	free(rt);
 }

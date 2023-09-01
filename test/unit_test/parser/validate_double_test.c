@@ -1,5 +1,3 @@
-#include "criterion.h"
-#include "new/assert.h"
 #include "unit_test.h"
 
 Test(parser, test_validate_double_empty_null) {
