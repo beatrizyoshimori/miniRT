@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 21:44:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/23 22:54:45 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:33:55 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	free_ptrptr(char ***ptrptr)
 	*ptrptr = NULL;
 }
 
-void	print_error(char *error, int f, t_rt *rt)
+void	print_error(char *error, t_rt *rt)
 {
 	printf("Error\n%s\n", error);
-	if (f == FREE)
+	if (rt)
 	{
 		free_ptrptr(&rt->elements);
 		free_ptrptr(&rt->element);
