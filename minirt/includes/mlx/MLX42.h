@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MLX42.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard          #+#    #+#             */
-/*   Updated: 2023/08/30 22:04:26 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:57:50 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # include <stdint.h>
 # include <stdbool.h>
 # ifdef __cplusplus
-extern "C" {
+
+extern "C"{
 # endif
 
 //= Types =//
@@ -53,9 +54,9 @@ extern "C" {
 typedef enum action
 {
 	MLX_RELEASE = 0,
-	MLX_PRESS	= 1,
-	MLX_REPEAT	= 2,
-}	action_t;
+	MLX_PRESS = 1,
+	MLX_REPEAT = 2,
+} t_action;
 
 /**
  * Key modifiers, such as shift, control or alt.
@@ -77,7 +78,7 @@ typedef enum modifier_key
 	MLX_SUPERKEY	= 0x0008,
 	MLX_CAPSLOCK	= 0x0010,
 	MLX_NUMLOCK		= 0x0020,
-}	modifier_key_t;
+}	t_modifier_key;
 
 /**
  * The mouse button keycodes.
@@ -90,7 +91,7 @@ typedef enum mouse_key
 	MLX_MOUSE_BUTTON_LEFT	= 0,
 	MLX_MOUSE_BUTTON_RIGHT	= 1,
 	MLX_MOUSE_BUTTON_MIDDLE	= 2,
-}	mouse_key_t;
+}	t_mouse_key;
 
 /**
  * Various mouse/cursor states.
@@ -103,7 +104,7 @@ typedef enum mouse_mode
 	MLX_MOUSE_NORMAL	= 0x00034001,
 	MLX_MOUSE_HIDDEN	= 0x00034002,
 	MLX_MOUSE_DISABLED	= 0x00034003,
-}	mouse_mode_t;
+}	t_mouse_mode;
 
 /**
  * Various cursors that are standard.
@@ -122,7 +123,7 @@ typedef enum cursor
 	MLX_CURSOR_HAND			= 0x00036004,
 	MLX_CURSOR_HRESIZE		= 0x00036005,
 	MLX_CURSOR_VRESIZE		= 0x00036006,
-}	cursor_t;
+}	t_cursor;
 
 /**
  * All sorts of keyboard keycodes.
@@ -249,7 +250,7 @@ typedef enum keys
 	MLX_KEY_RIGHT_ALT		= 346,
 	MLX_KEY_RIGHT_SUPER		= 347,
 	MLX_KEY_MENU			= 348,
-}	keys_t;
+}	t_keys;
 
 /**
  * Base object for disk loaded textures.
@@ -265,8 +266,8 @@ typedef struct mlx_texture
 	uint32_t	width;
 	uint32_t	height;
 	uint8_t		bytes_per_pixel;
-	uint8_t*	pixels;
-}	mlx_texture_t;
+	uint8_t		*pixels;
+}	t_mlx_texture;
 
 /**
  * Struct containing data regarding an XPM image.
@@ -278,11 +279,11 @@ typedef struct mlx_texture
  */
 typedef struct xpm
 {
-	mlx_texture_t	texture;
+	t_mlx_texture	texture;
 	int32_t			color_count;
 	int32_t			cpp;
 	char			mode;
-}	xpm_t;
+}	t_xpm;
 
 /**
  * An image instance can be summarized as just a simple
@@ -304,7 +305,7 @@ typedef struct mlx_instance
 	int32_t	y;
 	int32_t	z;
 	bool	enabled;
-}	mlx_instance_t;
+}	t_mlx_instance;
 
 /**
  * Key function callback data.
@@ -319,11 +320,11 @@ typedef struct mlx_instance
  */
 typedef struct mlx_key_data
 {
-	keys_t			key;
-	action_t		action;
+	t_keys			key;
+	t_action		action;
 	int32_t			os_key;
-	modifier_key_t	modifier;
-}	mlx_key_data_t;
+	t_modifier_key	modifier;
+}	t_mlx_key_data;
 
 /**
  * An image with an individual buffer that can be rendered.
@@ -341,12 +342,12 @@ typedef struct mlx_image
 {
 	const uint32_t	width;
 	const uint32_t	height;
-	uint8_t*		pixels;
-	mlx_instance_t*	instances;
+	uint8_t			*pixels;
+	t_mlx_instance	*instances;
 	size_t			count;
 	bool			enabled;
-	void*			context;
-}	mlx_image_t;
+	void			*context;
+}	t_mlx_image;
 
 /**
  * Main MLX handle, carries important data in regards to the program.
@@ -359,50 +360,49 @@ typedef struct mlx_image
  */
 typedef struct mlx
 {
-	void*		window;
-	void*		context;
+	void		*window;
+	void		*context;
 	int32_t		width;
 	int32_t		height;
 	double		delta_time;
-}	mlx_t;
+}	t_mlx;
 
 // The error codes used to identify the correct error message.
-typedef enum mlx_errno
+typedef enum g_mlx_errno
 {
-	MLX_SUCCESS = 0,	// No Errors
-	MLX_INVEXT,			// File has an invalid extension
-	MLX_INVFILE,		// File was invalid / does not exist.
-	MLX_INVPNG,			// Something is wrong with the given PNG file.
-	MLX_INVXPM,			// Something is wrong with the given XPM file.
-	MLX_INVPOS,			// The specified X/Y positions are out of bounds.
-	MLX_INVDIM,			// The specified W/H dimensions are out of bounds.
-	MLX_INVIMG,			// The provided image is invalid, might indicate mismanagement of images.
-	MLX_VERTFAIL,		// Failed to compile the vertex shader.
-	MLX_FRAGFAIL,		// Failed to compile the fragment shader.
-	MLX_SHDRFAIL,		// Failed to compile the shaders.
-	MLX_MEMFAIL,		// Dynamic memory allocation has failed.
-	MLX_GLADFAIL,		// OpenGL loader has failed.
-	MLX_GLFWFAIL,		// GLFW failed to initialize.
-	MLX_WINFAIL,		// Failed to create a window.
-	MLX_STRTOOBIG,		// The string is too big to be drawn.
-	MLX_ERRMAX,			// Error count
-}	mlx_errno_t;
+	MLX_SUCCESS = 0,
+	MLX_INVEXT,
+	MLX_INVFILE,
+	MLX_INVPNG,
+	MLX_INVXPM,
+	MLX_INVPOS,
+	MLX_INVDIM,
+	MLX_INVIMG,
+	MLX_VERTFAIL,
+	MLX_FRAGFAIL,
+	MLX_SHDRFAIL,
+	MLX_MEMFAIL,
+	MLX_GLADFAIL,
+	MLX_GLFWFAIL,
+	MLX_WINFAIL,
+	MLX_STRTOOBIG,
+	MLX_ERRMAX,
+}	t_mlx_errno;
 
 // Global error code from the MLX42 library, 0 on no error.
-extern mlx_errno_t mlx_errno;
+extern t_mlx_errno		g_mlx_errno;
 
 //= Global Settings =//
 
-// Set these values, if necessary, before calling `mlx_init` as they define the behaviour of MLX42.
 typedef enum mlx_settings
 {
-	MLX_STRETCH_IMAGE = 0,	// Should images resize with the window as it's being resized or not. Default: false
-	MLX_FULLSCREEN,			// Should the window be in Fullscreen, note it will fullscreen at the given resolution. Default: false
-	MLX_MAXIMIZED,			// Start the window in a maximized state, overwrites the fullscreen state if this is true. Default: false
-	MLX_DECORATED,			// Have the window be decorated with a window bar. Default: true
-	MLX_HEADLESS,			// Run in headless mode, no window is created. (NOTE: Still requires some form of window manager such as xvfb)
-	MLX_SETTINGS_MAX,		// Setting count.
-}	mlx_settings_t;
+	MLX_STRETCH_IMAGE = 0,
+	MLX_FULLSCREEN,
+	MLX_MAXIMIZED,
+	MLX_DECORATED,
+	MLX_HEADLESS,
+	MLX_SETTINGS_MAX,
+}	t_mlx_settings;
 
 /**
  * Callback function used to handle scrolling.
@@ -411,7 +411,8 @@ typedef enum mlx_settings
  * @param[in] ydelta The mouse y delta.
  * @param[in] param Additional parameter to pass on to the function.
  */
-typedef void (*mlx_scrollfunc)(double xdelta, double ydelta, void* param);
+typedef void			(*t_mlx_scrollfunc)(double xdelta, \
+						double ydelta, void* param);
 
 /**
  * Callback function used to handle mouse actions.
@@ -421,7 +422,8 @@ typedef void (*mlx_scrollfunc)(double xdelta, double ydelta, void* param);
  * @param[in] mods The modifier keys pressed together with the mouse key.
  * @param[in] param Additional parameter to pass on to the function.
  */
-typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
+typedef void			(*t_mlx_mousefunc)(t_mouse_key button, \
+						t_action action, t_modifier_key mods, void* param);
 
 /**
  * Callback function used to handle raw mouse movement.
@@ -430,7 +432,8 @@ typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action, modifier_key_
  * @param[in] ypos The mouse y position.
  * @param[in] param Additional parameter to pass on to the function.
  */
-typedef void (*mlx_cursorfunc)(double xpos, double ypos, void* param);
+typedef void			(*t_mlx_cursorfunc)(double xpos, \
+						double ypos, void* param);
 
 /**
  * Callback function used to handle key presses.
@@ -438,7 +441,7 @@ typedef void (*mlx_cursorfunc)(double xpos, double ypos, void* param);
  * @param[in] keydata The callback data, contains info on key, action, ...
  * @param[in] param Additional parameter to pass on to the function.
  */
-typedef void (*mlx_keyfunc)(mlx_key_data_t keydata, void* param);
+typedef void			(*t_mlx_keyfunc)(t_mlx_key_data keydata, void* param);
 
 /**
  * Callback function used to handle window resizing.
@@ -450,7 +453,8 @@ typedef void (*mlx_keyfunc)(mlx_key_data_t keydata, void* param);
  * @param[in] height The new height of the window. 
  * @param[in] param Additional parameter to pass on to the function.
  */
-typedef void (*mlx_resizefunc)(int32_t width, int32_t height, void* param);
+typedef void			(*t_mlx_resizefunc)(int32_t width, int32_t height, \
+						void* param);
 
 /**
  * Callback function used to handle window closing which is called when 
@@ -459,16 +463,9 @@ typedef void (*mlx_resizefunc)(int32_t width, int32_t height, void* param);
  * 
  * @param[in] param Additional parameter to pass on to the function.
  */
-typedef void (*mlx_closefunc)(void* param);
+typedef void			(*t_mlx_closefunc)(void* param);
 
-/** 
- * Typedef for a window cursor object, these eventually expand to
- * the native cursor object, but are hidden from the user.
- * 
- * Under GLFW they are named GLFWcursor and have a wrapper for each implementation.
- * You can find the ACTUAL cursor in the following files at GLFW named under *_platform.h
- */
-typedef void mlx_win_cursor_t;
+typedef void			t_mlx_win_cursor;
 
 //= Error Functions =//
 
@@ -478,29 +475,22 @@ typedef void mlx_win_cursor_t;
  * @param[in] val The error code.
  * @return The error string that describes the error code.
  */
-const char* mlx_strerror(mlx_errno_t val);
+const char				*mlx_strerror(t_mlx_errno val);
 
 //= Generic Functions =//
 
-/**
- * Initializes a new MLX42 Instance.
- * 
- * @param[in] width The width of the window.
- * @param[in] height The height of the window.
- * @param[in] title The title of the window.
- * @param[in] resize Enable window resizing.
- * @returns Ptr to the MLX handle or null on failure.
- */
-mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize);
+// * Initializes a new MLX42 Instance.
+// * 
+// * @param[in] width The width of the window.
+// * @param[in] height The height of the window.
+// * @param[in] title The title of the window.
+// * @param[in] resize Enable window resizing.
+// * @returns Ptr to the MLX handle or null on failure.
 
-/**
- * Set a setting for MLX42.
- * Settings can manipulate the core behaviour of the engine.
- * 
- * @param[in] setting The settings value, See mlx_settings_t type.
- * @param[in] value Settings value to determine the state of the setting. Can be a boolean or an enum / macro.
- */
-void mlx_set_setting(mlx_settings_t setting, int32_t value);
+t_mlx					*mlx_init(int32_t width, int32_t height, \
+						const char *title, bool resize);
+
+void					mlx_set_setting(t_mlx_settings setting, int32_t value);
 
 /**
  * Notifies MLX that it should stop rendering and exit the main loop.
@@ -508,7 +498,7 @@ void mlx_set_setting(mlx_settings_t setting, int32_t value);
  * 
  * @param[in] mlx The MLX instance handle.
  */
-void mlx_close_window(mlx_t* mlx);
+void					mlx_close_window(t_mlx *mlx);
 
 /**
  * Initializes the rendering of MLX, this function won't return until
@@ -517,35 +507,34 @@ void mlx_close_window(mlx_t* mlx);
  * 
  * @param[in] mlx The MLX instance handle.
  */
-void mlx_loop(mlx_t* mlx);
+void					mlx_loop(t_mlx *mlx);
 
-/**
- * Lets you set a custom image as the program icon.
- * 
- * NOTE: In MacOS this function does nothing, you should use the bundles icon to set the dock bar icon.
- * @see: https://9to5mac.com/2021/11/08/change-mac-icons/
- * @see: https://github.com/glfw/glfw/issues/2041
- *
- * @param[in] mlx The MLX instance handle.
- * @param[in] image The image to use as icon.
- */
-void mlx_set_icon(mlx_t* mlx, mlx_texture_t* image);
+// Lets you set a custom image as the program icon.
 
-/**
- * Terminates MLX and cleans up any of its used resources.
- * Using any functions that require mlx afterwards will
- * be considered undefined behaviour, beware of segfaults.
- * 
- * @param[in] mlx The MLX instance handle.
- */
-void mlx_terminate(mlx_t* mlx);
+// NOTE: In MacOS this function does nothing, you should use the 
+// bundles icon to set the dock bar icon.
+// @see: https://9to5mac.com/2021/11/08/change-mac-icons/
+// @see: https://github.com/glfw/glfw/issues/2041
+
+// @param[in] mlx The MLX instance handle.
+// @param[in] image The image to use as icon.
+
+void					mlx_set_icon(t_mlx *mlx, t_mlx_texture *image);
+
+// Terminates MLX and cleans up any of its used resources.
+// Using any functions that require mlx afterwards will
+// be considered undefined behaviour, beware of segfaults.
+
+// @param[in] mlx The MLX instance handle.
+
+void					mlx_terminate(t_mlx *mlx);
 
 /**
  * Gets the elapsed time since MLX was initialized.
  * 
  * @return The amount of time elapsed in seconds.
  */
-double mlx_get_time(void);
+double					mlx_get_time(void);
 
 //= Window/Monitor Functions =//
 
@@ -558,7 +547,7 @@ double mlx_get_time(void);
  * 
  * @param[in] mlx The MLX instance handle.
  */
-void mlx_focus(mlx_t* mlx);
+void					mlx_focus(t_mlx *mlx);
 
 /**
  * Gets the size of the specified monitor.
@@ -567,7 +556,8 @@ void mlx_focus(mlx_t* mlx);
  * @param[in] width The width of the window.
  * @param[in] height The height of the window.
  */
-void mlx_get_monitor_size(int32_t index, int32_t* width, int32_t* height);
+void					mlx_get_monitor_size(int32_t index, \
+						int32_t *width, int32_t *height);
 
 /**
  * Sets the window's position.
@@ -579,7 +569,8 @@ void mlx_get_monitor_size(int32_t index, int32_t* width, int32_t* height);
  * @param[in] xpos The x position.
  * @param[in] ypos The y position.
  */
-void mlx_set_window_pos(mlx_t* mlx, int32_t xpos, int32_t ypos);
+void					mlx_set_window_pos(t_mlx *mlx, int32_t xpos, \
+						int32_t ypos);
 
 /**
  * Gets the window's position.
@@ -588,7 +579,8 @@ void mlx_set_window_pos(mlx_t* mlx, int32_t xpos, int32_t ypos);
  * @param[out] xpos The x position.
  * @param[out] ypos The y position.
  */
-void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos);
+void					mlx_get_window_pos(t_mlx *mlx, \
+						int32_t *xpos, int32_t *ypos);
 
 /**
  * Changes the window size to the newly specified values.
@@ -598,22 +590,25 @@ void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos);
  * @param[in] new_width The new desired width.
  * @param[in] new_height The new desired height.
  */
-void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height);
+void					mlx_set_window_size(t_mlx *mlx, \
+						int32_t new_width, int32_t new_height);
 
-/**
- * Sets the size limits of the specified window.
- * Will force the window to not be resizable past or below the given values.
- * 
- * Pass -1 for no limit to any of the min/max parameters to ignore that boundary.
- * For instance if you want a min window size but the max window size can be whatever.
- *
- * @param[in] mlx The MLX instance handle.
- * @param[in] min_w The min width of the window.
- * @param[in] max_w The max width of the window.
- * @param[in] min_h The min height of the window.
- * @param[in] max_h The max height of the window.
- */
-void mlx_set_window_limit(mlx_t* mlx, int32_t min_w, int32_t min_h, int32_t max_w, int32_t max_h);
+// Sets the size limits of the specified window.
+// Will force the window to not be resizable past or below the given values.
+
+// Pass -1 for no limit to any of the min/max parameters to ignore
+// that boundary.
+// For instance if you want a min window size but the max window size can
+// be whatever.
+
+// @param[in] mlx The MLX instance handle.
+// @param[in] min_w The min width of the window.
+// @param[in] max_w The max width of the window.
+// @param[in] min_h The min height of the window.
+// @param[in] max_h The max height of the window.
+
+void					mlx_set_window_limit(t_mlx *mlx, int32_t min[2], \
+						int32_t max[2]);
 
 /**
  * Sets the title of the window.
@@ -621,7 +616,7 @@ void mlx_set_window_limit(mlx_t* mlx, int32_t min_w, int32_t min_h, int32_t max_
  * @param[in] mlx The MLX instance handle.
  * @param[in] title The window title.
  */
-void mlx_set_window_title(mlx_t* mlx, const char* title);
+void					mlx_set_window_title(t_mlx *mlx, const char *title);
 
 //= Input Functions =//
 
@@ -632,7 +627,7 @@ void mlx_set_window_title(mlx_t* mlx, const char* title);
  * @param[in] key The keycode to check, use MLX_KEY_... to specify!
  * @returns True or false if the key is down or not.
  */
-bool mlx_is_key_down(mlx_t* mlx, keys_t key);
+bool					mlx_is_key_down(t_mlx *mlx, t_keys key);
 
 /**
  * Checks whether a mouse button is pressed or not.
@@ -641,7 +636,7 @@ bool mlx_is_key_down(mlx_t* mlx, keys_t key);
  * @param[in] key A specific mouse key. e.g MLX_MOUSE_BUTTON_0
  * @returns True or false if the mouse key is down or not.
  */
-bool mlx_is_mouse_down(mlx_t* mlx, mouse_key_t key);
+bool					mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key);
 
 /**
  * Returns the current, relative, mouse cursor position on the window, starting
@@ -654,7 +649,7 @@ bool mlx_is_mouse_down(mlx_t* mlx, mouse_key_t key);
  * @param[out] x The position.
  * @param[out] y The position.
  */
-void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x, int32_t* y);
+void					mlx_get_mouse_pos(t_mlx *mlx, int32_t *x, int32_t *y);
 
 /**
  * Sets the mouse position.
@@ -662,7 +657,7 @@ void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x, int32_t* y);
  * @param[in] mlx The MLX instance handle. 
  * @param[in] pos The position.
  */
-void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y);
+void					mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
 
 /**
  * Defines the state for the cursor.
@@ -670,7 +665,7 @@ void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y);
  * @param[in] mlx The MLX instance handle. 
  * @param[in] mode A specified mouse mode.
  */
-void mlx_set_cursor_mode(mlx_t* mlx, mouse_mode_t mode);
+void					mlx_set_cursor_mode(t_mlx *mlx, t_mouse_mode mode);
 
 /**
  * Retrieves the system standard cursor.
@@ -678,7 +673,7 @@ void mlx_set_cursor_mode(mlx_t* mlx, mouse_mode_t mode);
  * @param[in] type The standard cursor type to create.
  * @return The cursor object or null on failure.
  */
-mlx_win_cursor_t* mlx_create_std_cursor(cursor_t type);
+t_mlx_win_cursor		*mlx_create_std_cursor(t_cursor type);
 
 /**
  * Allows for the creation of custom cursors with a given texture.
@@ -689,22 +684,22 @@ mlx_win_cursor_t* mlx_create_std_cursor(cursor_t type);
  * @param[in] texture The texture to use as cursor.
  * @returns The cursor object or null on failure.
  */
-mlx_win_cursor_t* mlx_create_cursor(mlx_texture_t* texture);
+t_mlx_win_cursor		*mlx_create_cursor(t_mlx_texture *texture);
 
 /**
  * Destroys the given cursor object.
  * 
  * @param[in] cursor The cursor object to destroy.
  */
-void mlx_destroy_cursor(mlx_win_cursor_t* cursor);
+void					mlx_destroy_cursor(t_mlx_win_cursor *cursor);
 
-/**
- * Sets the current cursor to the given custom cursor. 
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] cursor The cursor object to display, if null default cursor is selected.
- */
-void mlx_set_cursor(mlx_t* mlx, mlx_win_cursor_t* cursor);
+// Sets the current cursor to the given custom cursor. 
+
+// @param[in] mlx The MLX instance handle.
+// @param[in] cursor The cursor object to display, if null default
+// cursor is selected.
+
+void					mlx_set_cursor(t_mlx *mlx, t_mlx_win_cursor *cursor);
 
 //= Hooks =//
 
@@ -716,7 +711,8 @@ void mlx_set_cursor(mlx_t* mlx, mlx_win_cursor_t* cursor);
  * @param[in] func The scroll wheel callback function.
  * @param[in] param An additional optional parameter.
  */
-void mlx_scroll_hook(mlx_t* mlx, mlx_scrollfunc func, void* param);
+void					mlx_scroll_hook(t_mlx *mlx, \
+						t_mlx_scrollfunc func, void *param);
 
 /**
  * This function sets the mouse callback, which is called when a mouse
@@ -726,7 +722,8 @@ void mlx_scroll_hook(mlx_t* mlx, mlx_scrollfunc func, void* param);
  * @param[in] func The mouse callback function.
  * @param[in] param An additional optional parameter.
  */
-void mlx_mouse_hook(mlx_t* mlx, mlx_mousefunc func, void* param);
+void					mlx_mouse_hook(t_mlx *mlx, \
+						t_mlx_mousefunc func, void *param);
 
 /**
  * This function sets the cursor callback, which is called when the
@@ -736,7 +733,8 @@ void mlx_mouse_hook(mlx_t* mlx, mlx_mousefunc func, void* param);
  * @param[in] func The cursor callback function.
  * @param[in] param An additional optional parameter.
  */
-void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param);
+void					mlx_cursor_hook(t_mlx *mlx, \
+						t_mlx_cursorfunc func, void *param);
 
 /**
  * This function sets the key callback, which is called when a key is pressed
@@ -746,7 +744,8 @@ void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param);
  * @param[in] func The keypress callback function.
  * @param[in] param An additional optional parameter.
  */
-void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param);
+void					mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, \
+						void *param);
 
 /**
  * This function sets the close callback, which is called in attempt to close 
@@ -756,7 +755,8 @@ void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param);
  * @param[in] func The close callback function.
  * @param[in] param An additional optional parameter.
  */
-void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param);
+void					mlx_close_hook(t_mlx *mlx, \
+						t_mlx_closefunc func, void *param);
 
 /**
  * This function sets the resize callback, which is called when the window is
@@ -766,7 +766,8 @@ void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param);
  * @param[in] func The resize callback function.
  * @param[in] param An additional optional parameter.
  */
-void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param);
+void					mlx_resize_hook(t_mlx *mlx, \
+						t_mlx_resizefunc func, void *param);
 
 /**
  * Generic loop hook for any custom hooks to add to the main loop. 
@@ -777,7 +778,8 @@ void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param);
  * @param[in] param The parameter to pass on to the function.
  * @returns Whether or not the hook was added successfully. 
  */
-bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param);
+bool					mlx_loop_hook(t_mlx *mlx, void (*f)(void *), \
+						void *param);
 
 //= Texture Functions =//
 
@@ -787,7 +789,7 @@ bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param);
  * @param[in] path Path to the PNG file.
  * @return If successful the texture data is returned, else NULL.
  */
-mlx_texture_t* mlx_load_png(const char* path);
+t_mlx_texture			*mlx_load_png(const char *path);
 
 /**
  * Loads an XPM42 texture from the given file path.
@@ -795,14 +797,14 @@ mlx_texture_t* mlx_load_png(const char* path);
  * @param[in] path The file path to the XPM texture.
  * @returns The XPM texture struct containing its information.
  */
-xpm_t* mlx_load_xpm42(const char* path);
+t_xpm					*mlx_load_xpm42(const char *path);
 
 /**
  * Deletes a texture by freeing its allocated data.
  * 
  * @param[in] texture The texture to free. 
  */
-void mlx_delete_texture(mlx_texture_t* texture);
+void					mlx_delete_texture(t_mlx_texture *texture);
 
 /**
  * Deletes an XPM42 texture by freeing its allocated data.
@@ -812,16 +814,17 @@ void mlx_delete_texture(mlx_texture_t* texture);
  * 
  * @param[in] xpm The xpm texture to delete.
  */
-void mlx_delete_xpm42(xpm_t* xpm);
+void					mlx_delete_xpm42(t_xpm *xpm);
 
 /**
  * Converts a given texture to an image.
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] texture The texture to use to create the image from.
- * @return mlx_image_t* The image created from the texture.
+ * @return t_mlx_image* The image created from the texture.
  */
-mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture);
+t_mlx_image				*mlx_texture_to_image(t_mlx *mlx, \
+						t_mlx_texture *texture);
 
 //= Image Functions =//
 
@@ -836,7 +839,8 @@ mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture);
  * @param[in] y The Y coordinate position.
  * @param[in] color The color value to put.
  */
-void mlx_put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
+void					mlx_put_pixel(t_mlx_image *image, uint32_t x, \
+						uint32_t y, uint32_t color);
 
 /**
  * Creates and allocates a new image buffer.
@@ -846,7 +850,8 @@ void mlx_put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
  * @param[in] height The desired height of the image.
  * @return Pointer to the image buffer, if it failed to allocate then NULL.
  */
-mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height);
+t_mlx_image				*mlx_new_image(t_mlx *mlx, uint32_t width, \
+						uint32_t height);
 
 /**
  * Draws a new instance of an image, it will then share the same
@@ -865,7 +870,8 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height);
  * @param[in] y The Y position.
  * @return Index to the instance, or -1 on failure.
  */
-int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y);
+int32_t					mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, \
+						int32_t x, int32_t y);
 
 /**
  * Deleting an image will remove it from the render queue as well as any and all
@@ -878,7 +884,7 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y);
  * @param[in] mlx The MLX instance handle.
  * @param[in] image The image to delete.
  */
-void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
+void					mlx_delete_image(t_mlx *mlx, t_mlx_image *image);
 
 /**
  * Allows you to resize an image, a new pixel buffer is allocated
@@ -889,19 +895,22 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
  * @param[in] nheight The new height.
  * @return True if image was resized or false on error.
  */
-bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
+bool					mlx_resize_image(t_mlx_image *img, uint32_t nwidth, \
+						uint32_t nheight);
 
-/**
- * Sets the depth / Z axis value of an instance.
- * 
- * NOTE: Keep in mind that images that are on the same Z layer cut each other off.
- * so if you don't see your image anymore make sure it's not conflicting by being on
- * the same layer as another image.
- * 
- * @param[in] instance The instance on which to change the depth.
- * @param[in] zdepth The new depth value.
- */
-void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth);
+// Sets the depth / Z axis value of an instance.
+
+// NOTE: Keep in mind that images that are on the same Z layer cut
+// each other off.
+// so if you don't see your image anymore make sure it's not
+// conflicting by being on
+// the same layer as another image.
+
+// @param[in] instance The instance on which to change the depth.
+// @param[in] zdepth The new depth value.
+
+void					mlx_set_instance_depth(t_mlx_instance *instance, \
+						int32_t zdepth);
 
 //= String Functions =//
 
@@ -914,14 +923,15 @@ void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth);
  * @param[in] y The Y location.
  * @return Image ptr to the string.
  */
-mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y);
+t_mlx_image				*mlx_put_string(t_mlx *mlx, const char *str, \
+						int32_t x, int32_t y);
 
 /**
  * Retrieve the texture data for the built-in font.
  * 
  * @return Pointer to the built-in font texture.
  */
-const mlx_texture_t* mlx_get_font(void);
+const t_mlx_texture		*mlx_get_font(void);
 
 /**
  * This function lets you retrieve the X offset 
@@ -932,9 +942,11 @@ const mlx_texture_t* mlx_get_font(void);
  * @param[in] c The character to get the offset from.
  * @return Non-negative if found or -1 if not found.
  */
-int32_t mlx_get_texoffset(char c);
+int32_t					mlx_get_texoffset(char c);
 
-# ifdef __cplusplus
+#  ifdef __cplusplus
+
 }
+
+#  endif
 # endif
-#endif
