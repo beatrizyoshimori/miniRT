@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/01 20:14:53 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/02 15:31:24 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	render(t_rt *rt)
 		j = 100;
 		while (j <= 299)
 		{
-			mlx_put_pixel(image, i, j, 4294967295);
+			mlx_put_pixel(image, i, j, 0 << 24 | 0 << 16 | 0 << 8 | 255);
 			j++;
 		}
 		i++;
