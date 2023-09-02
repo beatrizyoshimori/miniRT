@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/01 16:28:31 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/02 15:30:51 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,12 @@ typedef struct s_rt
 	t_sphere	*spheres;
 	t_plane		*planes;
 	t_cylinder	*cylinders;
+	double		**matrix;
 }	t_rt;
+
+// matrices folder
+// create_matrix.c function
+double	**create_matrix(int size);
 
 // parser folder
 // parser.c function
