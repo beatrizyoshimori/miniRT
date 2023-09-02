@@ -7,7 +7,9 @@ LIBFT_PATH		=		libft/
 OBJECTS_PATH	=		objects/
 SOURCES_PATH	=		sources/
 VPATH			=		$(SOURCES_PATH) \
-						$(addprefix $(SOURCES_PATH),	parser \
+						$(addprefix $(SOURCES_PATH),	matrices \
+														parser \
+														tuples \
 														utils)
 
 ######################### MLX #################################
@@ -19,19 +21,22 @@ LIBFT_H			=		$(addprefix $(LIBFT_PATH), $(HEADER_PATH))
 LIBFT			=		$(addprefix $(LIBFT_PATH), libft.a)
 
 ######################### SOURCES #############################
+MATRICES		=		create_matrix.c
 PARSER			=		parser.c \
 						set_data.c \
 						validate_data.c \
 						validate_elements.c \
 						validate_numbers.c \
 						validate_objects.c
-UTILS			=		create.c \
-						equal.c \
-						error.c \
+TUPLES			=		create.c \
+						comparison.c \
 						operations.c \
 						vector_operations.c
+UTILS			=		error.c
 SOURCES			=		minirt.c \
+						$(MATRICES) \
 						$(PARSER) \
+						$(TUPLES) \
 						$(UTILS)
 
 ######################### OBJECTS #############################
