@@ -60,10 +60,7 @@ Test(parser, test_validate_camera_50_0_20__0_0_1__70) {
 Test(parser, test_validate_camera_minus_75_minus_10_20__0_267261_minus_0_534522_0_801784__70) {
 	t_rt	*rt = ft_calloc(1, sizeof(t_rt));
 	rt->element = ft_split("C -75,-10,20 0.267261,-0.534522,0.801784 179", ' ');
-	t_rt	expected = (t_rt){.camera.point.x = -75, .camera.point.y = -10, .camera.point.z = 20, \
-							.camera.point.w = 1, .camera.vector.x = 0.267261, .camera.vector.y = -0.534522, \
-							.camera.vector.z = 0.801784, .camera.vector.w = 0, .camera.fov = 179};
-
+	
 	validate_camera(rt);
 
 	cr_assert(epsilon_eq(flt, -75, rt->camera.point.x, EPSILON));

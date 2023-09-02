@@ -4,10 +4,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-Test(utils, test_multiply_tuple_3_point_5__1_minus_2_3_minus_4) {
-	t_coordinates	a = {.x = 1, .y = -2, .z = 3, .w = -4};
-	t_coordinates	expected = {.x = 3.5, .y = -7, .z = 10.5, .w = -14};
-	t_coordinates	result = multiply_tuple(3.5, a);
+Test(tuples, test_subtract_tuples_0_0_0_0__0_0_0_0) {
+	t_coordinates	a = {.x = 0, .y = 0, .z = 0, .w = 0}, b = {.x = 0, .y = 0, .z = 0, .w = 0};
+	t_coordinates	expected = {.x = 0, .y = 0, .z = 0, .w = 0};
+	t_coordinates	result = subtract_tuples(a, b);
 
 	cr_assert(epsilon_eq(flt, expected.x, result.x, EPSILON));
 	cr_assert(epsilon_eq(flt, expected.y, result.y, EPSILON));
@@ -15,10 +15,10 @@ Test(utils, test_multiply_tuple_3_point_5__1_minus_2_3_minus_4) {
 	cr_assert(epsilon_eq(flt, expected.w, result.w, EPSILON));
 }
 
-Test(utils, test_multiply_tuple_0_point_5__1_minus_2_3_minus_4) {
-	t_coordinates	a = {.x = 1, .y = -2, .z = 3, .w = -4};
-	t_coordinates	expected = {.x = 0.5, .y = -1, .z = 1.5, .w = -2};
-	t_coordinates	result = multiply_tuple(0.5, a);
+Test(tuples, test_subtract_tuples_1_2_point_5_0__0_minus_5_10_point_6_1) {
+	t_coordinates	a = {.x = 0, .y = 1, .z = 2.5, .w = 0}, b = {.x = 0, .y = -5, .z = 10.6, .w = 1};
+	t_coordinates	expected = {.x = 0, .y = 6, .z = -8.1, .w = -1};
+	t_coordinates	result = subtract_tuples(a, b);
 
 	cr_assert(epsilon_eq(flt, expected.x, result.x, EPSILON));
 	cr_assert(epsilon_eq(flt, expected.y, result.y, EPSILON));

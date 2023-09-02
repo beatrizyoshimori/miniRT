@@ -27,7 +27,7 @@ OBJS_PROJECT		=		../minirt/objects/
 UNIT_PATH			=		./unit_test/
 VPATH				=		$(addprefix $(UNIT_PATH),			\
 							parser								\
-							utils)
+							tuples)
 ######################## PROJECT FILES ##############################
 SRC_EXCLUDED		=		$(addprefix $(OBJS_PROJECT),		\
 							minirt.o)
@@ -48,7 +48,7 @@ PARSER				=		atod_test.c							\
 							validate_normalized_vector_test.c	\
 							validate_plane_test.c				\
 							validate_sphere_test.c
-UTILS				=		add_tuples_test.c					\
+TUPLES				=		add_tuples_test.c					\
 							are_equals_test.c					\
 							are_equals_tuples_test.c			\
 							divide_tuple_test.c					\
@@ -59,7 +59,7 @@ UTILS				=		add_tuples_test.c					\
 							normalize_vector_test.c				\
 							subtract_tuples_test.c
 SRC					=		$(PARSER)							\
-							$(UTILS)
+							$(TUPLES)
 OBJ					=		$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
 DEP					=		$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
 EXEC_OUTS			=		$(wildcard $(DIR_OUTS)*)

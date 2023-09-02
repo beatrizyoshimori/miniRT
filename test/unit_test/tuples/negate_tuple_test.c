@@ -4,7 +4,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-Test(utils, test_negate_tuple_0_0_0_0) {
+Test(tuples, test_negate_tuple_0_0_0_0) {
 	t_coordinates	a = {.x = 0, .y = 0, .z = 0, .w = 0};
 	t_coordinates	expected = {.x = 0, .y = 0, .z = 0, .w = 0};
 	t_coordinates	result = negate_tuple(a);
@@ -15,7 +15,7 @@ Test(utils, test_negate_tuple_0_0_0_0) {
 	cr_assert(epsilon_eq(flt, expected.w, result.w, EPSILON));
 }
 
-Test(utils, test_negate_tuple_minus_1_3_point_14_7_1) {
+Test(tuples, test_negate_tuple_minus_1_3_point_14_7_1) {
 	t_coordinates	a = {.x = -1, .y = 3.14, .z = 7, .w = 1};
 	t_coordinates	expected = {.x = 1, .y = -3.14, .z = -7, .w = -1};
 	t_coordinates	result = negate_tuple(a);
