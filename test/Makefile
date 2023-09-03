@@ -26,6 +26,7 @@ DIR_FILES			=		fd_test/
 OBJS_PROJECT		=		../minirt/objects/
 UNIT_PATH			=		./unit_test/
 VPATH				=		$(addprefix $(UNIT_PATH),			\
+							matrices							\
 							parser								\
 							tuples)
 ######################## PROJECT FILES ##############################
@@ -34,6 +35,16 @@ SRC_EXCLUDED		=		$(addprefix $(OBJS_PROJECT),		\
 SRC_PROJECT			=		$(filter-out $(SRC_EXCLUDED),		\
 							$(wildcard $(OBJS_PROJECT)*.o))
 ######################## TEST SOURCES ###############################
+MATRICES			=		are_equals_matrices_test.c			\
+							copy_submatrix_test.c				\
+							create_identity_matrix_test.c		\
+							get_cofactor_matrix_test.c			\
+							get_determinant_test.c				\
+							invert_matrix_test.c				\
+							length_matrix_test.c				\
+							multiply_matrices_test.c			\
+							multiply_matrix_tuple_test.c		\
+							transpose_matrix_test.c
 PARSER				=		atod_test.c							\
 							parser_test.c						\
 							validate_amb_light_test.c			\
@@ -58,7 +69,8 @@ TUPLES				=		add_tuples_test.c					\
 							negate_tuple_test.c					\
 							normalize_vector_test.c				\
 							subtract_tuples_test.c
-SRC					=		$(PARSER)							\
+SRC					=		$(MATRICES)							\
+							$(PARSER)							\
 							$(TUPLES)
 OBJ					=		$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
 DEP					=		$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
