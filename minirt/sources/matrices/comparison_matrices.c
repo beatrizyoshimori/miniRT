@@ -6,25 +6,31 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:35:16 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/02 15:44:56 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/02 19:18:14 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	are_equals_matrices(double **A, double **B, int size)
+int	length_matrix(double **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+		i++;
+	return (i);
+}
+
+int	are_equals_matrices(double **A, double **B)
 {
 	int	i;
 	int	j;
+	int	size;
 
-	i = 0;
-	while (A[i])
-		i++;
-	j = 0;
-	while (B[j])
-		j++;
-	if (i != j)
+	if (length_matrix(A) != length_matrix(B))
 		return (0);
+	size = length_matrix(A);
 	i = 0;
 	while (i < size)
 	{
