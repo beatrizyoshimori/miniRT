@@ -21,7 +21,10 @@ LIBFT_H			=		$(addprefix $(LIBFT_PATH), $(HEADER_PATH))
 LIBFT			=		$(addprefix $(LIBFT_PATH), libft.a)
 
 ######################### SOURCES #############################
-MATRICES		=		create_matrix.c
+MATRICES		=		comparison_matrices.c \
+						create_matrix.c \
+						determinant.c \
+						operations_matrices.c
 PARSER			=		parser.c \
 						set_data.c \
 						validate_data.c \
@@ -32,7 +35,8 @@ TUPLES			=		create.c \
 						comparison.c \
 						operations.c \
 						vector_operations.c
-UTILS			=		error.c
+UTILS			=		error.c \
+						free.c
 SOURCES			=		minirt.c \
 						$(MATRICES) \
 						$(PARSER) \
