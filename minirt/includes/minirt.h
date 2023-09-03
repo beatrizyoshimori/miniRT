@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/02 15:30:51 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/02 21:29:07 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,28 @@ typedef struct s_rt
 	t_plane		*planes;
 	t_cylinder	*cylinders;
 	double		**matrix;
+	double		**identity;
 }	t_rt;
 
 // matrices folder
-// create_matrix.c function
-double	**create_matrix(int size);
+// comparison_matrices.c functions
+int				length_matrix(double **matrix);
+int				are_equals_matrices(double **A, double **B);
+
+// create_matrix.c functions
+double			**create_matrix(int size);
+double			**create_identity_matrix(int size);
+double			**transpose_matrix(double **matrix);
+double			**invert_matrix(double **matrix);
+
+// determinant.c function
+double			get_determinant(double **matrix);
+double			**get_cofactor_matrix(double **matrix);
+
+// operations_matrices.c functions
+double			**multiply_matrices(double **A, double **B);
+t_coordinates	multiply_matrix_tuple(double **A, t_coordinates t);
+double			**multiply_matrix_by_scalar(double scalar, double **matrix);
 
 // parser folder
 // parser.c function
@@ -137,7 +154,7 @@ void			validate_sphere(t_rt *rt, int sp);
 void			validate_plane(t_rt *rt, int pl);
 void			validate_cylinder(t_rt *rt, int cy);
 
-// utils folder
+// tuples folder
 // create.c functions
 t_coordinates	create_point(double x, double y, double z);
 t_coordinates	create_vector(double x, double y, double z);
@@ -145,10 +162,6 @@ t_coordinates	create_vector(double x, double y, double z);
 // equal.c functions
 int				are_equals(double a, double b);
 int				are_equals_tuples(t_coordinates a, t_coordinates b);
-
-// error.c functions
-void			free_ptrptr(char ***ptrptr);
-void			print_error(char *error, t_rt *rt);
 
 // operations.c functions
 t_coordinates	add_tuples(t_coordinates a, t_coordinates b);
@@ -162,5 +175,16 @@ double			get_vector_magnitude(t_coordinates v);
 t_coordinates	normalize_vector(t_coordinates v);
 double			get_dot_product(t_coordinates v, t_coordinates u);
 t_coordinates	get_cross_product(t_coordinates v, t_coordinates u);
+
+// utils folder
+// error.c functions
+void			print_error(char *error, t_rt *rt);
+
+// free.c functions
+void			free_ptrptr(char ***ptrptr);
+void			free_matrix(double ***matrix);
+
+// test
+double			**copy_submatrix(double **matrix, int size, int i, int j);
 
 #endif
