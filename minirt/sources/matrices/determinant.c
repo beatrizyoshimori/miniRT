@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 19:22:11 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/05 21:21:43 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:52:06 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ double	calculate_determinant(double **matrix)
 	double	**submatrix;
 	double	minor;
 
-	size = length_matrix(matrix);
+	size = matrix_length(matrix);
 	determinant = 0;
 	j = 0;
 	while (j < size)
 	{
 		submatrix = copy_submatrix(matrix, size, 0, j);
-		if (length_matrix(submatrix) == 2)
+		if (matrix_length(submatrix) == 2)
 			minor = calculate_determinant_2_x_2(submatrix);
 		else
 			minor = calculate_determinant(submatrix);
@@ -81,7 +81,7 @@ double	**calculate_cofactor_matrix(double **matrix)
 	double	**submatrix;
 	double	**cofactor;
 
-	size = length_matrix(matrix);
+	size = matrix_length(matrix);
 	cofactor = create_matrix(size);
 	i = 0;
 	while (i < size)

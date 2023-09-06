@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:20:27 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/05 21:21:43 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:52:06 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ double	**transpose_matrix(double **matrix)
 	int		size;
 	double	**trans_matrix;
 
-	size = length_matrix(matrix);
+	size = matrix_length(matrix);
 	trans_matrix = create_matrix(size);
 	i = 0;
 	while (i < size)

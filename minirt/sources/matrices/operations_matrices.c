@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:27:33 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/02 21:16:56 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:52:06 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ double	**multiply_matrices(double **A, double **B)
 	int		size;
 	double	**product;
 
-	size = length_matrix(A);
+	size = matrix_length(A);
 	product = create_matrix(size);
 	i = 0;
 	while (i < size)
@@ -59,7 +59,7 @@ double	**multiply_matrix_by_scalar(double scalar, double **matrix)
 	int		size;
 	double	**product;
 
-	size = length_matrix(matrix);
+	size = matrix_length(matrix);
 	product = create_matrix(size);
 	i = 0;
 	while (i < size)

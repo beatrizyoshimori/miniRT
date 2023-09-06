@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/05 22:05:30 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:52:06 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_rt
 
 // matrices folder
 // comparison_matrices.c functions
-int				length_matrix(double **matrix);
+int				matrix_length(double **matrix);
 int				are_equals_matrices(double **A, double **B);
 
 // create_matrix.c functions

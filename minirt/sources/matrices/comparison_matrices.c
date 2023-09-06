@@ -6,13 +6,13 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:35:16 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/02 19:18:14 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:52:06 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	length_matrix(double **matrix)
+int	matrix_length(double **matrix)
 {
 	int	i;
 
@@ -28,9 +28,9 @@ int	are_equals_matrices(double **A, double **B)
 	int	j;
 	int	size;
 
-	if (length_matrix(A) != length_matrix(B))
+	if (matrix_length(A) != matrix_length(B))
 		return (0);
-	size = length_matrix(A);
+	size = matrix_length(A);
 	i = 0;
 	while (i < size)
 	{
