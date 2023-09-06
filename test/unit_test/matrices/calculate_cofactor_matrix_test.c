@@ -1,6 +1,6 @@
 #include "unit_test.h"
 
-Test(matrices, test_get_cofactor_matrix_4) {
+Test(matrices, test_calculate_cofactor_matrix_4) {
 	int		size = 4;
 	double	**E = create_matrix(size);
 	double	**F = create_matrix(size);
@@ -39,7 +39,7 @@ Test(matrices, test_get_cofactor_matrix_4) {
 	F[3][2] = 105;
 	F[3][3] = 163;
 
-	double	**cofactor = get_cofactor_matrix(E);
+	double	**cofactor = calculate_cofactor_matrix(E);
 	int		result = are_equals_matrices(cofactor, F);
 
 	cr_assert(epsilon_eq(flt, 1, result, EPSILON));

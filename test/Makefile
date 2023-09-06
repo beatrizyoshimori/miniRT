@@ -38,8 +38,12 @@ SRC_PROJECT			=		$(filter-out $(SRC_EXCLUDED),		\
 MATRICES			=		are_equals_matrices_test.c			\
 							copy_submatrix_test.c				\
 							create_identity_matrix_test.c		\
-							get_cofactor_matrix_test.c			\
-							get_determinant_test.c				\
+							create_rotation_matrix_test.c		\
+							create_scaling_matrix_test.c		\
+							create_shearing_matrix_test.c		\
+							create_translation_matrix_test.c	\
+							calculate_cofactor_matrix_test.c			\
+							calculate_determinant_test.c				\
 							invert_matrix_test.c				\
 							length_matrix_test.c				\
 							multiply_matrices_test.c			\
@@ -63,8 +67,8 @@ TUPLES				=		add_tuples_test.c					\
 							are_equals_test.c					\
 							are_equals_tuples_test.c			\
 							divide_tuple_test.c					\
-							get_cross_product_test.c			\
-							get_dot_product_test.c				\
+							calculate_cross_product_test.c			\
+							calculate_dot_product_test.c				\
 							multiply_tuple_test.c				\
 							negate_tuple_test.c					\
 							normalize_vector_test.c				\

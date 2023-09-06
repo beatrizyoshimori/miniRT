@@ -1,6 +1,6 @@
 #include "unit_test.h"
 
-Test(matrices, test_get_determinant_3) {
+Test(matrices, test_calculate_determinant_3) {
 	int		size = 3;
 	double	**E = create_matrix(size);
 
@@ -14,13 +14,13 @@ Test(matrices, test_get_determinant_3) {
 	E[2][1] = -6;
 	E[2][2] = 1;
 
-	double	result = get_determinant(E);
+	double	result = calculate_determinant(E);
 
 	cr_assert(epsilon_eq(flt, -93.9, result, EPSILON));
 	free_matrix(&E);
 }
 
-Test(matrices, test_get_determinant_4) {
+Test(matrices, test_calculate_determinant_4) {
 	int		size = 4;
 	double	**E = create_matrix(size);
 
@@ -41,13 +41,13 @@ Test(matrices, test_get_determinant_4) {
 	E[3][2] = 8;
 	E[3][3] = 10;
 
-	double	result = get_determinant(E);
+	double	result = calculate_determinant(E);
 
 	cr_assert(epsilon_eq(flt, -332, result, EPSILON));
 	free_matrix(&E);
 }
 
-Test(matrices, test_get_determinant_5) {
+Test(matrices, test_calculate_determinant_5) {
 	int		size = 5;
 	double	**E = create_matrix(size);
 
@@ -77,7 +77,7 @@ Test(matrices, test_get_determinant_5) {
 	E[4][3] = -10;
 	E[4][4] = 90;
 
-	double	result = get_determinant(E);
+	double	result = calculate_determinant(E);
 
 	cr_assert(epsilon_eq(flt, -96276, result, EPSILON));
 	free_matrix(&E);
