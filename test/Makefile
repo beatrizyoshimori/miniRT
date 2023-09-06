@@ -45,7 +45,7 @@ MATRICES			=		are_equals_matrices_test.c			\
 							calculate_cofactor_matrix_test.c			\
 							calculate_determinant_test.c				\
 							invert_matrix_test.c				\
-							length_matrix_test.c				\
+							matrix_length_test.c				\
 							multiply_matrices_test.c			\
 							multiply_matrix_tuple_test.c		\
 							transpose_matrix_test.c
