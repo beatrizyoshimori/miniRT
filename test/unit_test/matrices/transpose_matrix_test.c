@@ -1,5 +1,49 @@
 #include "unit_test.h"
 
+Test(matrices, test_transpose_matrix_1) {
+	int				size = 1;
+	double			**C = create_matrix(size);
+	double			**D = create_matrix(size);
+
+	C[0][0] = 12;
+
+	D[0][0] = 12;
+
+	double			**E = transpose_matrix(C);
+	
+	int				result = are_equals_matrices(D, E);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&C);
+	free_matrix(&D);
+	free_matrix(&E);
+}
+
+Test(matrices, test_transpose_matrix_2) {
+	int				size = 2;
+	double			**C = create_matrix(size);
+	double			**D = create_matrix(size);
+
+	C[0][0] = 12;
+	C[0][1] = -63.9;
+	C[1][0] = 0;
+	C[1][1] = 123;
+
+	D[0][0] = 12;
+	D[0][1] = 0;
+	D[1][0] = -63.9;
+	D[1][1] = 123;
+
+	double			**E = transpose_matrix(C);
+	
+	int				result = are_equals_matrices(D, E);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&C);
+	free_matrix(&D);
+	free_matrix(&E);
+}
+
 Test(matrices, test_transpose_matrix_3) {
 	int				size = 3;
 	double			**Id = create_identity_matrix(size);

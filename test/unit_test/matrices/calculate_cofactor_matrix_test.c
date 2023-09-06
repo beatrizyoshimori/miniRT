@@ -1,5 +1,81 @@
 #include "unit_test.h"
 
+Test(matrices, test_calculate_cofactor_matrix_1) {
+	int		size = 1;
+	double	**E = create_matrix(size);
+	double	**F = create_matrix(size);
+
+	E[0][0] = -5;
+
+	F[0][0] = 1;
+
+	double	**cofactor = calculate_cofactor_matrix(E);
+	int		result = are_equals_matrices(cofactor, F);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&E);
+	free_matrix(&F);
+	free_matrix(&cofactor);
+}
+
+Test(matrices, test_calculate_cofactor_matrix_2) {
+	int		size = 2;
+	double	**E = create_matrix(size);
+	double	**F = create_matrix(size);
+
+	E[0][0] = -5;
+	E[0][1] = 2;
+	E[1][0] = 1;
+	E[1][1] = -5;
+
+	F[0][0] = -5;
+	F[0][1] = -1;
+	F[1][0] = -2;
+	F[1][1] = -5;
+
+	double	**cofactor = calculate_cofactor_matrix(E);
+	int		result = are_equals_matrices(cofactor, F);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&E);
+	free_matrix(&F);
+	free_matrix(&cofactor);
+}
+
+Test(matrices, test_calculate_cofactor_matrix_3) {
+	int		size = 3;
+	double	**E = create_matrix(size);
+	double	**F = create_matrix(size);
+
+	E[0][0] = 1;
+	E[0][1] = 25;
+	E[0][2] = 2.9;
+	E[1][0] = -5;
+	E[1][1] = 21;
+	E[1][2] = 0;
+	E[2][0] = 3.4;
+	E[2][1] = -1;
+	E[2][2] = -69;
+
+	F[0][0] = -1449;
+	F[0][1] = -345;
+	F[0][2] = -66.4;
+	F[1][0] = 1722.1;
+	F[1][1] = -78.86;
+	F[1][2] = 86;
+	F[2][0] = -60.9;
+	F[2][1] = -14.5;
+	F[2][2] = 146;
+
+	double	**cofactor = calculate_cofactor_matrix(E);
+	int		result = are_equals_matrices(cofactor, F);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&E);
+	free_matrix(&F);
+	free_matrix(&cofactor);
+}
+
 Test(matrices, test_calculate_cofactor_matrix_4) {
 	int		size = 4;
 	double	**E = create_matrix(size);

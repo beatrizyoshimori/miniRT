@@ -42,9 +42,10 @@ MATRICES			=		are_equals_matrices_test.c			\
 							create_scaling_matrix_test.c		\
 							create_shearing_matrix_test.c		\
 							create_translation_matrix_test.c	\
-							calculate_cofactor_matrix_test.c			\
-							calculate_determinant_test.c				\
+							calculate_cofactor_matrix_test.c	\
+							calculate_determinant_test.c		\
 							invert_matrix_test.c				\
+							matrix_inverse_identity_test.c		\
 							matrix_length_test.c				\
 							multiply_matrices_test.c			\
 							multiply_matrix_tuple_test.c		\
@@ -67,8 +68,8 @@ TUPLES				=		add_tuples_test.c					\
 							are_equals_test.c					\
 							are_equals_tuples_test.c			\
 							divide_tuple_test.c					\
-							calculate_cross_product_test.c			\
-							calculate_dot_product_test.c				\
+							calculate_cross_product_test.c		\
+							calculate_dot_product_test.c		\
 							multiply_tuple_test.c				\
 							negate_tuple_test.c					\
 							normalize_vector_test.c				\

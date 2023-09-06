@@ -1,5 +1,32 @@
 #include "unit_test.h"
 
+Test(matrices, test_calculate_determinant_1) {
+	int		size = 1;
+	double	**E = create_matrix(size);
+
+	E[0][0] = 2;
+
+	double	result = calculate_determinant(E);
+
+	cr_assert(epsilon_eq(flt, 2, result, EPSILON));
+	free_matrix(&E);
+}
+
+Test(matrices, test_calculate_determinant_2) {
+	int		size = 2;
+	double	**E = create_matrix(size);
+
+	E[0][0] = 1;
+	E[0][1] = 2;
+	E[1][0] = 4.9;
+	E[1][1] = 2;
+
+	double	result = calculate_determinant(E);
+
+	cr_assert(epsilon_eq(flt, -7.8, result, EPSILON));
+	free_matrix(&E);
+}
+
 Test(matrices, test_calculate_determinant_3) {
 	int		size = 3;
 	double	**E = create_matrix(size);

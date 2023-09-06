@@ -1,10 +1,29 @@
 #include "unit_test.h"
 
-Test(matrices, test_multiply_matrices_C_D_4) {
-	double	**C = create_matrix(4);
-	double	**D = create_matrix(4);
-	double	**E = create_matrix(4);
-	int		size = 4;
+Test(matrices, test_multiply_matrices_C_D_1) {
+	int		size = 1;
+	double	**C = create_matrix(size);
+	double	**D = create_matrix(size);
+	double	**E = create_matrix(size);
+
+	C[0][0] = 120;
+	D[0][0] = 10;
+	E[0][0] = 1200;
+	double	**product = multiply_matrices(C, D);
+	int		result = are_equals_matrices(product, E);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&C);
+	free_matrix(&D);
+	free_matrix(&E);
+	free_matrix(&product);
+}
+
+Test(matrices, test_multiply_matrices_C_D_2) {
+	int		size = 2;
+	double	**C = create_matrix(size);
+	double	**D = create_matrix(size);
+	double	**E = create_matrix(size);
 	int		i = 0;
 	int		j;
 
@@ -19,22 +38,48 @@ Test(matrices, test_multiply_matrices_C_D_4) {
 		}
 		i++;
 	}
-	E[0][0] = 14;
-	E[0][1] = 20;
-	E[0][2] = 26;
-	E[0][3] = 32;
-	E[1][0] = 20;
-	E[1][1] = 30;
-	E[1][2] = 40;
-	E[1][3] = 50;
-	E[2][0] = 26;
-	E[2][1] = 40;
-	E[2][2] = 54;
-	E[2][3] = 68;
-	E[3][0] = 32;
-	E[3][1] = 50;
-	E[3][2] = 68;
-	E[3][3] = 86;
+	E[0][0] = 1;
+	E[0][1] = 2;
+	E[1][0] = 2;
+	E[1][1] = 5;
+	double	**product = multiply_matrices(C, D);
+	int		result = are_equals_matrices(product, E);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&C);
+	free_matrix(&D);
+	free_matrix(&E);
+	free_matrix(&product);
+}
+
+Test(matrices, test_multiply_matrices_C_D_3) {
+	int		size = 3;
+	double	**C = create_matrix(3);
+	double	**D = create_matrix(3);
+	double	**E = create_matrix(3);
+	int		i = 0;
+	int		j;
+
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			C[i][j] = i + j;
+			D[i][j] = i + j;
+			j++;
+		}
+		i++;
+	}
+	E[0][0] = 5;
+	E[0][1] = 8;
+	E[0][2] = 11;
+	E[1][0] = 8;
+	E[1][1] = 14;
+	E[1][2] = 20;
+	E[2][0] = 11;
+	E[2][1] = 20;
+	E[2][2] = 29;
 	double	**product = multiply_matrices(C, D);
 	int		result = are_equals_matrices(product, E);
 

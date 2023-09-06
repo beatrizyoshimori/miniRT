@@ -1,5 +1,61 @@
 #include "unit_test.h"
 
+Test(matrices, test_are_equals_matrices_A_B_1_null) {
+	double	**A = create_matrix(1);
+	double	**B = create_matrix(1);
+
+	int		result = are_equals_matrices(A, B);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&A);
+	free_matrix(&B);
+}
+
+Test(matrices, test_are_equals_matrices_A_B_1) {
+	double	**A = create_matrix(1);
+	double	**B = create_matrix(1);
+
+	A[0][0] = 45;
+	B[0][0] = 45;
+
+	int		result = are_equals_matrices(A, B);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&A);
+	free_matrix(&B);
+}
+
+Test(matrices, test_are_equals_matrices_A_B_2_null) {
+	double	**A = create_matrix(2);
+	double	**B = create_matrix(2);
+
+	int		result = are_equals_matrices(A, B);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&A);
+	free_matrix(&B);
+}
+
+Test(matrices, test_are_equals_matrices_A_B_2) {
+	double	**A = create_matrix(2);
+	double	**B = create_matrix(2);
+
+	A[0][0] = 45;
+	A[0][1] = -5645;
+	A[1][0] = 45.65;
+	A[1][1] = 45/85;
+	B[0][0] = 45;
+	B[0][1] = -5645;
+	B[1][0] = 45.65;
+	B[1][1] = 45/85;
+
+	int		result = are_equals_matrices(A, B);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&A);
+	free_matrix(&B);
+}
+
 Test(matrices, test_are_equals_matrices_A_B) {
 	double	**A = create_matrix(4);
 	double	**B = create_matrix(4);

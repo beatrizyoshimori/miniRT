@@ -1,5 +1,47 @@
 #include "unit_test.h"
 
+Test(matrices, test_copy_submatrix_2_0) {
+	int		size = 2;
+	double	**E = create_matrix(size);
+	double	**F = create_matrix(size - 1);
+
+	E[0][0] = 1;
+	E[0][1] = 2;
+	E[1][0] = 4.9;
+	E[1][1] = 2;
+
+	F[0][0] = 2;
+
+	double	**submatrix = copy_submatrix(E, size, 0, 0);
+	int		result = are_equals_matrices(submatrix, F);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&E);
+	free_matrix(&F);
+	free_matrix(&submatrix);
+}
+
+Test(matrices, test_copy_submatrix_2_1) {
+	int		size = 2;
+	double	**E = create_matrix(size);
+	double	**F = create_matrix(size - 1);
+
+	E[0][0] = 1;
+	E[0][1] = 2;
+	E[1][0] = 4.9;
+	E[1][1] = 2;
+
+	F[0][0] = 4.9;
+
+	double	**submatrix = copy_submatrix(E, size, 0, 1);
+	int		result = are_equals_matrices(submatrix, F);
+
+	cr_assert(epsilon_eq(flt, 1, result, EPSILON));
+	free_matrix(&E);
+	free_matrix(&F);
+	free_matrix(&submatrix);
+}
+
 Test(matrices, test_copy_submatrix_3_0) {
 	int		size = 3;
 	double	**E = create_matrix(size);
