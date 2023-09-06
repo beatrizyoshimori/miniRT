@@ -9,6 +9,7 @@ SOURCES_PATH	=		sources/
 VPATH			=		$(SOURCES_PATH) \
 						$(addprefix $(SOURCES_PATH),	matrices \
 														parser \
+														ray_casting \
 														tuples \
 														utils)
 
@@ -24,13 +25,16 @@ LIBFT			=		$(addprefix $(LIBFT_PATH), libft.a)
 MATRICES		=		comparison_matrices.c \
 						create_matrix.c \
 						determinant.c \
-						operations_matrices.c
+						operations_matrices.c \
+						transformations.c
 PARSER			=		parser.c \
 						set_data.c \
 						validate_data.c \
 						validate_elements.c \
 						validate_numbers.c \
 						validate_objects.c
+RAY_CASTING		=		intersection_ray_sphere.c \
+						ray_utils.c
 TUPLES			=		create.c \
 						comparison.c \
 						operations.c \
@@ -40,6 +44,7 @@ UTILS			=		error.c \
 SOURCES			=		minirt.c \
 						$(MATRICES) \
 						$(PARSER) \
+						$(RAY_CASTING) \
 						$(TUPLES) \
 						$(UTILS)
 
