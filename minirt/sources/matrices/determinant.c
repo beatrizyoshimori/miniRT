@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 19:22:11 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/02 21:09:52 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/05 21:21:43 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ double	**copy_submatrix(double **matrix, int size, int i, int j)
 	return (submatrix);
 }
 
-static double	get_determinant_2_x_2(double **matrix)
+static double	calculate_determinant_2_x_2(double **matrix)
 {
 	return (matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);
 }
 
-double	get_determinant(double **matrix)
+double	calculate_determinant(double **matrix)
 {
 	int		j;
 	int		size;
@@ -60,9 +60,9 @@ double	get_determinant(double **matrix)
 	{
 		submatrix = copy_submatrix(matrix, size, 0, j);
 		if (length_matrix(submatrix) == 2)
-			minor = get_determinant_2_x_2(submatrix);
+			minor = calculate_determinant_2_x_2(submatrix);
 		else
-			minor = get_determinant(submatrix);
+			minor = calculate_determinant(submatrix);
 		if (j % 2)
 			determinant -= matrix[0][j] * minor;
 		else
@@ -73,7 +73,7 @@ double	get_determinant(double **matrix)
 	return (determinant);
 }
 
-double	**get_cofactor_matrix(double **matrix)
+double	**calculate_cofactor_matrix(double **matrix)
 {
 	int		i;
 	int		j;
@@ -90,7 +90,7 @@ double	**get_cofactor_matrix(double **matrix)
 		while (j < size)
 		{
 			submatrix = copy_submatrix(matrix, size, i, j);
-			cofactor[i][j] = get_determinant(submatrix);
+			cofactor[i][j] = calculate_determinant(submatrix);
 			if ((i + j) % 2)
 				cofactor[i][j] *= -1;
 			free_matrix(&submatrix);

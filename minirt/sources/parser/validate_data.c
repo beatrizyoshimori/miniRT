@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:19:14 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/08/30 21:59:24 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/05 21:21:59 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	validate_coordinates(char **coordinates)
 
 int	validate_normalized_vector(t_coordinates coordinates)
 {
-	return (are_equals(get_vector_magnitude(coordinates), 1));
+	return (are_equals(calculate_vector_magnitude(coordinates), 1));
 }
 
 int	validate_angle(char *angle)
