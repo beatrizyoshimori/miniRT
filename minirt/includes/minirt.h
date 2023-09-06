@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/02 21:29:07 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:05:30 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 # define WIDTH 400
 # define VECTOR 0
 # define POINT 1
+# define X_AXIS 1
+# define Y_AXIS 2
+# define Z_AXIS 0
+# define SP 1
+# define CY 2
+# define PL 3
 
 typedef struct s_coordinates
 {
@@ -87,6 +93,19 @@ typedef struct s_cylinder
 	t_color			color;
 }	t_cylinder;
 
+typedef struct s_ray
+{
+	t_coordinates	point;
+	t_coordinates	vector;
+}	t_ray;
+
+typedef struct s_intersection
+{
+	int		object;
+	double	t1;
+	double	t2;
+}	t_intersection;
+
 typedef struct s_rt
 {
 	char		**elements;
@@ -118,13 +137,19 @@ double			**transpose_matrix(double **matrix);
 double			**invert_matrix(double **matrix);
 
 // determinant.c function
-double			get_determinant(double **matrix);
-double			**get_cofactor_matrix(double **matrix);
+double			calculate_determinant(double **matrix);
+double			**calculate_cofactor_matrix(double **matrix);
 
 // operations_matrices.c functions
 double			**multiply_matrices(double **A, double **B);
 t_coordinates	multiply_matrix_tuple(double **A, t_coordinates t);
 double			**multiply_matrix_by_scalar(double scalar, double **matrix);
+
+// transformations.c functions
+double			**create_translation_matrix(t_coordinates tuple);
+double			**create_scaling_matrix(t_coordinates tuple);
+double			**create_rotation_matrix(int axis, double angle);
+double			**create_shearing_matrix(double proportions[6]);
 
 // parser folder
 // parser.c function
@@ -154,6 +179,14 @@ void			validate_sphere(t_rt *rt, int sp);
 void			validate_plane(t_rt *rt, int pl);
 void			validate_cylinder(t_rt *rt, int cy);
 
+// ray_casting folder
+// intersection_ray_sphere.c functions
+t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere sphere);
+
+// ray_utils.c functions
+t_coordinates	calculate_ray_position(t_ray ray, double t);
+double			calculate_discriminant(double a, double b, double c);
+
 // tuples folder
 // create.c functions
 t_coordinates	create_point(double x, double y, double z);
@@ -171,10 +204,10 @@ t_coordinates	multiply_tuple(double scalar, t_coordinates a);
 t_coordinates	divide_tuple(double scalar, t_coordinates a);
 
 // vector_operations.c functions
-double			get_vector_magnitude(t_coordinates v);
+double			calculate_vector_magnitude(t_coordinates v);
 t_coordinates	normalize_vector(t_coordinates v);
-double			get_dot_product(t_coordinates v, t_coordinates u);
-t_coordinates	get_cross_product(t_coordinates v, t_coordinates u);
+double			calculate_dot_product(t_coordinates v, t_coordinates u);
+t_coordinates	calculate_cross_product(t_coordinates v, t_coordinates u);
 
 // utils folder
 // error.c functions
