@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/06 16:52:06 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:54:41 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,27 +102,35 @@ typedef struct s_ray
 typedef struct s_intersection
 {
 	int		object;
-	double	t1;
-	double	t2;
+	int		count;
+	double	t[100];
 }	t_intersection;
+
+typedef struct s_intersections
+{
+	int						object;
+	double					t;
+	struct s_intersections	*next;
+}	t_intersections;
 
 typedef struct s_rt
 {
-	char		**elements;
-	char		**element;
-	char		**coordinates;
-	char		**color;
-	t_amb_light	amb_light;
-	t_camera	camera;
-	t_light		light;
-	int			num_sp;
-	int			num_pl;
-	int			num_cy;
-	t_sphere	*spheres;
-	t_plane		*planes;
-	t_cylinder	*cylinders;
-	double		**matrix;
-	double		**identity;
+	char			**elements;
+	char			**element;
+	char			**coordinates;
+	char			**color;
+	t_amb_light		amb_light;
+	t_camera		camera;
+	t_light			light;
+	int				num_sp;
+	int				num_pl;
+	int				num_cy;
+	t_sphere		*spheres;
+	t_plane			*planes;
+	t_cylinder		*cylinders;
+	double			**matrix;
+	double			**identity;
+	t_intersections	*intersections;
 }	t_rt;
 
 // matrices folder
@@ -182,6 +190,17 @@ void			validate_cylinder(t_rt *rt, int cy);
 // ray_casting folder
 // intersection_ray_sphere.c functions
 t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere sphere);
+
+// intersections.c functions
+void			intersections(t_rt *rt, t_ray ray);
+void			add_intersection(t_intersections **intersections, \
+					t_intersection new);
+
+// list_utils.c functions
+t_intersections	*new_intersection(int object, double t);
+void			intersections_list_add(t_intersections **intersections, \
+					t_intersections *new);
+void			free_intersections(t_intersections **intersections);
 
 // ray_utils.c functions
 t_coordinates	calculate_ray_position(t_ray ray, double t);
