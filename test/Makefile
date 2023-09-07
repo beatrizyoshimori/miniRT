@@ -67,6 +67,7 @@ PARSER				=		atod_test.c									\
 							validate_sphere_test.c
 RAY_CASTING			=		calculate_ray_position_test.c				\
 							calculate_ray_sphere_intersections_test.c	\
+							intersections_test.c						\
 							intersections_list_add_test.c				\
 							new_intersection_test.c
 TUPLES				=		add_tuples_test.c							\
