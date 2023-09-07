@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/06 21:54:41 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:56:15 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 # include <math.h>
 
 # define EPSILON 0.00001
-# define HEIGHT 400
-# define WIDTH 400
+# define HEIGHT 1000
+# define WIDTH 1000
+# define WALL_SIZE 7.0
+# define WALL_Z 10.0
 # define VECTOR 0
 # define POINT 1
 # define X_AXIS 1
@@ -145,6 +147,7 @@ double			**transpose_matrix(double **matrix);
 double			**invert_matrix(double **matrix);
 
 // determinant.c function
+double			**copy_submatrix(double **matrix, int size, int i, int j);
 double			calculate_determinant(double **matrix);
 double			**calculate_cofactor_matrix(double **matrix);
 
@@ -192,9 +195,10 @@ void			validate_cylinder(t_rt *rt, int cy);
 t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere sphere);
 
 // intersections.c functions
-void			intersections(t_rt *rt, t_ray ray);
 void			add_intersection(t_intersections **intersections, \
 					t_intersection new);
+void			intersections(t_rt *rt, t_ray ray);
+t_intersections	*get_hit(t_intersections *intersections);
 
 // list_utils.c functions
 t_intersections	*new_intersection(int object, double t);
@@ -205,6 +209,9 @@ void			free_intersections(t_intersections **intersections);
 // ray_utils.c functions
 t_coordinates	calculate_ray_position(t_ray ray, double t);
 double			calculate_discriminant(double a, double b, double c);
+
+// transformation.c functions
+t_ray			transform_ray(t_ray ray, double **matrix);
 
 // tuples folder
 // create.c functions
@@ -235,8 +242,5 @@ void			print_error(char *error, t_rt *rt);
 // free.c functions
 void			free_ptrptr(char ***ptrptr);
 void			free_matrix(double ***matrix);
-
-// test
-double			**copy_submatrix(double **matrix, int size, int i, int j);
 
 #endif
