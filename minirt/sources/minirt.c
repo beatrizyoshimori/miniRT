@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/02 15:31:24 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:05:44 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,27 @@ void	render(t_rt *rt)
 		mlx_close_window(mlx);
 		print_error(MLX_IMAGE, rt);
 	}
-	i = 100;
-	while (i <= 299)
+	double	pixel_size = WALL_SIZE / WIDTH;
+	double	half = WALL_SIZE / 2;
+	j = 0;
+	while (j < HEIGHT)
 	{
-		j = 100;
-		while (j <= 299)
+		double	y = half - pixel_size * j;
+		i = 0;
+		while (i < WIDTH)
 		{
-			mlx_put_pixel(image, i, j, 0 << 24 | 0 << 16 | 0 << 8 | 255);
-			j++;
+			double	x = -half + pixel_size * i;
+			t_coordinates	position = create_point(x, y, WALL_Z);
+			t_coordinates	ray_origin = create_point(0, 0, -5);
+			t_coordinates	vector = subtract_tuples(position, ray_origin);
+			t_ray	ray = {ray_origin, normalize_vector(vector)};
+			intersections(rt, ray);
+			if (get_hit(rt->intersections))
+				mlx_put_pixel(image, i, j, 255 << 24 | 0 << 16 | 0 << 8 | 255);
+			free_intersections(&rt->intersections);
+			i++;
 		}
-		i++;
+		j++;
 	}
 	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
 	{
