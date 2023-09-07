@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:11:39 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/05 22:05:36 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:53:10 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere sphere)
 	b = 2 * calculate_dot_product(ray.vector, sphere_to_ray);
 	c = calculate_dot_product(sphere_to_ray, sphere_to_ray) - 1;
 	discriminant = calculate_discriminant(a, b, c);
-	return ((t_intersection){SP, -(b * sqrt(discriminant)) / (2 * a), \
-		(-b * sqrt(discriminant)) / (2 * a)});
+	if (discriminant < 0)
+		return ((t_intersection){SP, 0, .t = {0}});
+	if (discriminant == 0)
+		return ((t_intersection){SP, 1, \
+			.t[0] = (-b - sqrt(discriminant)) / (2 * a)});
+	return ((t_intersection){SP, 2, \
+		.t[0] = (-b - sqrt(discriminant)) / (2 * a), \
+		.t[1] = (-b + sqrt(discriminant)) / (2 * a)});
 }
