@@ -36,7 +36,8 @@ PARSER			=		parser.c \
 RAY_CASTING		=		intersection_ray_sphere.c \
 						intersections.c \
 						list_utils.c \
-						ray_utils.c
+						ray_utils.c \
+						transformation.c
 TUPLES			=		create.c \
 						comparison.c \
 						operations.c \
