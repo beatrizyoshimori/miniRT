@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:41:48 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/07 11:47:41 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:30:51 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,15 @@ void	intersections(t_rt *rt, t_ray ray)
 			add_intersection(&rt->intersections, intersection);
 		i++;
 	}
-	// free_intersections(&rt->intersections);
+}
+
+t_intersections	*get_hit(t_intersections *intersections)
+{
+	while (intersections)
+	{
+		if (intersections->t >= 0)
+			break ;
+		intersections = intersections->next;
+	}
+	return (intersections);
 }
