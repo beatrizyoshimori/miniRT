@@ -25,57 +25,63 @@ DIR_OUTS			=		outs/
 DIR_FILES			=		fd_test/
 OBJS_PROJECT		=		../minirt/objects/
 UNIT_PATH			=		./unit_test/
-VPATH				=		$(addprefix $(UNIT_PATH),			\
-							matrices							\
-							parser								\
+VPATH				=		$(addprefix $(UNIT_PATH),					\
+							matrices									\
+							parser										\
+							ray_casting									\
 							tuples)
 ######################## PROJECT FILES ##############################
-SRC_EXCLUDED		=		$(addprefix $(OBJS_PROJECT),		\
+SRC_EXCLUDED		=		$(addprefix $(OBJS_PROJECT),				\
 							minirt.o)
-SRC_PROJECT			=		$(filter-out $(SRC_EXCLUDED),		\
+SRC_PROJECT			=		$(filter-out $(SRC_EXCLUDED),				\
 							$(wildcard $(OBJS_PROJECT)*.o))
 ######################## TEST SOURCES ###############################
-MATRICES			=		are_equals_matrices_test.c			\
-							copy_submatrix_test.c				\
-							create_identity_matrix_test.c		\
-							create_rotation_matrix_test.c		\
-							create_scaling_matrix_test.c		\
-							create_shearing_matrix_test.c		\
-							create_translation_matrix_test.c	\
-							calculate_cofactor_matrix_test.c	\
-							calculate_determinant_test.c		\
-							invert_matrix_test.c				\
-							matrix_inverse_identity_test.c		\
-							matrix_length_test.c				\
-							multiply_matrices_test.c			\
-							multiply_matrix_tuple_test.c		\
+MATRICES			=		are_equals_matrices_test.c					\
+							copy_submatrix_test.c						\
+							create_identity_matrix_test.c				\
+							create_rotation_matrix_test.c				\
+							create_scaling_matrix_test.c				\
+							create_shearing_matrix_test.c				\
+							create_translation_matrix_test.c			\
+							calculate_cofactor_matrix_test.c			\
+							calculate_determinant_test.c				\
+							invert_matrix_test.c						\
+							matrix_inverse_identity_test.c				\
+							matrix_length_test.c						\
+							multiply_matrices_test.c					\
+							multiply_matrix_tuple_test.c				\
 							transpose_matrix_test.c
-PARSER				=		atod_test.c							\
-							parser_test.c						\
-							validate_amb_light_test.c			\
-							validate_angle_test.c				\
-							validate_camera_test.c				\
-							validate_color_test.c				\
-							validate_coordinates_test.c			\
-							validate_cylinder_test.c			\
-							validate_double_test.c				\
-							validate_light_test.c				\
-							validate_int_test.c					\
-							validate_normalized_vector_test.c	\
-							validate_plane_test.c				\
+PARSER				=		atod_test.c									\
+							parser_test.c								\
+							validate_amb_light_test.c					\
+							validate_angle_test.c						\
+							validate_camera_test.c						\
+							validate_color_test.c						\
+							validate_coordinates_test.c					\
+							validate_cylinder_test.c					\
+							validate_double_test.c						\
+							validate_light_test.c						\
+							validate_int_test.c							\
+							validate_normalized_vector_test.c			\
+							validate_plane_test.c						\
 							validate_sphere_test.c
-TUPLES				=		add_tuples_test.c					\
-							are_equals_test.c					\
-							are_equals_tuples_test.c			\
-							divide_tuple_test.c					\
-							calculate_cross_product_test.c		\
-							calculate_dot_product_test.c		\
-							multiply_tuple_test.c				\
-							negate_tuple_test.c					\
-							normalize_vector_test.c				\
+RAY_CASTING			=		calculate_ray_position_test.c				\
+							calculate_ray_sphere_intersections_test.c	\
+							intersections_list_add_test.c				\
+							new_intersection_test.c
+TUPLES				=		add_tuples_test.c							\
+							are_equals_test.c							\
+							are_equals_tuples_test.c					\
+							divide_tuple_test.c							\
+							calculate_cross_product_test.c				\
+							calculate_dot_product_test.c				\
+							multiply_tuple_test.c						\
+							negate_tuple_test.c							\
+							normalize_vector_test.c						\
 							subtract_tuples_test.c
-SRC					=		$(MATRICES)							\
-							$(PARSER)							\
+SRC					=		$(MATRICES)									\
+							$(PARSER)									\
+							$(RAY_CASTING)								\
 							$(TUPLES)
 OBJ					=		$(patsubst %.c, $(PATH_OBJ)%.o, $(SRC))
 DEP					=		$(patsubst %.c, $(PATH_OBJ)%.d, $(SRC))
