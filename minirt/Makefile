@@ -34,6 +34,8 @@ PARSER			=		parser.c \
 						validate_numbers.c \
 						validate_objects.c
 RAY_CASTING		=		intersection_ray_sphere.c \
+						intersections.c \
+						list_utils.c \
 						ray_utils.c
 TUPLES			=		create.c \
 						comparison.c \
