@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:20:58 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/06 22:37:16 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/07 11:04:53 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_intersections	*new_intersection(int object, double t)
 	return (head);
 }
 
-t_intersections	*intersections_position(t_intersections *intersections, \
-	t_intersections *new)
+static t_intersections	*get_intersections_position(t_intersections \
+	*intersections, t_intersections *new)
 {
 	if (intersections == NULL)
 		return (intersections);
@@ -57,7 +57,7 @@ void	intersections_list_add(t_intersections **intersections, \
 		*intersections = new;
 		return ;
 	}
-	aux = intersections_position(*intersections, new);
+	aux = get_intersections_position(*intersections, new);
 	aux_next = aux->next;
 	aux->next = new;
 	new->next = aux_next;
