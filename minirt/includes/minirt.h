@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/08 12:01:44 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/08 19:32:30 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ typedef struct s_light
 	t_color			color;
 }	t_light;
 
+typedef struct s_material
+{
+	double	ambient;
+	double	diffuse;
+	double	specular;
+	double	shininess;
+}	t_material;
+
 typedef struct s_sphere
 {
 	t_coordinates	point;
@@ -101,19 +109,34 @@ typedef struct s_ray
 	t_coordinates	vector;
 }	t_ray;
 
+typedef struct s_discriminant
+{
+	double			a;
+	double			b;
+	double			c;
+	double			discriminant;
+	t_coordinates	sphere_to_ray;
+}	t_discriminant;
+
 typedef struct s_intersection
 {
-	int		object;
-	int		count;
-	double	t[100];
-	t_color	color;
+	int				type;
+	int				count;
+	double			t[100];
+	t_coordinates	hit_point[100];
+	t_sphere		*sphere;
+	t_plane			*plane;
+	t_cylinder		*cylinder;
 }	t_intersection;
 
 typedef struct s_intersections
 {
-	int						object;
+	int						type;
 	double					t;
-	t_color					color;
+	t_coordinates			hit_point;
+	t_sphere				*sphere;
+	t_plane					*plane;
+	t_cylinder				*cylinder;
 	struct s_intersections	*next;
 }	t_intersections;
 
@@ -139,6 +162,7 @@ typedef struct s_rt
 	int				num_sp;
 	int				num_pl;
 	int				num_cy;
+	t_material		material;
 	t_sphere		*spheres;
 	t_plane			*planes;
 	t_cylinder		*cylinders;
@@ -205,8 +229,8 @@ void			validate_plane(t_rt *rt, int pl);
 void			validate_cylinder(t_rt *rt, int cy);
 
 // ray_casting folder
-// intersection_ray_sphere.c functions
-t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere sphere);
+// intersection_ray_object.c functions
+t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere *sphere);
 
 // intersections.c functions
 void			add_intersection(t_intersections **intersections, \
@@ -214,27 +238,42 @@ void			add_intersection(t_intersections **intersections, \
 void			intersections(t_rt *rt, t_ray ray);
 t_intersections	*get_hit(t_intersections *intersections);
 
+// lightning.c functions
+t_color			lightning(t_rt *rt, t_intersections *hit);
+
 // list_utils.c functions
-t_intersections	*new_intersection(int object, double t, t_color color);
+t_intersections	*new_intersection(int type, double t, \
+					t_coordinates hit_point, void *object);
 void			intersections_list_add(t_intersections **intersections, \
 					t_intersections *new);
 void			free_intersections(t_intersections **intersections);
 
+// normal_reflecting.c functions
+t_coordinates	calculate_sphere_normal(t_intersections *hit);
+t_coordinates	calculate_reflecting_vector(t_coordinates light, \
+					t_coordinates normal);
+
 // ray_utils.c functions
 t_coordinates	calculate_ray_position(t_ray ray, double t);
-double			calculate_discriminant(double a, double b, double c);
+double			calculate_discriminant_ray_sphere(double a, double b, double c);
 
 // transformation.c functions
 t_ray			transform_ray(t_ray ray, double **matrix);
 
 // tuples folder
+// color_operations.c functions
+t_color			add_colors(t_color a, t_color b);
+t_color			subtract_colors(t_color a, t_color b);
+t_color			multiply_color_by_scalar(double scalar, t_color a);
+t_color			multiply_colors(t_color a, t_color b);
+
+// comparison.c functions
+int				are_equals(double a, double b);
+int				are_equals_tuples(t_coordinates a, t_coordinates b);
+
 // create.c functions
 t_coordinates	create_point(double x, double y, double z);
 t_coordinates	create_vector(double x, double y, double z);
-
-// equal.c functions
-int				are_equals(double a, double b);
-int				are_equals_tuples(t_coordinates a, t_coordinates b);
 
 // operations.c functions
 t_coordinates	add_tuples(t_coordinates a, t_coordinates b);

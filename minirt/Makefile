@@ -33,13 +33,16 @@ PARSER			=		parser.c \
 						validate_elements.c \
 						validate_numbers.c \
 						validate_objects.c
-RAY_CASTING		=		intersection_ray_sphere.c \
+RAY_CASTING		=		intersection_ray_object.c \
 						intersections.c \
+						lightning.c \
 						list_utils.c \
+						normal_reflecting.c \
 						ray_utils.c \
 						transformation.c
-TUPLES			=		create.c \
+TUPLES			=		color_operations.c \
 						comparison.c \
+						create.c \
 						operations.c \
 						vector_operations.c
 UTILS			=		error.c \

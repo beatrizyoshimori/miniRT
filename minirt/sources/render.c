@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:28:08 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/08 12:03:56 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/08 20:22:12 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,19 @@ t_ray	create_ray(t_rt *rt, double x, double y)
 	return ((t_ray){ray_origin, normalize_vector(vector)});
 }
 
+// static unsigned int	get_color(t_intersections *hit)
+// {
+// 	return (hit->sphere->color.red << 24 | hit->sphere->color.green << 16 \
+// 		| hit->sphere->color.blue << 8 | 255);
+// }
+
 void	draw(t_rt *rt)
 {
 	int				i;
 	int				j;
 	double			x;
 	double			y;
+	t_ray			ray;
 	t_intersections	*hit;
 
 	j = 0;
@@ -41,11 +48,15 @@ void	draw(t_rt *rt)
 		while (i < WIDTH)
 		{
 			x = -rt->render.half_wall + rt->render.pixel_size_w * i;
-			intersections(rt, create_ray(rt, x, y));
+			ray = create_ray(rt, x, y);
+			intersections(rt, ray);
 			hit = get_hit(rt->intersections);
 			if (hit)
-				mlx_put_pixel(rt->render.image, i, j, hit->color.red << 24 | \
-					hit->color.green << 16 | hit->color.blue << 8 | 255);
+			{
+				t_color color = lightning(rt, hit);
+				mlx_put_pixel(rt->render.image, i, j, color.red << 24 | color.green << 16 \
+					| color.blue << 8 | 255);
+			}
 			free_intersections(&rt->intersections);
 			i++;
 		}
