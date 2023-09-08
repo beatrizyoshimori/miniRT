@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:41:48 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/07 16:30:51 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:20:48 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	add_intersection(t_intersections **intersections, t_intersection new)
 	while (i < new.count)
 	{
 		intersections_list_add(intersections, \
-			new_intersection(new.object, new.t[i]));
+			new_intersection(new.object, new.t[i], new.color));
 		i++;
 	}
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:20:58 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/07 11:04:53 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:19:37 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_intersections	*new_intersection(int object, double t)
+t_intersections	*new_intersection(int object, double t, t_color color)
 {
 	t_intersections	*head;
 
@@ -21,6 +21,7 @@ t_intersections	*new_intersection(int object, double t)
 		return (NULL);
 	head->object = object;
 	head->t = t;
+	head->color = color;
 	head->next = NULL;
 	return (head);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_ray_sphere.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:11:39 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/07 11:23:39 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:24:10 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere sphere)
 	if (discriminant < 0)
 		return ((t_intersection){SP, 0, .t = {0}});
 	if (discriminant == 0)
-		return ((t_intersection){SP, 1, \
+		return ((t_intersection){SP, 1, .color = sphere.color, \
 			.t[0] = (-b - sqrt(discriminant)) / (2 * a)});
-	return ((t_intersection){SP, 2, \
+	return ((t_intersection){SP, 2, .color = sphere.color, \
 		.t[0] = (-b - sqrt(discriminant)) / (2 * a), \
 		.t[1] = (-b + sqrt(discriminant)) / (2 * a)});
 }

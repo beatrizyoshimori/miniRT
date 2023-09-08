@@ -45,6 +45,7 @@ TUPLES			=		create.c \
 UTILS			=		error.c \
 						free.c
 SOURCES			=		minirt.c \
+						render.c \
 						$(MATRICES) \
 						$(PARSER) \
 						$(RAY_CASTING) \

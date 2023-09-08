@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/07 16:56:15 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:01:44 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,17 +106,29 @@ typedef struct s_intersection
 	int		object;
 	int		count;
 	double	t[100];
+	t_color	color;
 }	t_intersection;
 
 typedef struct s_intersections
 {
 	int						object;
 	double					t;
+	t_color					color;
 	struct s_intersections	*next;
 }	t_intersections;
 
+typedef struct s_render
+{
+	t_mlx			*mlx;
+	t_mlx_image		*image;
+	double			half_wall;
+	double			pixel_size_h;
+	double			pixel_size_w;
+}	t_render;
+
 typedef struct s_rt
 {
+	t_render		render;
 	char			**elements;
 	char			**element;
 	char			**coordinates;
@@ -134,6 +146,8 @@ typedef struct s_rt
 	double			**identity;
 	t_intersections	*intersections;
 }	t_rt;
+
+void			render(t_rt *rt);
 
 // matrices folder
 // comparison_matrices.c functions
@@ -201,7 +215,7 @@ void			intersections(t_rt *rt, t_ray ray);
 t_intersections	*get_hit(t_intersections *intersections);
 
 // list_utils.c functions
-t_intersections	*new_intersection(int object, double t);
+t_intersections	*new_intersection(int object, double t, t_color color);
 void			intersections_list_add(t_intersections **intersections, \
 					t_intersections *new);
 void			free_intersections(t_intersections **intersections);

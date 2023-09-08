@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/07 17:05:44 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:06:40 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,60 +42,23 @@ static void	read_rt(t_rt *rt, char *file)
 	free(buffer);
 }
 
-void	render(t_rt *rt)
+static t_rt	*init_rt(void)
 {
-	int			i;
-	int			j;
-	t_mlx		*mlx;
-	t_mlx_image	*image;
+	t_rt	*rt;
 
-	mlx = mlx_init(WIDTH, HEIGHT, "miniRT - bilu", true);
-	if (!mlx)
-		print_error(MLX_INIT, rt);
-	image = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (!image)
-	{
-		mlx_close_window(mlx);
-		print_error(MLX_IMAGE, rt);
-	}
-	double	pixel_size = WALL_SIZE / WIDTH;
-	double	half = WALL_SIZE / 2;
-	j = 0;
-	while (j < HEIGHT)
-	{
-		double	y = half - pixel_size * j;
-		i = 0;
-		while (i < WIDTH)
-		{
-			double	x = -half + pixel_size * i;
-			t_coordinates	position = create_point(x, y, WALL_Z);
-			t_coordinates	ray_origin = create_point(0, 0, -5);
-			t_coordinates	vector = subtract_tuples(position, ray_origin);
-			t_ray	ray = {ray_origin, normalize_vector(vector)};
-			intersections(rt, ray);
-			if (get_hit(rt->intersections))
-				mlx_put_pixel(image, i, j, 255 << 24 | 0 << 16 | 0 << 8 | 255);
-			free_intersections(&rt->intersections);
-			i++;
-		}
-		j++;
-	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-	{
-		mlx_close_window(mlx);
-		mlx_delete_image(mlx, image);
-		print_error(MLX_IMAGE_TO_WIN, rt);
-	}
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	rt = (t_rt *)ft_calloc(1, sizeof(t_rt));
+	rt->render.half_wall = WALL_SIZE / 2;
+	rt->render.pixel_size_h = WALL_SIZE / HEIGHT;
+	rt->render.pixel_size_w = WALL_SIZE / WIDTH;
+	return (rt);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_rt	*rt;
 
+	rt = init_rt();
 	check_arg(argc, argv);
-	rt = (t_rt *)ft_calloc(1, sizeof(t_rt));
 	read_rt(rt, argv[1]);
 	parser(rt);
 	render(rt);
