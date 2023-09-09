@@ -13,12 +13,12 @@ FLAGS 				=		-Wall -Werror -Wextra -g3 -O3 -MMD -MP
 MINIRT_LIB			=		-I../minirt/includes
 LIBFT_PATH			=		../minirt/libft
 LIBFT_LIB			=		../minirt/libft/includes
-MLX_PATH			=		../minirt/includes
+MLX_PATH			=		../minirt/includes/mlx
 MLX_LIB				=		../minirt/includes/mlx
 VALGRIND_FLAG		=		valgrind --trace-children=yes --leak-check=full -q
 LIB_CRITERION		=		-Lcriterion-2.4.2/lib -lcriterion
 DEBUG				=		-g3
-FLAG_MLX			=		-lmlx -lX11 -lXext
+FLAG_MLX			=		-lm -ldl -lglfw -pthread
 ######################## PATHS        ###############################
 PATH_OBJ			=		objs/
 DIR_OUTS			=		outs/
@@ -32,7 +32,8 @@ VPATH				=		$(addprefix $(UNIT_PATH),					\
 							tuples)
 ######################## PROJECT FILES ##############################
 SRC_EXCLUDED		=		$(addprefix $(OBJS_PROJECT),				\
-							minirt.o)
+							minirt.o									\
+							render.o)
 SRC_PROJECT			=		$(filter-out $(SRC_EXCLUDED),				\
 							$(wildcard $(OBJS_PROJECT)*.o))
 ######################## TEST SOURCES ###############################
@@ -67,6 +68,7 @@ PARSER				=		atod_test.c									\
 							validate_sphere_test.c
 RAY_CASTING			=		calculate_ray_position_test.c				\
 							calculate_ray_sphere_intersections_test.c	\
+							calculate_sphere_normal_test.c				\
 							get_hit_test.c								\
 							intersections_test.c						\
 							intersections_list_add_test.c				\
