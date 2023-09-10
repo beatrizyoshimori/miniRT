@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:59:40 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/08 20:52:31 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:07:18 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,8 @@ t_color	multiply_colors(t_color a, t_color b)
 	int	green;
 	int	blue;
 
-	red = a.red * b.red;
-	if (red > 255)
-		red = 255;
-	green = a.green * b.green;
-	if (green > 255)
-		green = 255;
-	blue = a.blue * b.blue;
-	if (blue > 255)
-		blue = 255;
+	red = a.red * b.red / 255;
+	green = a.green * b.green / 255;
+	blue = a.blue * b.blue / 255;
 	return ((t_color){red, green, blue});
 }

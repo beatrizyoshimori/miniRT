@@ -10,6 +10,7 @@ VPATH			=		$(SOURCES_PATH) \
 						$(addprefix $(SOURCES_PATH),	matrices \
 														parser \
 														ray_casting \
+														render \
 														tuples \
 														utils)
 
@@ -26,7 +27,7 @@ MATRICES		=		comparison_matrices.c \
 						create_matrix.c \
 						determinant.c \
 						operations_matrices.c \
-						transformations.c
+						transformations_matrices.c
 PARSER			=		parser.c \
 						set_data.c \
 						validate_data.c \
@@ -35,11 +36,11 @@ PARSER			=		parser.c \
 						validate_objects.c
 RAY_CASTING		=		intersection_ray_object.c \
 						intersections.c \
-						lightning.c \
 						list_utils.c \
 						normal_reflecting.c \
-						ray_utils.c \
-						transformation.c
+						ray_utils.c
+RENDER			=		lightning.c \
+						render.c
 TUPLES			=		color_operations.c \
 						comparison.c \
 						create.c \
@@ -48,10 +49,10 @@ TUPLES			=		color_operations.c \
 UTILS			=		error.c \
 						free.c
 SOURCES			=		minirt.c \
-						render.c \
 						$(MATRICES) \
 						$(PARSER) \
 						$(RAY_CASTING) \
+						$(RENDER) \
 						$(TUPLES) \
 						$(UTILS)
 

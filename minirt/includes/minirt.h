@@ -6,7 +6,7 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/08 19:32:30 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/09 23:24:11 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define EPSILON 0.00001
 # define HEIGHT 1000
 # define WIDTH 1000
-# define WALL_SIZE 7.0
-# define WALL_Z 10.0
+# define WALL_SIZE 8.0
+# define WALL_Z 7.0
 # define VECTOR 0
 # define POINT 1
 # define X_AXIS 1
@@ -33,6 +33,8 @@
 # define SP 1
 # define CY 2
 # define PL 3
+# define OUTSIDE 0
+# define INSIDE 1
 
 typedef struct s_coordinates
 {
@@ -115,7 +117,7 @@ typedef struct s_discriminant
 	double			b;
 	double			c;
 	double			discriminant;
-	t_coordinates	sphere_to_ray;
+	t_coordinates	vector;
 }	t_discriminant;
 
 typedef struct s_intersection
@@ -137,6 +139,9 @@ typedef struct s_intersections
 	t_sphere				*sphere;
 	t_plane					*plane;
 	t_cylinder				*cylinder;
+	t_ray					ray;
+	t_color					color;
+	int						position_camera;
 	struct s_intersections	*next;
 }	t_intersections;
 
@@ -145,8 +150,11 @@ typedef struct s_render
 	t_mlx			*mlx;
 	t_mlx_image		*image;
 	double			half_wall;
-	double			pixel_size_h;
-	double			pixel_size_w;
+	double			half_width;
+	double			half_height;
+	double			pixel_size;
+	double			**transformation;
+	double			**inverse;
 }	t_render;
 
 typedef struct s_rt
@@ -169,9 +177,8 @@ typedef struct s_rt
 	double			**matrix;
 	double			**identity;
 	t_intersections	*intersections;
+	t_intersections	*hit;
 }	t_rt;
-
-void			render(t_rt *rt);
 
 // matrices folder
 // comparison_matrices.c functions
@@ -194,7 +201,7 @@ double			**multiply_matrices(double **A, double **B);
 t_coordinates	multiply_matrix_tuple(double **A, t_coordinates t);
 double			**multiply_matrix_by_scalar(double scalar, double **matrix);
 
-// transformations.c functions
+// transformations_matrices.c functions
 double			**create_translation_matrix(t_coordinates tuple);
 double			**create_scaling_matrix(t_coordinates tuple);
 double			**create_rotation_matrix(int axis, double angle);
@@ -238,12 +245,9 @@ void			add_intersection(t_intersections **intersections, \
 void			intersections(t_rt *rt, t_ray ray);
 t_intersections	*get_hit(t_intersections *intersections);
 
-// lightning.c functions
-t_color			lightning(t_rt *rt, t_intersections *hit);
-
 // list_utils.c functions
-t_intersections	*new_intersection(int type, double t, \
-					t_coordinates hit_point, void *object);
+t_intersections	*new_intersection(t_intersection new, \
+					int i, int position_camera);
 void			intersections_list_add(t_intersections **intersections, \
 					t_intersections *new);
 void			free_intersections(t_intersections **intersections);
@@ -254,11 +258,18 @@ t_coordinates	calculate_reflecting_vector(t_coordinates light, \
 					t_coordinates normal);
 
 // ray_utils.c functions
+t_ray			create_ray(t_rt *rt, double x, double y);
 t_coordinates	calculate_ray_position(t_ray ray, double t);
-double			calculate_discriminant_ray_sphere(double a, double b, double c);
-
-// transformation.c functions
+t_discriminant	calculate_discriminant_ray_sphere(t_ray ray, t_sphere *sphere);
 t_ray			transform_ray(t_ray ray, double **matrix);
+
+// render folder
+// lightning.c functions
+t_color			lightning(t_rt *rt);
+
+// render.c functions
+double			**transform_view(t_rt *rt, t_coordinates up);
+void			render(t_rt *rt);
 
 // tuples folder
 // color_operations.c functions

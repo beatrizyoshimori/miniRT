@@ -6,29 +6,30 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:20:58 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/08 16:53:32 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:05:56 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_intersections	*new_intersection(int type, double t, \
-	t_coordinates hit_point, void *object)
+t_intersections	*new_intersection(t_intersection new, \
+	int i, int position_camera)
 {
 	t_intersections	*head;
 
 	head = (t_intersections *)ft_calloc(1, sizeof(t_intersections));
 	if (head == NULL)
 		return (NULL);
-	head->type = type;
-	head->t = t;
-	head->hit_point = hit_point;
-	if (type == SP)
-		head->sphere = (t_sphere *)object;
-	else if (type == PL)
-		head->plane = (t_plane *)object;
+	head->type = new.type;
+	head->t = new.t[i];
+	head->hit_point = new.hit_point[i];
+	if (new.type == SP)
+		head->sphere = new.sphere;
+	else if (new.type == PL)
+		head->plane = new.plane;
 	else
-		head->cylinder = (t_cylinder *)object;
+		head->cylinder = new.cylinder;
+	head->position_camera = position_camera;
 	head->next = NULL;
 	return (head);
 }

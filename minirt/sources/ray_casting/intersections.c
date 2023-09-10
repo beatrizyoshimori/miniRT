@@ -6,28 +6,37 @@
 /*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:41:48 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/08 16:52:41 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:04:12 by byoshimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+static int	check_position_camera(double t[100], int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count - 1)
+	{
+		if (t[i] < 0 && t[i + 1] > 0)
+			return (INSIDE);
+		i++;
+	}
+	return (OUTSIDE);
+}
+
 void	add_intersection(t_intersections **intersections, t_intersection new)
 {
 	int		i;
-	void	*object;
+	int		position_camera;
 
 	i = 0;
 	while (i < new.count)
 	{
-		if (new.type == SP)
-			object = (void *)new.sphere;
-		else if (new.type == PL)
-			object = (void *)new.plane;
-		else
-			object = (void *)new.cylinder;
+		position_camera = check_position_camera(new.t, new.count);
 		intersections_list_add(intersections, \
-			new_intersection(new.type, new.t[i], new.hit_point[i], object));
+			new_intersection(new, i, position_camera));
 		i++;
 	}
 }
