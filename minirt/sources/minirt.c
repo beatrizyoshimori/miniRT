@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/09 23:02:07 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/11 14:41:31 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static t_rt	*init_rt(void)
 	t_rt	*rt;
 
 	rt = (t_rt *)ft_calloc(1, sizeof(t_rt));
-	rt->render.half_wall = WALL_SIZE / 2;
-	rt->render.pixel_size = WALL_SIZE / WIDTH;
 	rt->material.ambient = 0.1;
 	rt->material.diffuse = 0.9;
 	rt->material.specular = 0.9;
