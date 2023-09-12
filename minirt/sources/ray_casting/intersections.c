@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:41:48 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/09 16:04:12 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:16:48 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	add_intersection(t_intersections **intersections, t_intersection new)
 	}
 }
 
-void	intersections(t_rt *rt, t_ray ray)
+void	intersections(t_rt *rt, t_ray ray, t_intersections **intersections)
 {
 	int				i;
 	t_intersection	intersection;
@@ -51,7 +51,15 @@ void	intersections(t_rt *rt, t_ray ray)
 	{
 		intersection = calculate_ray_sphere_intersections(ray, &rt->spheres[i]);
 		if (intersection.count)
-			add_intersection(&rt->intersections, intersection);
+			add_intersection(intersections, intersection);
+		i++;
+	}
+	i = 0;
+	while (i < rt->num_cy)
+	{
+		intersection = calculate_ray_cylinder_intersections(ray, &rt->cylinders[i]);
+		if (intersection.count)
+			add_intersection(intersections, intersection);
 		i++;
 	}
 }
