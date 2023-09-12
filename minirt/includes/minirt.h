@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/09 23:24:11 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:36:04 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 # include <math.h>
 
 # define EPSILON 0.00001
-# define HEIGHT 1000
-# define WIDTH 1000
-# define WALL_SIZE 8.0
-# define WALL_Z 7.0
+# define HEIGHT 800
+# define WIDTH 800
 # define VECTOR 0
 # define POINT 1
 # define X_AXIS 1
@@ -149,7 +147,6 @@ typedef struct s_render
 {
 	t_mlx			*mlx;
 	t_mlx_image		*image;
-	double			half_wall;
 	double			half_width;
 	double			half_height;
 	double			pixel_size;
@@ -177,6 +174,7 @@ typedef struct s_rt
 	double			**matrix;
 	double			**identity;
 	t_intersections	*intersections;
+	t_intersections	*shadows;
 	t_intersections	*hit;
 }	t_rt;
 
@@ -236,13 +234,21 @@ void			validate_plane(t_rt *rt, int pl);
 void			validate_cylinder(t_rt *rt, int cy);
 
 // ray_casting folder
+// discriminant.c functions
+t_discriminant	calculate_discriminant_ray_sphere(t_ray ray, t_sphere *sphere);
+t_discriminant	calculate_discriminant_ray_cylinder(t_ray ray, \
+					t_cylinder *cylinder);
+
 // intersection_ray_object.c functions
 t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere *sphere);
+t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
+					t_cylinder *cylinder);
 
 // intersections.c functions
 void			add_intersection(t_intersections **intersections, \
 					t_intersection new);
-void			intersections(t_rt *rt, t_ray ray);
+void			intersections(t_rt *rt, t_ray ray, \
+					t_intersections **intersections);
 t_intersections	*get_hit(t_intersections *intersections);
 
 // list_utils.c functions
@@ -253,19 +259,19 @@ void			intersections_list_add(t_intersections **intersections, \
 void			free_intersections(t_intersections **intersections);
 
 // normal_reflecting.c functions
-t_coordinates	calculate_sphere_normal(t_intersections *hit);
+t_coordinates	calculate_normal(t_intersections *hit);
 t_coordinates	calculate_reflecting_vector(t_coordinates light, \
 					t_coordinates normal);
 
 // ray_utils.c functions
 t_ray			create_ray(t_rt *rt, double x, double y);
 t_coordinates	calculate_ray_position(t_ray ray, double t);
-t_discriminant	calculate_discriminant_ray_sphere(t_ray ray, t_sphere *sphere);
 t_ray			transform_ray(t_ray ray, double **matrix);
 
 // render folder
 // lightning.c functions
 t_color			lightning(t_rt *rt);
+int				is_shadowed(t_rt *rt);
 
 // render.c functions
 double			**transform_view(t_rt *rt, t_coordinates up);
