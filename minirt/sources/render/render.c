@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:28:08 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/09 23:24:23 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:21:13 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,26 @@ double	**transform_view(t_rt *rt, t_coordinates up)
 	return (transformation);
 }
 
-// void	calculate_pixel_size(t_rt *rt)
-// {
-// 	double	aspect;
-// 	double	half_view;
+void	calculate_pixel_size(t_rt *rt)
+{
+	double	aspect;
+	double	half_view;
 
-// 	half_view = tan(rt->camera.fov * 3.141592 / 360);
-// 	printf("fov: %f\n", rt->camera.fov);
-// 	printf("half_view: %f\n", half_view);
-// 	aspect = WIDTH / HEIGHT;
-// 	if (aspect >= 1)
-// 	{
-// 		rt->render.half_width = half_view;
-// 		rt->render.half_height = half_view / aspect;
-// 	}
-// 	else
-// 	{
-// 		rt->render.half_width = half_view * aspect;
-// 		rt->render.half_height = half_view;
-// 	}
-// 	rt->render.pixel_size = rt->render.half_width * 100 / HEIGHT;
-// }
+	half_view = tan(rt->camera.fov * M_PI / 360);
+	aspect = (double)WIDTH / (double)HEIGHT;
+	if (aspect >= 1)
+	{
+		rt->render.half_width = half_view;
+		rt->render.half_height = half_view / aspect;
+		rt->render.pixel_size = half_view * 2 / WIDTH;
+	}
+	else
+	{
+		rt->render.half_width = half_view * aspect;
+		rt->render.half_height = half_view;
+		rt->render.pixel_size = half_view * 2 / HEIGHT;
+	}
+}
 
 void	draw(t_rt *rt)
 {
@@ -69,21 +68,19 @@ void	draw(t_rt *rt)
 	double			y;
 	t_ray			ray;
 
-	// rt->render.pixel_size = 0.03;
-	//rt->render.pixel_size /= tan(rt->camera.fov * 3.14 / 360);
-	printf("pixel_size: %f\n", rt->render.pixel_size);
-	rt->render.transformation = transform_view(rt, create_vector(1, 0, 0));
-	rt->render.inverse = invert_matrix(rt->render.transformation);
+	calculate_pixel_size(rt);
+	// rt->render.transformation = transform_view(rt, create_point(1, 0, 0));
+	// rt->render.inverse = invert_matrix(rt->render.transformation);
 	j = 0;
 	while (j < HEIGHT)
 	{
-		y = rt->render.half_wall - rt->render.pixel_size * j;
+		y = rt->render.half_height - rt->render.pixel_size * j;
 		i = 0;
 		while (i < WIDTH)
 		{
-			x = -rt->render.half_wall + rt->render.pixel_size * i;
+			x = -rt->render.half_width + rt->render.pixel_size * i;
 			ray = create_ray(rt, x, y);
-			intersections(rt, ray);
+			intersections(rt, ray, &rt->intersections);
 			rt->hit = get_hit(rt->intersections);
 			if (rt->hit)
 			{
