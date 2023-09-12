@@ -34,7 +34,8 @@ PARSER			=		parser.c \
 						validate_elements.c \
 						validate_numbers.c \
 						validate_objects.c
-RAY_CASTING		=		intersection_ray_object.c \
+RAY_CASTING		=		discriminant.c \
+						intersection_ray_object.c \
 						intersections.c \
 						list_utils.c \
 						normal_reflecting.c \
