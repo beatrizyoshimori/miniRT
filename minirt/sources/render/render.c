@@ -6,13 +6,13 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:28:08 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/11 21:21:13 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:08:01 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	**transform_view(t_rt *rt, t_coordinates up)
+void	set_transformation_matrix(t_rt *rt, t_coordinates up)
 {
 	double			**orientation;
 	double			**translation;
@@ -20,9 +20,9 @@ double	**transform_view(t_rt *rt, t_coordinates up)
 	t_coordinates	left;
 	t_coordinates	true_up;
 
-	orientation = create_identity_matrix(4);
-	left = calculate_cross_product(rt->camera.vector, normalize_vector(up));
+	left = calculate_cross_product(rt->camera.vector, up);
 	true_up = calculate_cross_product(left, rt->camera.vector);
+	orientation = create_identity_matrix(4);
 	orientation[0][0] = left.x;
 	orientation[0][1] = left.y;
 	orientation[0][2] = left.z;
@@ -36,7 +36,20 @@ double	**transform_view(t_rt *rt, t_coordinates up)
 	transformation = multiply_matrices(orientation, translation);
 	free_matrix(&orientation);
 	free_matrix(&translation);
-	return (transformation);
+	rt->render.inverse = invert_matrix(transformation);
+	free_matrix(&transformation);
+}
+
+void	transform_view(t_rt *rt)
+{
+	t_coordinates	up;
+
+	up = create_vector(0, 1, 0);
+	if (are_equals(calculate_dot_product(rt->camera.vector, up), 1))
+		up = create_vector(1, 0, 0);
+	if (are_equals(calculate_dot_product(rt->camera.vector, up), -1))
+		up = create_vector(-1, 0, 0);
+	set_transformation_matrix(rt, up);
 }
 
 void	calculate_pixel_size(t_rt *rt)
@@ -64,22 +77,15 @@ void	draw(t_rt *rt)
 {
 	int				i;
 	int				j;
-	double			x;
-	double			y;
 	t_ray			ray;
 
-	calculate_pixel_size(rt);
-	// rt->render.transformation = transform_view(rt, create_point(1, 0, 0));
-	// rt->render.inverse = invert_matrix(rt->render.transformation);
-	j = 0;
-	while (j < HEIGHT)
+	j = -1;
+	while (++j < HEIGHT)
 	{
-		y = rt->render.half_height - rt->render.pixel_size * j;
-		i = 0;
-		while (i < WIDTH)
+		i = -1;
+		while (++i < WIDTH)
 		{
-			x = -rt->render.half_width + rt->render.pixel_size * i;
-			ray = create_ray(rt, x, y);
+			ray = create_ray(rt, i, j);
 			intersections(rt, ray, &rt->intersections);
 			rt->hit = get_hit(rt->intersections);
 			if (rt->hit)
@@ -91,11 +97,8 @@ void	draw(t_rt *rt)
 					| rt->hit->color.blue << 8 | 255);
 			}
 			free_intersections(&rt->intersections);
-			i++;
 		}
-		j++;
 	}
-	free_matrix(&rt->render.transformation);
 	free_matrix(&rt->render.inverse);
 }
 
@@ -110,6 +113,8 @@ void	render(t_rt *rt)
 		mlx_close_window(rt->render.mlx);
 		print_error(MLX_IMAGE, rt);
 	}
+	transform_view(rt);
+	calculate_pixel_size(rt);
 	draw(rt);
 	if (mlx_image_to_window(rt->render.mlx, rt->render.image, 0, 0) == -1)
 	{
