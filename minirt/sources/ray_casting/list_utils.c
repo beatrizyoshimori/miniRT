@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byoshimo <byoshimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:20:58 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/09 16:05:56 by byoshimo         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:30:50 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 t_intersections	*new_intersection(t_intersection new, \
-	int i, int position_camera)
+	int i, t_ray ray)
 {
 	t_intersections	*head;
 
@@ -23,13 +23,19 @@ t_intersections	*new_intersection(t_intersection new, \
 	head->type = new.type;
 	head->t = new.t[i];
 	head->hit_point = new.hit_point[i];
+	head->eye_vector = negate_tuple(ray.vector);
 	if (new.type == SP)
 		head->sphere = new.sphere;
 	else if (new.type == PL)
 		head->plane = new.plane;
 	else
 		head->cylinder = new.cylinder;
-	head->position_camera = position_camera;
+	calculate_normal(head);
+	if (calculate_dot_product(head->eye_vector, head->normal) < 0)
+	{
+		head->position_camera = INSIDE;
+		head->normal = negate_tuple(head->normal);
+	}
 	head->next = NULL;
 	return (head);
 }
@@ -80,6 +86,7 @@ void	free_intersections(t_intersections **intersections)
 	{
 		aux = (*intersections)->next;
 		free(*intersections);
+		*intersections = NULL;
 		(*intersections) = aux;
 	}
 }
