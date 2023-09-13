@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/12 21:17:22 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:52:32 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,9 +239,8 @@ void			validate_cylinder(t_rt *rt, int cy);
 
 // ray_casting folder
 // discriminant.c functions
-t_discriminant	calculate_discriminant_ray_sphere(t_ray ray, t_sphere *sphere);
-t_discriminant	calculate_discriminant_ray_cylinder(t_ray ray, \
-					t_cylinder *cylinder);
+t_discriminant	calculate_discriminant_ray_sphere(t_ray ray);
+t_discriminant	calculate_discriminant_ray_cylinder(t_ray ray);
 
 // intersection_ray_object.c functions
 t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere *sphere);
