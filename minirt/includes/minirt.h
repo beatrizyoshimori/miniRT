@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/11 21:36:04 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:17:22 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <math.h>
 
 # define EPSILON 0.00001
-# define HEIGHT 800
-# define WIDTH 800
+# define HEIGHT 500
+# define WIDTH 1000
 # define VECTOR 0
 # define POINT 1
 # define X_AXIS 1
@@ -85,6 +85,8 @@ typedef struct s_sphere
 	t_coordinates	point;
 	double			diameter;
 	t_color			color;
+	double			**inverse;
+	double			**transpose;
 }	t_sphere;
 
 typedef struct s_plane
@@ -140,6 +142,8 @@ typedef struct s_intersections
 	t_ray					ray;
 	t_color					color;
 	int						position_camera;
+	t_coordinates			eye_vector;
+	t_coordinates			normal;
 	struct s_intersections	*next;
 }	t_intersections;
 
@@ -245,7 +249,7 @@ t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
 					t_cylinder *cylinder);
 
 // intersections.c functions
-void			add_intersection(t_intersections **intersections, \
+void			add_intersection(t_ray ray, t_intersections **intersections, \
 					t_intersection new);
 void			intersections(t_rt *rt, t_ray ray, \
 					t_intersections **intersections);
@@ -253,13 +257,13 @@ t_intersections	*get_hit(t_intersections *intersections);
 
 // list_utils.c functions
 t_intersections	*new_intersection(t_intersection new, \
-					int i, int position_camera);
+					int i, t_ray ray);
 void			intersections_list_add(t_intersections **intersections, \
 					t_intersections *new);
 void			free_intersections(t_intersections **intersections);
 
 // normal_reflecting.c functions
-t_coordinates	calculate_normal(t_intersections *hit);
+void			calculate_normal(t_intersections *hit);
 t_coordinates	calculate_reflecting_vector(t_coordinates light, \
 					t_coordinates normal);
 
@@ -274,7 +278,6 @@ t_color			lightning(t_rt *rt);
 int				is_shadowed(t_rt *rt);
 
 // render.c functions
-double			**transform_view(t_rt *rt, t_coordinates up);
 void			render(t_rt *rt);
 
 // tuples folder
