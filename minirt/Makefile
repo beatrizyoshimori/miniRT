@@ -65,7 +65,7 @@ CC				=		cc
 RM				=		rm -rf
 
 ######################### FLAGS ###############################
-C_FLAGS			=		-Wall -Werror -Wextra -I$(HEADER_PATH) -I$(LIBFT_H)
+C_FLAGS			=		-Wall -Werror -Wextra -O3 -I$(HEADER_PATH) -I$(LIBFT_H)
 FLAGS			=		-lm -ldl -lglfw -pthread
 LIBFT_FLAGS		=		-L$(LIBFT_PATH) -lft
 FLAGS_EXTRA		=		-g3 -O3 -MP
