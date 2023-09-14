@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:21:50 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/01 17:12:52 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:55:45 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,23 @@ void	validate_camera(t_rt *rt)
 	rt->camera.camera = 1;
 }
 
-void	validate_light(t_rt *rt)
+void	validate_light(t_rt *rt, int lights)
 {
-	if (rt->light.light)
-		print_error(NUM_LIGHT, rt);
 	if (rt->element[4])
 		print_error(ARG_LIGHT, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
 		print_error(POINT_LIGHT, rt);
-	set_coordinates(&rt->light.point, rt->coordinates, POINT);
+	set_coordinates(&rt->lights[lights].point, rt->coordinates, POINT);
 	free_ptrptr(&rt->coordinates);
 	if (!validate_double(rt->element[2]))
 		print_error(D_BRIGHT_LIGHT, rt);
-	rt->light.brightness = ft_atod(rt->element[2]);
-	if (rt->light.brightness < 0 || rt->light.brightness > 1)
+	rt->lights[lights].brightness = ft_atod(rt->element[2]);
+	if (rt->lights[lights].brightness < 0 || rt->lights[lights].brightness > 1)
 		print_error(R_BRIGHT_LIGHT, rt);
 	rt->color = ft_split(rt->element[3], ',');
 	if (!validate_color(rt->color))
 		print_error(COLOR_LIGHT, rt);
-	set_color(&rt->light.color, rt->color);
+	set_color(&rt->lights[lights].color, rt->color);
 	free_ptrptr(&rt->color);
-	rt->light.light = 1;
 }

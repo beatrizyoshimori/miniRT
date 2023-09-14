@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/01 16:29:08 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:30:36 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	validate_element(t_rt *rt)
 	else if (!ft_strncmp(rt->element[0], "C", 2))
 		validate_camera(rt);
 	else if (!ft_strncmp(rt->element[0], "L", 2))
-		validate_light(rt);
+		rt->num_lights++;
 	else if (!ft_strncmp(rt->element[0], "sp", 3))
 		rt->num_sp++;
 	else if (!ft_strncmp(rt->element[0], "pl", 3))
@@ -32,11 +32,17 @@ static void	validate_element(t_rt *rt)
 
 static void	validate_object(t_rt *rt)
 {
+	static int	lights = 0;
 	static int	sp = 0;
 	static int	pl = 0;
 	static int	cy = 0;
 
-	if (!ft_strncmp(rt->element[0], "sp", 3))
+	if (!ft_strncmp(rt->element[0], "L", 2))
+	{
+		validate_light(rt, lights);
+		lights++;
+	}
+	else if (!ft_strncmp(rt->element[0], "sp", 3))
 	{
 		validate_sphere(rt, sp);
 		sp++;
@@ -79,8 +85,9 @@ void	parser(t_rt *rt)
 		free_ptrptr(&rt->element);
 		i++;
 	}
-	if (!rt->amb_light.amb_light || !rt->light.light || !rt->camera.camera)
+	if (!rt->amb_light.amb_light || !rt->camera.camera || !rt->num_lights)
 		print_error(MISS_ELEMENT, rt);
+	rt->lights = (t_light *)ft_calloc(rt->num_lights + 1, sizeof(t_light));
 	if (rt->num_sp)
 		rt->spheres = (t_sphere *)ft_calloc(rt->num_sp + 1, sizeof(t_sphere));
 	if (rt->num_pl)

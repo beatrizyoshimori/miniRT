@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/13 18:52:32 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:24:28 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <math.h>
 
 # define EPSILON 0.00001
-# define HEIGHT 500
-# define WIDTH 1000
 # define VECTOR 0
 # define POINT 1
 # define X_AXIS 1
@@ -66,7 +64,6 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	int				light;
 	t_coordinates	point;
 	double			brightness;
 	t_color			color;
@@ -165,13 +162,14 @@ typedef struct s_rt
 	char			**element;
 	char			**coordinates;
 	char			**color;
+	t_material		material;
 	t_amb_light		amb_light;
 	t_camera		camera;
-	t_light			light;
 	int				num_sp;
 	int				num_pl;
 	int				num_cy;
-	t_material		material;
+	int				num_lights;
+	t_light			*lights;
 	t_sphere		*spheres;
 	t_plane			*planes;
 	t_cylinder		*cylinders;
@@ -226,7 +224,7 @@ int				validate_angle(char *angle);
 // validate_elements.c functions
 void			validate_amb_light(t_rt *rt);
 void			validate_camera(t_rt *rt);
-void			validate_light(t_rt *rt);
+void			validate_light(t_rt *rt, int lights);
 
 // validate_numbers.c functions
 int				validate_double(char *number);
@@ -274,7 +272,7 @@ t_ray			transform_ray(t_ray ray, double **matrix);
 // render folder
 // lightning.c functions
 t_color			lightning(t_rt *rt);
-int				is_shadowed(t_rt *rt);
+int				is_shadowed(t_rt *rt, int i);
 
 // render.c functions
 void			render(t_rt *rt);

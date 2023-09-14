@@ -1,3 +1,11 @@
+######################### DIMENSIONS ##########################
+ifeq ($(HEIGHT),)
+HEIGHT=1000
+endif
+ifeq ($(WIDTH),)
+WIDTH=1000
+endif
+
 ######################### NAMES ###############################
 NAME			=		miniRT
 
@@ -65,7 +73,7 @@ CC				=		cc
 RM				=		rm -rf
 
 ######################### FLAGS ###############################
-C_FLAGS			=		-Wall -Werror -Wextra -O3 -I$(HEADER_PATH) -I$(LIBFT_H)
+C_FLAGS			=		-Wall -Werror -Wextra -O3 -D HEIGHT=$(HEIGHT) -D WIDTH=$(WIDTH) -I$(HEADER_PATH) -I$(LIBFT_H)
 FLAGS			=		-lm -ldl -lglfw -pthread
 LIBFT_FLAGS		=		-L$(LIBFT_PATH) -lft
 FLAGS_EXTRA		=		-g3 -O3 -MP
@@ -93,5 +101,7 @@ fclean:					clean
 						@make -C $(LIBFT_PATH) fclean --no-print-directory
 
 re:						fclean all
+
+re-size:				re
 
 .PHONY:					all clean fclean re
