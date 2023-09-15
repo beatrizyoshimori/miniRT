@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/15 19:41:50 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:48:37 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_color	lightning(t_rt *rt)
 	t_color			color;
 	t_color			aux_color;
 
+	color = (t_color){0, 0, 0};
 	obj_color = get_object_color(rt);
 	i = -1;
 	while (++i < rt->num_lights)
