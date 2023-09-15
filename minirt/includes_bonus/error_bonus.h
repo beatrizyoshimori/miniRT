@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:04:27 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/14 18:02:08 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:05:56 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define VECTOR_CAM "Invalid camera vector."
 # define R_VECTOR_CAM "Invalid camera vector. Vector is not normalized."
 # define FOV_CAM "Invalid camera horizontal field of view."
-# define NUM_LIGHT "Invalid number of lights."
 # define ARG_LIGHT "Invalid number of arguments on light."
 # define POINT_LIGHT "Invalid light point."
 # define D_BRIGHT_LIGHT "Invalid light brightness. Brightness is not a double."
