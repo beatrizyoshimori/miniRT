@@ -6,13 +6,13 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:28:08 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/13 19:08:01 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:41:31 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	set_transformation_matrix(t_rt *rt, t_coordinates up)
+static void	set_transformation_matrix(t_rt *rt, t_coordinates up)
 {
 	double			**orientation;
 	double			**translation;
@@ -40,7 +40,7 @@ void	set_transformation_matrix(t_rt *rt, t_coordinates up)
 	free_matrix(&transformation);
 }
 
-void	transform_view(t_rt *rt)
+static void	transform_view(t_rt *rt)
 {
 	t_coordinates	up;
 
@@ -52,7 +52,7 @@ void	transform_view(t_rt *rt)
 	set_transformation_matrix(rt, up);
 }
 
-void	calculate_pixel_size(t_rt *rt)
+static void	calculate_pixel_size(t_rt *rt)
 {
 	double	aspect;
 	double	half_view;
@@ -73,7 +73,7 @@ void	calculate_pixel_size(t_rt *rt)
 	}
 }
 
-void	draw(t_rt *rt)
+static void	draw(t_rt *rt)
 {
 	int				i;
 	int				j;
