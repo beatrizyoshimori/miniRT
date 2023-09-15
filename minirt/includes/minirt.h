@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/15 19:42:27 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:58:21 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ typedef struct s_rt
 	t_intersections	*hit;
 }	t_rt;
 
+// sources folder
 // matrices folder
 // comparison_matrices.c functions
 int				matrix_length(double **matrix);
@@ -191,7 +192,7 @@ double			**create_identity_matrix(int size);
 double			**transpose_matrix(double **matrix);
 double			**invert_matrix(double **matrix);
 
-// determinant.c function
+// determinant.c functions
 double			**copy_submatrix(double **matrix, int size, int i, int j);
 double			calculate_determinant(double **matrix);
 double			**calculate_cofactor_matrix(double **matrix);
@@ -246,8 +247,6 @@ t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
 					t_cylinder *cylinder);
 
 // intersections.c functions
-void			add_intersection(t_ray ray, t_intersections **intersections, \
-					t_intersection new);
 void			intersections(t_rt *rt, t_ray ray, \
 					t_intersections **intersections);
 t_intersections	*get_hit(t_intersections *intersections);

@@ -6,14 +6,14 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:11:39 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/13 18:52:16 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:57:39 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 t_intersection	calculate_ray_sphere_intersections(t_ray ray_in, \
-	t_sphere *sphere)
+					t_sphere *sphere)
 {
 	t_intersection	inter;
 	t_discriminant	disc;
@@ -42,7 +42,7 @@ t_intersection	calculate_ray_sphere_intersections(t_ray ray_in, \
 }
 
 t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
-	t_cylinder *cylinder)
+					t_cylinder *cylinder)
 {
 	t_intersection	inter;
 	t_discriminant	disc;

@@ -6,14 +6,14 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:41:48 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/13 18:40:43 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:58:17 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	add_intersection(t_ray ray, t_intersections **intersections, \
-	t_intersection new)
+static void	add_intersection(t_ray ray, t_intersections **intersections, \
+			t_intersection new)
 {
 	int	i;
 

@@ -6,14 +6,14 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/15 19:48:37 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 20:00:07 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 static t_color	calculate_diffuse_specular(t_rt *rt, \
-	t_color effective_color, int i)
+					t_color effective_color, int i)
 {
 	double			light_dot_normal;
 	double			reflect_dot_eye;

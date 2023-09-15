@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 14:02:29 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/12 21:16:28 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:59:37 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	calculate_normal(t_intersections *hit)
 }
 
 t_coordinates	calculate_reflecting_vector(t_coordinates light, \
-	t_coordinates normal)
+					t_coordinates normal)
 {
 	return (subtract_tuples(light, \
 		multiply_tuple(2 * calculate_dot_product(light, normal), normal)));

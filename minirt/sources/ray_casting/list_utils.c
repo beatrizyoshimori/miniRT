@@ -6,14 +6,14 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:20:58 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/13 16:30:50 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:59:17 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 t_intersections	*new_intersection(t_intersection new, \
-	int i, t_ray ray)
+					int i, t_ray ray)
 {
 	t_intersections	*head;
 
@@ -41,7 +41,7 @@ t_intersections	*new_intersection(t_intersection new, \
 }
 
 static t_intersections	*get_intersections_position(t_intersections \
-	*intersections, t_intersections *new)
+							*intersections, t_intersections *new)
 {
 	if (intersections == NULL)
 		return (intersections);
@@ -55,7 +55,7 @@ static t_intersections	*get_intersections_position(t_intersections \
 }
 
 void	intersections_list_add(t_intersections **intersections, \
-	t_intersections *new)
+			t_intersections *new)
 {
 	t_intersections	*aux;
 	t_intersections	*aux_next;

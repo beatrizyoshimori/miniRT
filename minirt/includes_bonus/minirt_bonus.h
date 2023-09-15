@@ -6,14 +6,14 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/14 18:01:58 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 20:03:05 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_BONUS_H
 # define MINIRT_BONUS_H
 
-# include "error.h"
+# include "error_bonus.h"
 # include "libft.h"
 # include "MLX42.h"
 # include <stdio.h>
@@ -180,6 +180,7 @@ typedef struct s_rt
 	t_intersections	*hit;
 }	t_rt;
 
+// sources folder
 // matrices folder
 // comparison_matrices.c functions
 int				matrix_length(double **matrix);
@@ -191,7 +192,7 @@ double			**create_identity_matrix(int size);
 double			**transpose_matrix(double **matrix);
 double			**invert_matrix(double **matrix);
 
-// determinant.c function
+// determinant.c functions
 double			**copy_submatrix(double **matrix, int size, int i, int j);
 double			calculate_determinant(double **matrix);
 double			**calculate_cofactor_matrix(double **matrix);
@@ -206,10 +207,6 @@ double			**create_translation_matrix(t_coordinates tuple);
 double			**create_scaling_matrix(t_coordinates tuple);
 double			**create_rotation_matrix(int axis, double angle);
 double			**create_shearing_matrix(double proportions[6]);
-
-// parser folder
-// parser.c function
-void			parser(t_rt *rt);
 
 // set_data.c functions
 void			set_coordinates(t_coordinates *dest, char **src, double w);
@@ -246,8 +243,6 @@ t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
 					t_cylinder *cylinder);
 
 // intersections.c functions
-void			add_intersection(t_ray ray, t_intersections **intersections, \
-					t_intersection new);
 void			intersections(t_rt *rt, t_ray ray, \
 					t_intersections **intersections);
 t_intersections	*get_hit(t_intersections *intersections);
@@ -270,11 +265,10 @@ t_coordinates	calculate_ray_position(t_ray ray, double t);
 t_ray			transform_ray(t_ray ray, double **matrix);
 
 // render folder
-// lightning.c functions
+// lightning.c function
 t_color			lightning(t_rt *rt);
-int				is_shadowed(t_rt *rt, int i);
 
-// render.c functions
+// render.c function
 void			render(t_rt *rt);
 
 // tuples folder
@@ -306,11 +300,16 @@ double			calculate_dot_product(t_coordinates v, t_coordinates u);
 t_coordinates	calculate_cross_product(t_coordinates v, t_coordinates u);
 
 // utils folder
-// error.c functions
+// error.c function
 void			print_error(char *error, t_rt *rt);
 
 // free.c functions
 void			free_ptrptr(char ***ptrptr);
 void			free_matrix(double ***matrix);
+
+// sources_bonus folder
+// parser_bonus folder
+// parser_bonus.c function
+void			parser(t_rt *rt);
 
 #endif
