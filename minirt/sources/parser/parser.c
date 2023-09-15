@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/14 16:30:36 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:56:39 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	parser(t_rt *rt)
 	}
 	if (!rt->amb_light.amb_light || !rt->camera.camera || !rt->num_lights)
 		print_error(MISS_ELEMENT, rt);
+	if (rt->num_lights > 1)
+		print_error(NUM_LIGHT, rt);
 	rt->lights = (t_light *)ft_calloc(rt->num_lights + 1, sizeof(t_light));
 	if (rt->num_sp)
 		rt->spheres = (t_sphere *)ft_calloc(rt->num_sp + 1, sizeof(t_sphere));
