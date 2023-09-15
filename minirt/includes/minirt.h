@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/14 16:24:28 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:42:27 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,11 +270,10 @@ t_coordinates	calculate_ray_position(t_ray ray, double t);
 t_ray			transform_ray(t_ray ray, double **matrix);
 
 // render folder
-// lightning.c functions
+// lightning.c function
 t_color			lightning(t_rt *rt);
-int				is_shadowed(t_rt *rt, int i);
 
-// render.c functions
+// render.c function
 void			render(t_rt *rt);
 
 // tuples folder
@@ -306,7 +305,7 @@ double			calculate_dot_product(t_coordinates v, t_coordinates u);
 t_coordinates	calculate_cross_product(t_coordinates v, t_coordinates u);
 
 // utils folder
-// error.c functions
+// error.c function
 void			print_error(char *error, t_rt *rt);
 
 // free.c functions
