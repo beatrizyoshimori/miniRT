@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 15:20:27 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/06 16:52:06 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:29:01 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,25 @@ double	**transpose_matrix(double **matrix)
 
 double	**invert_matrix(double **matrix)
 {
+	int		i;
+	int		size;
 	double	determinant;
-	double	**cofactor;
 	double	**trans_cofactor;
 	double	**inverse;
 
-	cofactor = calculate_cofactor_matrix(matrix);
-	trans_cofactor = transpose_matrix(cofactor);
-	free_matrix(&cofactor);
+	size = matrix_length(matrix);
 	determinant = calculate_determinant(matrix);
 	if (!determinant)
-		return (NULL);
+	{
+		inverse = create_identity_matrix(size);
+		i = -1;
+		while (++i < size)
+			inverse[i][i] = 0;
+		return (inverse);
+	}
+	inverse = calculate_cofactor_matrix(matrix);
+	trans_cofactor = transpose_matrix(inverse);
+	free_matrix(&inverse);
 	inverse = multiply_matrix_by_scalar(1 / determinant, trans_cofactor);
 	free_matrix(&trans_cofactor);
 	return (inverse);
