@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/15 20:03:05 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:07:35 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 # define SP 1
 # define CY 2
 # define PL 3
-# define OUTSIDE 0
-# define INSIDE 1
 
 typedef struct s_coordinates
 {
@@ -138,7 +136,6 @@ typedef struct s_intersections
 	t_cylinder				*cylinder;
 	t_ray					ray;
 	t_color					color;
-	int						position_camera;
 	t_coordinates			eye_vector;
 	t_coordinates			normal;
 	struct s_intersections	*next;
@@ -165,10 +162,10 @@ typedef struct s_rt
 	t_material		material;
 	t_amb_light		amb_light;
 	t_camera		camera;
+	int				num_lights;
 	int				num_sp;
 	int				num_pl;
 	int				num_cy;
-	int				num_lights;
 	t_light			*lights;
 	t_sphere		*spheres;
 	t_plane			*planes;
