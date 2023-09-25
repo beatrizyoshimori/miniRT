@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/25 12:07:35 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:16:15 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ typedef struct s_plane
 	t_coordinates	point;
 	t_coordinates	vector;
 	t_color			color;
+	double			**inverse;
+	double			**transpose;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -98,6 +100,8 @@ typedef struct s_cylinder
 	double			diameter;
 	double			height;
 	t_color			color;
+	double			**inverse;
+	double			**transpose;
 }	t_cylinder;
 
 typedef struct s_ray
@@ -199,6 +203,12 @@ double			**multiply_matrices(double **A, double **B);
 t_coordinates	multiply_matrix_tuple(double **A, t_coordinates t);
 double			**multiply_matrix_by_scalar(double scalar, double **matrix);
 
+// rotation_matrices_objects.c function
+double			**calculate_rotation_matrix(t_coordinates vector);
+
+// transformation_matrices_objects.c function
+void			init_object_matrices(t_rt *rt);
+
 // transformations_matrices.c functions
 double			**create_translation_matrix(t_coordinates tuple);
 double			**create_scaling_matrix(t_coordinates tuple);
@@ -236,6 +246,7 @@ t_discriminant	calculate_discriminant_ray_cylinder(t_ray ray);
 
 // intersection_ray_object.c functions
 t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere *sphere);
+t_intersection	calculate_ray_plane_intersections(t_ray ray_in, t_plane *plane);
 t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
 					t_cylinder *cylinder);
 

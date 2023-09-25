@@ -33,6 +33,8 @@ MATRICES		=		comparison_matrices.c \
 						create_matrix.c \
 						determinant.c \
 						operations_matrices.c \
+						rotation_matrices_objects.c \
+						transformations_matrices_objects.c \
 						transformations_matrices.c
 PARSER			=		parser.c \
 						set_data.c \
