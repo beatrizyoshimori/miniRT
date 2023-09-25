@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:20:58 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/15 19:59:17 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:07:53 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ t_intersections	*new_intersection(t_intersection new, \
 		head->cylinder = new.cylinder;
 	calculate_normal(head);
 	if (calculate_dot_product(head->eye_vector, head->normal) < 0)
-	{
-		head->position_camera = INSIDE;
 		head->normal = negate_tuple(head->normal);
-	}
 	head->next = NULL;
 	return (head);
 }
