@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/13 18:39:07 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:34:47 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	read_rt(t_rt *rt, char *file)
 	free(buffer);
 }
 
-void	init_object_matrix(t_rt *rt)
+void	init_object_matrices(t_rt *rt)
 {
 	int		i;
 	double	r;
@@ -89,7 +89,7 @@ int	main(int argc, char *argv[])
 	check_arg(argc, argv);
 	read_rt(rt, argv[1]);
 	parser(rt);
-	init_object_matrix(rt);
+	init_object_matrices(rt);
 	render(rt);
 	return (0);
 }
