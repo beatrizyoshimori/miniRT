@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/15 14:56:39 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:22:55 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ void	parser(t_rt *rt)
 	if (rt->num_sp)
 		rt->spheres = (t_sphere *)ft_calloc(rt->num_sp + 1, sizeof(t_sphere));
 	if (rt->num_pl)
-		rt->planes = (t_plane *)ft_calloc(rt->num_sp + 1, sizeof(t_plane));
+		rt->planes = (t_plane *)ft_calloc(rt->num_pl + 1, sizeof(t_plane));
 	if (rt->num_cy)
-		rt->cylinders = (t_cylinder *)ft_calloc(rt->num_sp + 1, \
+		rt->cylinders = (t_cylinder *)ft_calloc(rt->num_cy + 1, \
 			sizeof(t_cylinder));
 	add_objects(rt);
 	free_ptrptr(&rt->elements);
