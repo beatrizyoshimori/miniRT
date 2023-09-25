@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/25 14:16:24 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:52:09 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct s_cylinder
 	t_coordinates	vector;
 	double			diameter;
 	double			height;
+	double			min;
+	double			max;
 	t_color			color;
 	double			**inverse;
 	double			**transpose;

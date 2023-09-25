@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/01 17:13:28 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:54:04 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	validate_cylinder_aux(t_rt *rt, int cy)
 	rt->cylinders[cy].height = ft_atod(rt->element[4]);
 	if (rt->cylinders[cy].height <= 0)
 		print_error(R_HEIGHT_CY, rt);
+	rt->cylinders[cy].max = rt->cylinders[cy].height / 2;
+	rt->cylinders[cy].min = -rt->cylinders[cy].max;
 	rt->color = ft_split(rt->element[5], ',');
 	if (!validate_color(rt->color))
 		print_error(COLOR_CY, rt);
