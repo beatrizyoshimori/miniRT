@@ -6,25 +6,39 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 16:20:46 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/15 20:00:07 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_color	calculate_diffuse(t_rt *rt, t_color effective_color, int i)
+static t_color	calculate_diffuse_specular(t_rt *rt, \
+					t_color effective_color, int i)
 {
 	double			light_dot_normal;
+	double			reflect_dot_eye;
 	t_color			aux_color;
 	t_coordinates	light_vector;
+	t_coordinates	reflect_vector;
 
 	aux_color = (t_color){0, 0, 0};
 	light_vector = normalize_vector(subtract_tuples(rt->lights[i].point, \
 		rt->hit->hit_point));
 	light_dot_normal = calculate_dot_product(light_vector, rt->hit->normal);
 	if (light_dot_normal >= 0)
+	{
 		aux_color = multiply_color_by_scalar(rt->material.diffuse \
 			* light_dot_normal, effective_color);
+		reflect_vector = calculate_reflecting_vector \
+			(negate_tuple(light_vector), rt->hit->normal);
+		reflect_dot_eye = calculate_dot_product(reflect_vector, \
+			rt->hit->eye_vector);
+		if (reflect_dot_eye > 0)
+			aux_color = add_colors(aux_color, \
+				multiply_color_by_scalar(rt->lights[i].brightness \
+				* rt->material.specular * pow(reflect_dot_eye, \
+				rt->material.shininess), rt->lights[i].color));
+	}
 	return (aux_color);
 }
 
@@ -85,7 +99,7 @@ t_color	lightning(t_rt *rt)
 			rt->amb_light.color)));
 		if (!is_shadowed(rt, i) || !rt->lights[i].brightness)
 			aux_color = add_colors(aux_color, \
-				calculate_diffuse(rt, effective_color, i));
+				calculate_diffuse_specular(rt, effective_color, i));
 		color = add_colors(aux_color, color);
 	}
 	return (color);
