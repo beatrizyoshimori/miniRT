@@ -134,6 +134,4 @@ fclean:					clean
 
 re:						fclean all
 
-re-size:				re
-
 .PHONY:					all bonus clean fclean re
