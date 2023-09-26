@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 14:02:29 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/25 14:07:58 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/25 21:17:17 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	calculate_normal(t_intersections *hit)
 {
+	double			dist;
 	t_coordinates	o_point;
 	t_coordinates	o_normal;
 	t_coordinates	w_normal;
@@ -28,8 +29,16 @@ void	calculate_normal(t_intersections *hit)
 		w_normal = hit->plane->vector;
 	else if (hit->type == CY)
 	{
-		o_point = multiply_matrix_tuple(hit->cylinder->inverse, hit->hit_point);
-		o_normal = subtract_tuples(o_point, create_point(0, o_point.y, 0));
+		dist = hit->hit_point.x * hit->hit_point.x + hit->hit_point.z * hit->hit_point.z;
+		if (dist < 1.0 && hit->hit_point.y >= hit->cylinder->max - EPSILON)
+			o_normal = create_vector(0, 1, 0);
+		else if (dist < 1.0 && hit->hit_point.y <= hit->cylinder->min + EPSILON)
+			o_normal = create_vector(0, -1, 0);
+		else
+		{
+			o_point = multiply_matrix_tuple(hit->cylinder->inverse, hit->hit_point);
+			o_normal = create_vector(o_point.x, 0, o_point.z);
+		}
 		w_normal = multiply_matrix_tuple(hit->cylinder->transpose, o_normal);
 	}
 	w_normal.w = 0;
