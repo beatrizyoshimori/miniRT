@@ -6,15 +6,14 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 14:02:29 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/25 21:17:17 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:55:30 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	calculate_normal(t_intersections *hit)
+static void	calculate_normal_sphere_plane(t_intersections *hit)
 {
-	double			dist;
 	t_coordinates	o_point;
 	t_coordinates	o_normal;
 	t_coordinates	w_normal;
@@ -27,22 +26,39 @@ void	calculate_normal(t_intersections *hit)
 	}
 	else if (hit->type == PL)
 		w_normal = hit->plane->vector;
-	else if (hit->type == CY)
+	w_normal.w = 0;
+	hit->normal = normalize_vector(w_normal);
+}
+
+static void	calculate_normal_cylinder(t_intersections *hit)
+{
+	double			dist;
+	t_coordinates	o_point;
+	t_coordinates	o_normal;
+	t_coordinates	w_normal;
+
+	if (hit->type == CY)
 	{
-		dist = hit->hit_point.x * hit->hit_point.x + hit->hit_point.z * hit->hit_point.z;
-		if (dist < 1.0 && hit->hit_point.y >= hit->cylinder->max - EPSILON)
+		o_point = multiply_matrix_tuple(hit->cylinder->inverse, hit->hit_point);
+		dist = o_point.x * o_point.x + o_point.z * o_point.z;
+		if (dist < 1 && o_point.y >= hit->cylinder->max - EPSILON)
 			o_normal = create_vector(0, 1, 0);
-		else if (dist < 1.0 && hit->hit_point.y <= hit->cylinder->min + EPSILON)
+		else if (dist < 1 && o_point.y <= hit->cylinder->min + EPSILON)
 			o_normal = create_vector(0, -1, 0);
 		else
-		{
-			o_point = multiply_matrix_tuple(hit->cylinder->inverse, hit->hit_point);
 			o_normal = create_vector(o_point.x, 0, o_point.z);
-		}
 		w_normal = multiply_matrix_tuple(hit->cylinder->transpose, o_normal);
 	}
 	w_normal.w = 0;
 	hit->normal = normalize_vector(w_normal);
+}
+
+void	calculate_normal(t_intersections *hit)
+{
+	if (hit->type == SP || hit->type == PL)
+		calculate_normal_sphere_plane(hit);
+	else if (hit->type == CY)
+		calculate_normal_cylinder(hit);
 }
 
 t_coordinates	calculate_reflecting_vector(t_coordinates light, \
