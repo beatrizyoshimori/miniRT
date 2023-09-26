@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:11:39 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/25 21:12:54 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:18:55 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ void	calculate_intersect_caps(t_ray ray_in, t_ray ray, \
 t_intersection	calculate_ray_cylinder_intersections(t_ray ray_in, \
 					t_cylinder *cylinder)
 {
-	double			t0;
-	double			t1;
 	double			y;
 	t_intersection	inter;
 	t_discriminant	disc;
@@ -109,19 +107,19 @@ t_intersection	calculate_ray_cylinder_intersections(t_ray ray_in, \
 	disc = calculate_discriminant_ray_cylinder(ray);
 	if (disc.discriminant >= 0)
 	{
-		t0 = (-disc.b - sqrt(disc.discriminant)) / (2 * disc.a);
-		t1 = (-disc.b + sqrt(disc.discriminant)) / (2 * disc.a);
-		y = ray.point.y + t0 * ray.vector.y;
+		inter.t[0] = (-disc.b - sqrt(disc.discriminant)) / (2 * disc.a);
+		inter.t[1] = (-disc.b + sqrt(disc.discriminant)) / (2 * disc.a);
+		y = ray.point.y + inter.t[0] * ray.vector.y;
 		if (y > cylinder->min && y < cylinder->max)
 		{
-			inter.t[inter.count] = t0;
-			inter.hit_point[inter.count++] = calculate_ray_position(ray_in, t0);
+			inter.t[inter.count] = inter.t[0];
+			inter.hit_point[inter.count++] = calculate_ray_position(ray_in, inter.t[0]);
 		}
-		y = ray.point.y + t1 * ray.vector.y;
+		y = ray.point.y + inter.t[1] * ray.vector.y;
 		if (y > cylinder->min && y < cylinder->max)
 		{
-			inter.t[inter.count] = t1;
-			inter.hit_point[inter.count++] = calculate_ray_position(ray_in, t1);
+			inter.t[inter.count] = inter.t[1];
+			inter.hit_point[inter.count++] = calculate_ray_position(ray_in, inter.t[1]);
 		}
 	}
 	calculate_intersect_caps(ray_in, ray, cylinder, &inter);
