@@ -89,10 +89,10 @@ RM				=		rm -rf
 
 ######################### DIMENSIONS ##########################
 ifeq ($(HEIGHT),)
-HEIGHT=1000
+HEIGHT=800
 endif
 ifeq ($(WIDTH),)
-WIDTH=1000
+WIDTH=800
 endif
 
 ######################### FLAGS ###############################
