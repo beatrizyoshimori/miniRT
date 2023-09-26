@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/25 14:52:22 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:03:41 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct s_discriminant
 	double			b;
 	double			c;
 	double			discriminant;
+	double			t[2];
 	t_coordinates	vector;
 }	t_discriminant;
 
@@ -246,11 +247,13 @@ void			validate_cylinder(t_rt *rt, int cy);
 t_discriminant	calculate_discriminant_ray_sphere(t_ray ray);
 t_discriminant	calculate_discriminant_ray_cylinder(t_ray ray);
 
-// intersection_ray_object.c functions
-t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere *sphere);
-t_intersection	calculate_ray_plane_intersections(t_ray ray_in, t_plane *plane);
+// intersection_ray_cylinder.c functions
 t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
 					t_cylinder *cylinder);
+
+// intersection_ray_sphere_plane.c functions
+t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere *sphere);
+t_intersection	calculate_ray_plane_intersections(t_ray ray_in, t_plane *plane);
 
 // intersections.c functions
 void			intersections(t_rt *rt, t_ray ray, \

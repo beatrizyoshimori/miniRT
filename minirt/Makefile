@@ -18,7 +18,8 @@ VPATH			=		$(SOURCES_PATH) \
 														render \
 														tuples \
 														utils) \
-						$(addprefix $(SOURCES_B_PATH),	parser_bonus)
+						$(addprefix $(SOURCES_B_PATH),	parser_bonus \
+														lightning_bonus)
 
 ######################### MLX #################################
 MLX_H			=		$(addprefix $(HEADER_PATH), mlx/)
@@ -43,7 +44,8 @@ PARSER			=		parser.c \
 						validate_numbers.c \
 						validate_objects.c
 RAY_CASTING		=		discriminant.c \
-						intersection_ray_object.c \
+						intersection_ray_cylinder.c \
+						intersection_ray_sphere_plane.c \
 						intersections.c \
 						list_utils.c \
 						normal_reflecting.c \
@@ -71,11 +73,13 @@ PARSER_B		=		parser_bonus.c \
 						validate_elements.c \
 						validate_numbers.c \
 						validate_objects.c
+RENDER_B		=		lightning_bonus.c \
+						render.c
 SOURCES_B		=		minirt.c \
 						$(MATRICES) \
 						$(PARSER_B) \
 						$(RAY_CASTING) \
-						$(RENDER) \
+						$(RENDER_B) \
 						$(TUPLES) \
 						$(UTILS)
 
