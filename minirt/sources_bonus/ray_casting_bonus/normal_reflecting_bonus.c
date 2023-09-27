@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 14:02:29 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/27 19:23:49 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:52:31 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static void	calculate_normal_cylinder(t_intersections *hit)
 
 	o_point = multiply_matrix_tuple(hit->cylinder->inverse, hit->hit_point);
 	dist = o_point.x * o_point.x + o_point.z * o_point.z;
-	if (dist < 1 && are_equals(o_point.y, hit->cone->max))
+	if (dist < 1 && are_equals(o_point.y, hit->cylinder->max))
 		o_normal = create_vector(0, 1, 0);
-	else if (dist < 1 && are_equals(o_point.y, hit->cone->min))
+	else if (dist < 1 && are_equals(o_point.y, hit->cylinder->min))
 		o_normal = create_vector(0, -1, 0);
 	else
 		o_normal = create_vector(o_point.x, 0, o_point.z);
