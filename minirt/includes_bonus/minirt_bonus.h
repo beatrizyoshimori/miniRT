@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 22:15:57 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:28:37 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct s_intersection
 	t_sphere		*sphere;
 	t_plane			*plane;
 	t_cylinder		*cylinder;
+	t_cone			*cone;
 }	t_intersection;
 
 typedef struct s_intersections
@@ -155,6 +156,7 @@ typedef struct s_intersections
 	t_sphere				*sphere;
 	t_plane					*plane;
 	t_cylinder				*cylinder;
+	t_cone					*cone;
 	t_ray					ray;
 	t_color					color;
 	t_coordinates			eye_vector;
@@ -225,9 +227,6 @@ double			**multiply_matrix_by_scalar(double scalar, double **matrix);
 // rotation_matrices_objects.c function
 double			**calculate_rotation_matrix(t_coordinates vector);
 
-// transformation_matrices_objects.c function
-void			init_object_matrices(t_rt *rt);
-
 // transformations_matrices.c functions
 double			**create_translation_matrix(t_coordinates tuple);
 double			**create_scaling_matrix(t_coordinates tuple);
@@ -269,23 +268,6 @@ t_intersection	calculate_ray_plane_intersections(t_ray ray_in, t_plane *plane);
 t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
 					t_cylinder *cylinder);
 
-// intersections.c functions
-void			intersections(t_rt *rt, t_ray ray, \
-					t_intersections **intersections);
-t_intersections	*get_hit(t_intersections *intersections);
-
-// list_utils.c functions
-t_intersections	*new_intersection(t_intersection new, \
-					int i, t_ray ray);
-void			intersections_list_add(t_intersections **intersections, \
-					t_intersections *new);
-void			free_intersections(t_intersections **intersections);
-
-// normal_reflecting.c functions
-void			calculate_normal(t_intersections *hit);
-t_coordinates	calculate_reflecting_vector(t_coordinates light, \
-					t_coordinates normal);
-
 // ray_utils.c functions
 t_ray			create_ray(t_rt *rt, double x, double y);
 t_coordinates	calculate_ray_position(t_ray ray, double t);
@@ -324,6 +306,47 @@ double			calculate_dot_product(t_coordinates v, t_coordinates u);
 t_coordinates	calculate_cross_product(t_coordinates v, t_coordinates u);
 
 // sources_bonus folder
+// matrices_bonus folder
+// transformation_matrices_objects.c function
+void			init_object_matrices(t_rt *rt);
+
+// parser_bonus folder
+// parser_bonus.c function
+void			parser(t_rt *rt);
+
+// validate_cones_bonus.c function
+void			validate_cone(t_rt *rt, int co);
+
+// ray_casting_bonus folder
+// discriminant_cone_bonus.c function
+t_discriminant	calculate_discriminant_ray_cone(t_ray ray);
+
+// intersection_ray_cone_bonus.c function
+t_intersection	calculate_ray_cone_intersections(t_ray ray_in, \
+					t_cone *cone);
+
+// intersections_bonus.c function
+void			intersections(t_rt *rt, t_ray ray, \
+					t_intersections **intersections);
+t_intersections	*get_hit(t_intersections *intersections);
+
+// list_utils_bonus.c functions
+t_intersections	*new_intersection(t_intersection new, \
+					int i, t_ray ray);
+void			intersections_list_add(t_intersections **intersections, \
+					t_intersections *new);
+void			free_intersections(t_intersections **intersections);
+
+// normal_reflecting.c functions
+void			calculate_normal(t_intersections *hit);
+t_coordinates	calculate_reflecting_vector(t_coordinates light, \
+					t_coordinates normal);
+
+// render_bonus folder
+// lightning_bonus.c function
+t_color			lightning(t_rt *rt);
+
+// utils_bonus folder
 // error.c function
 void			print_error(char *error, t_rt *rt);
 
@@ -331,14 +354,5 @@ void			print_error(char *error, t_rt *rt);
 void			free_ptrptr(char ***ptrptr);
 void			free_matrix(double ***matrix);
 void			free_rt(t_rt *rt);
-
-// lightning_bonus.c function
-t_color			lightning(t_rt *rt);
-
-// parser_bonus.c function
-void			parser(t_rt *rt);
-
-// validate_cones_bonus.c function
-void			validate_cone(t_rt *rt, int co);
 
 #endif
