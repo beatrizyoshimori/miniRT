@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 14:02:29 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 15:55:30 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:52:15 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,15 @@ static void	calculate_normal_cylinder(t_intersections *hit)
 	t_coordinates	o_normal;
 	t_coordinates	w_normal;
 
-	if (hit->type == CY)
-	{
-		o_point = multiply_matrix_tuple(hit->cylinder->inverse, hit->hit_point);
-		dist = o_point.x * o_point.x + o_point.z * o_point.z;
-		if (dist < 1 && o_point.y >= hit->cylinder->max - EPSILON)
-			o_normal = create_vector(0, 1, 0);
-		else if (dist < 1 && o_point.y <= hit->cylinder->min + EPSILON)
-			o_normal = create_vector(0, -1, 0);
-		else
-			o_normal = create_vector(o_point.x, 0, o_point.z);
-		w_normal = multiply_matrix_tuple(hit->cylinder->transpose, o_normal);
-	}
+	o_point = multiply_matrix_tuple(hit->cylinder->inverse, hit->hit_point);
+	dist = o_point.x * o_point.x + o_point.z * o_point.z;
+	if (dist < 1 && are_equals(o_point.y, hit->cylinder->max))
+		o_normal = create_vector(0, 1, 0);
+	else if (dist < 1 && are_equals(o_point.y, hit->cylinder->min))
+		o_normal = create_vector(0, -1, 0);
+	else
+		o_normal = create_vector(o_point.x, 0, o_point.z);
+	w_normal = multiply_matrix_tuple(hit->cylinder->transpose, o_normal);
 	w_normal.w = 0;
 	hit->normal = normalize_vector(w_normal);
 }
