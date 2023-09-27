@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 21:48:49 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:25:38 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ static t_color	get_object_color(t_rt *rt)
 		return (rt->hit->sphere->color);
 	else if (rt->hit->type == PL)
 		return (rt->hit->plane->color);
-	return (rt->hit->cylinder->color);
+	else if (rt->hit->type == CY)
+		return (rt->hit->cylinder->color);
+	return (rt->hit->cone->color);
 }
 
 t_color	lightning(t_rt *rt)
