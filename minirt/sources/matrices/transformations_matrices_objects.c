@@ -6,13 +6,13 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:12:38 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/27 14:35:12 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:32:41 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	transform_spheres(t_rt *rt)
+static void	transform_spheres(t_rt *rt)
 {
 	int		i;
 	double	r;
@@ -36,7 +36,7 @@ void	transform_spheres(t_rt *rt)
 	}
 }
 
-void	transform_planes(t_rt *rt)
+static void	transform_planes(t_rt *rt)
 {
 	int		i;
 	double	**rotation;
@@ -58,7 +58,7 @@ void	transform_planes(t_rt *rt)
 	}
 }
 
-void	transform_cylinders(t_rt *rt)
+static void	transform_cylinders(t_rt *rt)
 {
 	int		i;
 	double	r;
