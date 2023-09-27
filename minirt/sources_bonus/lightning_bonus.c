@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lightning.c                                        :+:      :+:    :+:   */
+/*   lightning_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/15 20:00:07 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/26 21:48:49 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 static t_color	calculate_diffuse_specular(t_rt *rt, \
 					t_color effective_color, int i)
@@ -97,7 +97,7 @@ t_color	lightning(t_rt *rt)
 			effective_color), multiply_colors(obj_color, \
 			multiply_color_by_scalar(rt->amb_light.ratio, \
 			rt->amb_light.color)));
-		if (!is_shadowed(rt, i) || !rt->lights[i].brightness)
+		if (!is_shadowed(rt, i))
 			aux_color = add_colors(aux_color, \
 				calculate_diffuse_specular(rt, effective_color, i));
 		color = add_colors(aux_color, color);
