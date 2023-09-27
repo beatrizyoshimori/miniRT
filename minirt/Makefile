@@ -19,7 +19,8 @@ VPATH			=		$(SOURCES_PATH) \
 														tuples \
 														utils) \
 						$(addprefix $(SOURCES_B_PATH),	parser_bonus \
-														lightning_bonus)
+														render_bonus \
+														utils_bonus)
 
 ######################### MLX #################################
 MLX_H			=		$(addprefix $(HEADER_PATH), mlx/)

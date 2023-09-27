@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:00:22 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 22:07:22 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:32:58 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ static void	validate_element(t_rt *rt)
 		print_error(INV_ELEMENT, rt);
 }
 
-// static void	validate_object_cylinder_cone(t_rt *rt)
-// {
-// 	static int	cy = 0;
-// 	static int	co = 0;
+static void	validate_object_cylinder_cone(t_rt *rt)
+{
+	static int	cy = 0;
+	static int	co = 0;
 
-// 	if (!ft_strncmp(rt->element[0], "cy", 3))
-// 	{
-// 		validate_cylinder(rt, cy);
-// 		cy++;
-// 	}
-// 	else if (!ft_strncmp(rt->element[0], "co", 3))
-// 	{
-// 		validate_cone(rt, co);
-// 		co++;
-// 	}
-// }
+	if (!ft_strncmp(rt->element[0], "cy", 3))
+	{
+		validate_cylinder(rt, cy);
+		cy++;
+	}
+	else if (!ft_strncmp(rt->element[0], "co", 3))
+	{
+		validate_cone(rt, co);
+		co++;
+	}
+}
 
 static void	validate_object(t_rt *rt)
 {
@@ -70,19 +70,7 @@ static void	validate_object(t_rt *rt)
 		validate_plane(rt, pl);
 		pl++;
 	}
-	static int	cy = 0;
-	static int	co = 0;
-
-	if (!ft_strncmp(rt->element[0], "cy", 3))
-	{
-		validate_cylinder(rt, cy);
-		cy++;
-	}
-	else if (!ft_strncmp(rt->element[0], "co", 3))
-	{
-		validate_cone(rt, co);
-		co++;
-	}
+	validate_object_cylinder_cone(rt);
 }
 
 static void	add_objects(t_rt *rt)

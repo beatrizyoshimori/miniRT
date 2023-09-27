@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:12:38 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/25 14:28:15 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:35:12 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ void	transform_cylinders(t_rt *rt)
 
 void	init_object_matrices(t_rt *rt)
 {
-	transform_spheres(rt);
-	transform_planes(rt);
-	transform_cylinders(rt);
+	if (rt->num_sp)
+		transform_spheres(rt);
+	if (rt->num_pl)
+		transform_planes(rt);
+	if (rt->num_cy)
+		transform_cylinders(rt);
 }

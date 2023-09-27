@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 18:59:49 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:37:49 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,15 @@ static t_rt	*init_rt(void)
 	return (rt);
 }
 
+static void	close_window(void *parameter)
+{
+	t_rt	*rt;
+
+	rt = (t_rt *)parameter;
+	if (mlx_is_key_down(rt->render.mlx, MLX_KEY_ESCAPE))
+		free_rt(rt);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_rt	*rt;
@@ -64,5 +73,8 @@ int	main(int argc, char *argv[])
 	parser(rt);
 	init_object_matrices(rt);
 	render(rt);
+	mlx_loop_hook(rt->render.mlx, &close_window, rt);
+	mlx_loop(rt->render.mlx);
+	free_rt(rt);
 	return (0);
 }

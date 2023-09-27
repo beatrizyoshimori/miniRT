@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:28:08 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 20:16:53 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:36:50 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,6 @@ static void	draw(t_rt *rt)
 	free_matrix(&rt->render.inverse);
 }
 
-void	close_window(void *parameter)
-{
-	t_rt	*rt;
-
-	rt = (t_rt *)parameter;
-	if (mlx_is_key_down(rt->render.mlx, MLX_KEY_ESCAPE))
-		free_rt(rt);
-}
-
 void	render(t_rt *rt)
 {
 	rt->render.mlx = mlx_init(WIDTH, HEIGHT, "miniRT - bilu", true);
@@ -131,7 +122,4 @@ void	render(t_rt *rt)
 		mlx_delete_image(rt->render.mlx, rt->render.image);
 		print_error(MLX_IMAGE_TO_WIN, rt);
 	}
-	mlx_loop_hook(rt->render.mlx, &close_window, rt);
-	mlx_loop(rt->render.mlx);
-	free_rt(rt);
 }
