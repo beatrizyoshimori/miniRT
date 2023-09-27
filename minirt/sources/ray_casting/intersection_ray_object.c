@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:11:39 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/26 22:19:22 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:43:12 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_intersection	calculate_ray_plane_intersections(t_ray ray_in, \
 	return (inter);
 }
 
-int	check_cap(t_ray ray, double t)
+static int	check_cap(t_ray ray, double t)
 {
 	double	x;
 	double	z;
@@ -71,7 +71,7 @@ int	check_cap(t_ray ray, double t)
 	return (0);
 }
 
-void	calculate_intersect_caps(t_ray ray_in, t_ray ray, \
+static void	calculate_intersect_caps(t_ray ray_in, t_ray ray, \
 			t_cylinder *cylinder, t_intersection *inter)
 {
 	double	t;
