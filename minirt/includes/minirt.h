@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 22:16:16 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:45:35 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct s_intersection
 	t_sphere		*sphere;
 	t_plane			*plane;
 	t_cylinder		*cylinder;
+	t_cone			*cone;
 }	t_intersection;
 
 typedef struct s_intersections
@@ -154,6 +155,7 @@ typedef struct s_intersections
 	t_sphere				*sphere;
 	t_plane					*plane;
 	t_cylinder				*cylinder;
+	t_cone					*cone;
 	t_ray					ray;
 	t_color					color;
 	t_coordinates			eye_vector;
