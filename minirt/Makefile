@@ -67,11 +67,14 @@ SOURCES			=		minirt.c \
 						$(TUPLES) \
 						$(UTILS)
 
-SOURCES_B		=		error_bonus.c \
-						free_bonus.c \
-						lightning_bonus.c \
-						parser_bonus.c \
+PARSER_B		=		parser_bonus.c \
 						validate_cones_bonus.c
+RENDER_B		=		lightning_bonus.c
+UTILS_B			=		error_bonus.c \
+						free_bonus.c
+SOURCES_B		=		$(PARSER_B) \
+						$(RENDER_B) \
+						$(UTILS_B)
 
 ######################### OBJECTS #############################
 OBJECTS			=		$(patsubst %.c, $(OBJECTS_PATH)%.o, $(SOURCES))
