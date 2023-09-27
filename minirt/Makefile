@@ -18,7 +18,9 @@ VPATH			=		$(SOURCES_PATH) \
 														render \
 														tuples \
 														utils) \
-						$(addprefix $(SOURCES_B_PATH),	parser_bonus \
+						$(addprefix $(SOURCES_B_PATH),	matrices_bonus \
+														parser_bonus \
+														ray_casting_bonus \
 														render_bonus \
 														utils_bonus)
 
@@ -67,12 +69,20 @@ SOURCES			=		minirt.c \
 						$(TUPLES) \
 						$(UTILS)
 
+MATRICES_B		=		transformations_matrices_objects_bonus.c
 PARSER_B		=		parser_bonus.c \
 						validate_cones_bonus.c
+RAY_CASTING_B	=		discriminant_cone_bonus.c \
+						intersection_ray_cone_bonus.c \
+						intersections_bonus.c \
+						list_utils_bonus.c \
+						normal_reflecting_bonus.c
 RENDER_B		=		lightning_bonus.c
 UTILS_B			=		error_bonus.c \
 						free_bonus.c
-SOURCES_B		=		$(PARSER_B) \
+SOURCES_B		=		$(MATRICES_B) \
+						$(PARSER_B) \
+						$(RAY_CASTING_B) \
 						$(RENDER_B) \
 						$(UTILS_B)
 
@@ -81,7 +91,11 @@ OBJECTS			=		$(patsubst %.c, $(OBJECTS_PATH)%.o, $(SOURCES))
 OBJECTS_B		=		$(filter-out $(OBJECTS_PATH)parser.o, \
 							$(filter-out $(OBJECTS_PATH)lightning.o, \
 							$(filter-out $(OBJECTS_PATH)error.o, \
-							$(filter-out $(OBJECTS_PATH)free.o, $(OBJECTS))))) \
+							$(filter-out $(OBJECTS_PATH)free.o, \
+							$(filter-out $(OBJECTS_PATH)transformations_matrices_objects.o, \
+							$(filter-out $(OBJECTS_PATH)intersections.o, \
+							$(filter-out $(OBJECTS_PATH)list_utils.o, \
+							$(filter-out $(OBJECTS_PATH)normal_reflecting.o, $(OBJECTS))))))))) \
 							$(patsubst %.c, $(OBJECTS_B_PATH)%.o, $(SOURCES_B))
 
 ######################### COMMANDS ############################
