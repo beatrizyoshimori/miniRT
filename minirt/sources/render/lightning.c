@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 19:59:24 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:18:58 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_color	lightning(t_rt *rt)
 		aux_color = (t_color){0, 0, 0};
 		effective_color = multiply_colors(obj_color, \
 			multiply_color_by_scalar(rt->lights[i].brightness, \
-			rt->lights[i].color));
+			(t_color){255, 255, 255}));
 		aux_color = add_colors(multiply_color_by_scalar(rt->material.ambient, \
 			effective_color), multiply_colors(obj_color, \
 			multiply_color_by_scalar(rt->amb_light.ratio, \
