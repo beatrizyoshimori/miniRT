@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:04:27 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/15 15:13:17 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/26 21:51:22 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,15 @@
 # define D_HEIGHT_CY "Invalid cylinder height. Height is not a double."
 # define R_HEIGHT_CY "Invalid cylinder height. Height isn't greater than 0."
 # define COLOR_CY "Invalid cylinder color."
+# define ARG_CO "Invalid number of arguments on cone."
+# define CENTER_CO "Invalid cone center coordinates."
+# define VECTOR_CO "Invalid cone vector."
+# define N_VECTOR_CO "Invalid cone vector. Vector is not normalized."
+# define D_DIAM_CO "Invalid cone diameter. Diameter is not a double."
+# define R_DIAM_CO "Invalid cone diameter. Diameter isn't greater than 0."
+# define D_HEIGHT_CO "Invalid cone height. Height is not a double."
+# define R_HEIGHT_CO "Invalid cone height. Height isn't greater than 0."
+# define COLOR_CO "Invalid cone color."
 # define MLX_INIT "Could not init window."
 # define MLX_IMAGE "Could not create image."
 # define MLX_IMAGE_TO_WIN "Could not put image to window."
