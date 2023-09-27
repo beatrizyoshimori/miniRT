@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 16:03:30 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/26 22:16:16 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define Y_AXIS 2
 # define Z_AXIS 0
 # define SP 1
-# define CY 2
-# define PL 3
+# define PL 2
+# define CY 3
 
 typedef struct s_coordinates
 {
@@ -106,6 +106,19 @@ typedef struct s_cylinder
 	double			**transpose;
 }	t_cylinder;
 
+typedef struct s_cone
+{
+	t_coordinates	point;
+	t_coordinates	vector;
+	double			diameter;
+	double			height;
+	double			min;
+	double			max;
+	t_color			color;
+	double			**inverse;
+	double			**transpose;
+}	t_cone;
+
 typedef struct s_ray
 {
 	t_coordinates	point;
@@ -173,10 +186,12 @@ typedef struct s_rt
 	int				num_sp;
 	int				num_pl;
 	int				num_cy;
+	int				num_co;
 	t_light			*lights;
 	t_sphere		*spheres;
 	t_plane			*planes;
 	t_cylinder		*cylinders;
+	t_cone			*cones;
 	double			**matrix;
 	double			**identity;
 	t_intersections	*intersections;
@@ -251,13 +266,11 @@ void			validate_cylinder(t_rt *rt, int cy);
 t_discriminant	calculate_discriminant_ray_sphere(t_ray ray);
 t_discriminant	calculate_discriminant_ray_cylinder(t_ray ray);
 
-// intersection_ray_cylinder.c functions
-t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
-					t_cylinder *cylinder);
-
-// intersection_ray_sphere_plane.c functions
+// intersection_ray_object.c functions
 t_intersection	calculate_ray_sphere_intersections(t_ray ray, t_sphere *sphere);
 t_intersection	calculate_ray_plane_intersections(t_ray ray_in, t_plane *plane);
+t_intersection	calculate_ray_cylinder_intersections(t_ray ray, \
+					t_cylinder *cylinder);
 
 // intersections.c functions
 void			intersections(t_rt *rt, t_ray ray, \
@@ -323,5 +336,6 @@ void			print_error(char *error, t_rt *rt);
 // free.c functions
 void			free_ptrptr(char ***ptrptr);
 void			free_matrix(double ***matrix);
+void			free_rt(t_rt *rt);
 
 #endif
