@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 20:05:30 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/26 16:09:38 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:32:01 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ t_discriminant	calculate_discriminant_ray_cylinder(t_ray ray)
 			2 * ray.point.z * ray.vector.z;
 		discriminant.c = ray.point.x * ray.point.x \
 			+ ray.point.z * ray.point.z - 1;
-		discriminant.discriminant = discriminant.b * discriminant.b - 4 \
-			* discriminant.a * discriminant.c;
+		discriminant.discriminant = discriminant.b * discriminant.b \
+			- 4 * discriminant.a * discriminant.c;
 		discriminant.t[0] = (-discriminant.b \
 			- sqrt(discriminant.discriminant)) / (2 * discriminant.a);
 		discriminant.t[1] = (-discriminant.b \
