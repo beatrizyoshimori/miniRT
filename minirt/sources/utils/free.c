@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:14:43 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:27 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:08:42 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,23 @@ static void	free_sphere_plane_matrices(t_rt *rt)
 {
 	int	i;
 
-	i = -1;
-	while (++i < rt->num_sp)
+	if (rt->spheres)
 	{
-		free_matrix(&rt->spheres[i].inverse);
-		free_matrix(&rt->spheres[i].transpose);
+		i = -1;
+		while (++i < rt->num_sp)
+		{
+			free_matrix(&rt->spheres[i].inverse);
+			free_matrix(&rt->spheres[i].transpose);
+		}
 	}
-	i = -1;
-	while (++i < rt->num_pl)
+	if (rt->planes)
 	{
-		free_matrix(&rt->planes[i].inverse);
-		free_matrix(&rt->planes[i].transpose);
+		i = -1;
+		while (++i < rt->num_pl)
+		{
+			free_matrix(&rt->planes[i].inverse);
+			free_matrix(&rt->planes[i].transpose);
+		}
 	}
 }
 
@@ -62,11 +68,14 @@ static void	free_cylinder_matrices(t_rt *rt)
 {
 	int	i;
 
-	i = -1;
-	while (++i < rt->num_cy)
+	if (rt->cylinders)
 	{
-		free_matrix(&rt->cylinders[i].inverse);
-		free_matrix(&rt->cylinders[i].transpose);
+		i = -1;
+		while (++i < rt->num_cy)
+		{
+			free_matrix(&rt->cylinders[i].inverse);
+			free_matrix(&rt->cylinders[i].transpose);
+		}
 	}
 }
 
@@ -82,9 +91,13 @@ void	free_rt(t_rt *rt)
 	free(rt->planes);
 	free_cylinder_matrices(rt);
 	free(rt->cylinders);
-	mlx_close_window(rt->render.mlx);
-	mlx_delete_image(rt->render.mlx, rt->render.image);
-	mlx_terminate(rt->render.mlx);
+	if (rt->render.mlx)
+	{
+		mlx_close_window(rt->render.mlx);
+		if (rt->render.image)
+			mlx_delete_image(rt->render.mlx, rt->render.image);
+		mlx_terminate(rt->render.mlx);
+	}
 	free(rt);
 	exit(0);
 }
