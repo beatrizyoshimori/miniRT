@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:12:38 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/27 18:41:31 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:48:10 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,20 @@ static void	transform_cylinders(t_rt *rt)
 static void	transform_cones(t_rt *rt)
 {
 	int		i;
-	double	r;
-	double	**scaling_translation;
-	double	**rotation_product;
+	double	**translation;
+	double	**rotation;
 	double	**product;
 
 	i = 0;
 	while (i < rt->num_co)
 	{
-		r = rt->cones[i].diameter / 2;
-		scaling_translation = create_scaling_matrix(create_point(r, r, r));
-		rotation_product = calculate_rotation_matrix(rt->cones[i].vector);
-		product = multiply_matrices(rotation_product, scaling_translation);
-		free_matrix(&scaling_translation);
-		free_matrix(&rotation_product);
-		scaling_translation = create_translation_matrix(rt->cones[i].point);
-		rotation_product = multiply_matrices(scaling_translation, product);
-		free_matrix(&scaling_translation);
+		translation = create_translation_matrix(rt->cones[i].point);
+		rotation = calculate_rotation_matrix(rt->cones[i].vector);
+		product = multiply_matrices(translation, rotation);
+		free_matrix(&translation);
+		free_matrix(&rotation);
+		rt->cones[i].inverse = invert_matrix(product);
 		free_matrix(&product);
-		rt->cones[i].inverse = invert_matrix(rotation_product);
-		free_matrix(&rotation_product);
 		rt->cones[i].transpose = transpose_matrix(rt->cones[i].inverse);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/26 21:52:23 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:44:08 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	validate_cone_aux(t_rt *rt, int co)
 {
-	if (!validate_double(rt->element[4]))
+	if (!validate_double(rt->element[3]))
 		print_error(D_HEIGHT_CO, rt);
-	rt->cones[co].height = ft_atod(rt->element[4]);
+	rt->cones[co].height = ft_atod(rt->element[3]);
 	if (rt->cones[co].height <= 0)
 		print_error(R_HEIGHT_CO, rt);
 	rt->cones[co].max = rt->cones[co].height / 2;
 	rt->cones[co].min = -rt->cones[co].max;
-	rt->color = ft_split(rt->element[5], ',');
+	rt->color = ft_split(rt->element[4], ',');
 	if (!validate_color(rt->color))
 		print_error(COLOR_CO, rt);
 	set_color(&rt->cones[co].color, rt->color);
@@ -30,7 +30,7 @@ static void	validate_cone_aux(t_rt *rt, int co)
 
 void	validate_cone(t_rt *rt, int co)
 {
-	if (rt->element[6])
+	if (rt->element[5])
 		print_error(ARG_CO, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
@@ -44,10 +44,5 @@ void	validate_cone(t_rt *rt, int co)
 	if (!validate_normalized_vector(rt->cones[co].vector))
 		print_error(N_VECTOR_CO, rt);
 	free_ptrptr(&rt->coordinates);
-	if (!validate_double(rt->element[3]))
-		print_error(D_DIAM_CO, rt);
-	rt->cones[co].diameter = ft_atod(rt->element[3]);
-	if (rt->cones[co].diameter <= 0)
-		print_error(R_DIAM_CO, rt);
 	validate_cone_aux(rt, co);
 }
