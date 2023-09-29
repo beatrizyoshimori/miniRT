@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 18:51:48 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/27 18:59:02 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:39:39 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_discriminant	calculate_discriminant_ray_cone(t_ray ray)
 		discriminant.t[0] = -discriminant.c / 2 * discriminant.b;
 	else
 	{
-		discriminant.discriminant = discriminant.b * discriminant.b - 4 \
-			* discriminant.a * discriminant.c;
+		discriminant.discriminant = discriminant.b * discriminant.b \
+			- 4 * discriminant.a * discriminant.c;
 		discriminant.t[0] = (-discriminant.b \
 			- sqrt(discriminant.discriminant)) / (2 * discriminant.a);
 		discriminant.t[1] = (-discriminant.b \
