@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:04:27 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/26 21:51:22 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:45:09 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@
 # define CENTER_CO "Invalid cone center coordinates."
 # define VECTOR_CO "Invalid cone vector."
 # define N_VECTOR_CO "Invalid cone vector. Vector is not normalized."
-# define D_DIAM_CO "Invalid cone diameter. Diameter is not a double."
-# define R_DIAM_CO "Invalid cone diameter. Diameter isn't greater than 0."
 # define D_HEIGHT_CO "Invalid cone height. Height is not a double."
 # define R_HEIGHT_CO "Invalid cone height. Height isn't greater than 0."
 # define COLOR_CO "Invalid cone color."

@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/27 19:28:37 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:42:50 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ typedef struct s_cone
 {
 	t_coordinates	point;
 	t_coordinates	vector;
-	double			diameter;
 	double			height;
 	double			min;
 	double			max;
