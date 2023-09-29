@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:28:08 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/27 14:36:50 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:14:01 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,10 @@ void	render(t_rt *rt)
 		print_error(MLX_INIT, rt);
 	rt->render.image = mlx_new_image(rt->render.mlx, WIDTH, HEIGHT);
 	if (!rt->render.image)
-	{
-		mlx_close_window(rt->render.mlx);
 		print_error(MLX_IMAGE, rt);
-	}
 	transform_view(rt);
 	calculate_pixel_size(rt);
 	draw(rt);
 	if (mlx_image_to_window(rt->render.mlx, rt->render.image, 0, 0) == -1)
-	{
-		mlx_close_window(rt->render.mlx);
-		mlx_delete_image(rt->render.mlx, rt->render.image);
 		print_error(MLX_IMAGE_TO_WIN, rt);
-	}
 }
