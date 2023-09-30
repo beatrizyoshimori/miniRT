@@ -71,13 +71,15 @@ SOURCES			=		minirt.c \
 
 MATRICES_B		=		transformations_matrices_objects_bonus.c
 PARSER_B		=		parser_bonus.c \
-						validate_cones_bonus.c
+						validate_cones_bonus.c \
+						validate_objects_bonus.c
 RAY_CASTING_B	=		discriminant_cone_bonus.c \
 						intersection_ray_cone_bonus.c \
 						intersections_bonus.c \
 						list_utils_bonus.c \
 						normal_reflecting_bonus.c
-RENDER_B		=		lightning_bonus.c
+RENDER_B		=		checkerboard_bonus.c \
+						lightning_bonus.c
 UTILS_B			=		error_bonus.c \
 						free_bonus.c
 SOURCES_B		=		$(MATRICES_B) \
@@ -88,14 +90,15 @@ SOURCES_B		=		$(MATRICES_B) \
 
 ######################### OBJECTS #############################
 OBJECTS			=		$(patsubst %.c, $(OBJECTS_PATH)%.o, $(SOURCES))
-OBJECTS_B		=		$(filter-out $(OBJECTS_PATH)parser.o, \
-							$(filter-out $(OBJECTS_PATH)lightning.o, \
-							$(filter-out $(OBJECTS_PATH)error.o, \
-							$(filter-out $(OBJECTS_PATH)free.o, \
-							$(filter-out $(OBJECTS_PATH)transformations_matrices_objects.o, \
-							$(filter-out $(OBJECTS_PATH)intersections.o, \
-							$(filter-out $(OBJECTS_PATH)list_utils.o, \
-							$(filter-out $(OBJECTS_PATH)normal_reflecting.o, $(OBJECTS))))))))) \
+OBJECTS_B		=		$(filter-out $(OBJECTS_PATH)parser.o \
+							$(OBJECTS_PATH)validate_objects.o \
+							$(OBJECTS_PATH)lightning.o \
+							$(OBJECTS_PATH)error.o \
+							$(OBJECTS_PATH)free.o \
+							$(OBJECTS_PATH)transformations_matrices_objects.o \
+							$(OBJECTS_PATH)intersections.o \
+							$(OBJECTS_PATH)list_utils.o \
+							$(OBJECTS_PATH)normal_reflecting.o, $(OBJECTS)) \
 							$(patsubst %.c, $(OBJECTS_B_PATH)%.o, $(SOURCES_B))
 
 ######################### COMMANDS ############################
