@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 18:42:50 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:19:34 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define PL 2
 # define CY 3
 # define CO 4
+# define CB -1
+# define TEXTURE - 2
 
 typedef struct s_coordinates
 {
@@ -152,6 +154,7 @@ typedef struct s_intersections
 	int						type;
 	double					t;
 	t_coordinates			hit_point;
+	t_coordinates			o_point;
 	t_sphere				*sphere;
 	t_plane					*plane;
 	t_cylinder				*cylinder;
@@ -342,6 +345,9 @@ t_coordinates	calculate_reflecting_vector(t_coordinates light, \
 					t_coordinates normal);
 
 // render_bonus folder
+// checkerboard_bonus.c function
+t_color			draw_checkerboard(t_intersections *hit);
+
 // lightning_bonus.c function
 t_color			lightning(t_rt *rt);
 
