@@ -6,25 +6,26 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 22:18:07 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/29 22:19:19 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:51:57 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_bonus.h"
 
-static t_coordinates	calculate_spherical_map(t_intersections *hit)
+static t_coordinates	calculate_map(t_intersections *hit)
 {
 	double	theta;
-	double	radius;
 	double	phi;
 	double	raw_u;
 
 	theta = atan2(hit->o_point.x, hit->o_point.z);
-	radius = calculate_vector_magnitude(create_vector(hit->o_point.x, \
-		hit->o_point.y, hit->o_point.z));
-	phi = acos(hit->o_point.y / radius);
 	raw_u = theta / (2 * M_PI);
-	return ((t_coordinates){1 - (raw_u + 0.5), 1 - phi / M_PI, 0, 0});
+	if (hit->type == CO)
+		return ((t_coordinates){20 * (1 - (raw_u + 0.5)), \
+			4 * hit->o_point.y, 0, 0});
+	phi = acos(hit->o_point.y);
+	return ((t_coordinates){16 * (1 - (raw_u + 0.5)), \
+		8 * (1 - phi / M_PI), 0, 0});
 }
 
 t_color	draw_checkerboard(t_intersections *hit)
@@ -32,11 +33,11 @@ t_color	draw_checkerboard(t_intersections *hit)
 	t_coordinates	point;
 	t_coordinates	u_v;
 
-	if (hit->type == SP)
+	if (hit->type == SP || hit->type == CO)
 	{
-		u_v = calculate_spherical_map(hit);
-		u_v.z = floor(16 * u_v.x);
-		u_v.w = floor(8 * u_v.y);
+		u_v = calculate_map(hit);
+		u_v.z = floor(u_v.x);
+		u_v.w = floor(u_v.y);
 		if ((int)(u_v.z + u_v.w) % 2 == 0)
 			return ((t_color){0, 0, 0});
 		else

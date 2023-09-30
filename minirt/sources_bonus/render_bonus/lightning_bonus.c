@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 22:18:30 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:53:18 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ static t_color	get_object_color(t_rt *rt)
 		color = rt->hit->sphere->color;
 	else if (rt->hit->type == PL)
 	{
-		if (rt->hit->plane->color.red == CB)
+		color = rt->hit->plane->color;
+		if (color.red == CB)
 		{
 			rt->hit->o_point = multiply_matrix_tuple(rt->hit->plane->inverse, \
 				rt->hit->hit_point);
 			rt->hit->o_point.y = 0;
 		}
-		color = rt->hit->plane->color;
 	}
 	else if (rt->hit->type == CY)
 		color = rt->hit->cylinder->color;
