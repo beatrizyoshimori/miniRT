@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 18:44:08 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:15:27 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ static void	validate_cone_aux(t_rt *rt, int co)
 	rt->cones[co].max = rt->cones[co].height / 2;
 	rt->cones[co].min = -rt->cones[co].max;
 	rt->color = ft_split(rt->element[4], ',');
-	if (!validate_color(rt->color))
+	if (validate_color(rt->color))
+		set_color(&rt->cones[co].color, rt->color);
+	else if (!ft_strncmp(rt->element[4], "cb", 3))
+		rt->cones[co].color = (t_color){CB, 0, 0};
+	else if (!ft_strncmp(rt->element[4], "texture", 8))
+		rt->cones[co].color = (t_color){TEXTURE, 0, 0};
+	else
 		print_error(COLOR_CO, rt);
-	set_color(&rt->cones[co].color, rt->color);
 	free_ptrptr(&rt->color);
 }
 
