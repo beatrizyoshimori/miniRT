@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 18:43:02 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:39:46 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct s_intersections
 	int						type;
 	double					t;
 	t_coordinates			hit_point;
+	t_coordinates			o_point;
 	t_sphere				*sphere;
 	t_plane					*plane;
 	t_cylinder				*cylinder;
