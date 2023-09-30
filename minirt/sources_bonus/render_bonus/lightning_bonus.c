@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/27 19:25:38 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:18:30 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,29 @@ static int	is_shadowed(t_rt *rt, int i)
 
 static t_color	get_object_color(t_rt *rt)
 {
+	t_color	color;
+
 	if (rt->hit->type == SP)
-		return (rt->hit->sphere->color);
+		color = rt->hit->sphere->color;
 	else if (rt->hit->type == PL)
-		return (rt->hit->plane->color);
+	{
+		if (rt->hit->plane->color.red == CB)
+		{
+			rt->hit->o_point = multiply_matrix_tuple(rt->hit->plane->inverse, \
+				rt->hit->hit_point);
+			rt->hit->o_point.y = 0;
+		}
+		color = rt->hit->plane->color;
+	}
 	else if (rt->hit->type == CY)
-		return (rt->hit->cylinder->color);
-	return (rt->hit->cone->color);
+		color = rt->hit->cylinder->color;
+	else
+		color = rt->hit->cone->color;
+	if (color.red == TEXTURE)
+		color = (t_color){0, 0, 0};
+	if (color.red == CB)
+		color = draw_checkerboard(rt->hit);
+	return (color);
 }
 
 t_color	lightning(t_rt *rt)
