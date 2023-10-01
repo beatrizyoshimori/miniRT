@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 20:15:09 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/30 22:06:23 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,16 @@ void	validate_sphere(t_rt *rt, int sp)
 		set_color(&rt->spheres[sp].color, rt->color);
 	else if (!ft_strncmp(rt->element[3], "cb", 3))
 		rt->spheres[sp].color = (t_color){CB, 0, 0};
-	else if (!ft_strncmp(rt->element[3], "texture", 8))
-		rt->spheres[sp].color = (t_color){TEXTURE, 0, 0};
+	else if (!ft_strncmp(rt->element[3], "Earth", 6))
+	{
+		rt->spheres[sp].color = (t_color){EARTH, 0, 0};
+		rt->spheres[sp].texture = mlx_load_png(PATH_EARTH);
+	}
+	else if (!ft_strncmp(rt->element[3], "Moon", 5))
+	{
+		rt->spheres[sp].color = (t_color){MOON, 0, 0};
+		rt->spheres[sp].texture = mlx_load_png(PATH_MOON);
+	}
 	else
 		print_error(COLOR_SP, rt);
 	free_ptrptr(&rt->color);
@@ -59,8 +67,6 @@ void	validate_plane(t_rt *rt, int pl)
 		set_color(&rt->planes[pl].color, rt->color);
 	else if (!ft_strncmp(rt->element[3], "cb", 3))
 		rt->planes[pl].color = (t_color){CB, 0, 0};
-	else if (!ft_strncmp(rt->element[3], "texture", 8))
-		rt->planes[pl].color = (t_color){TEXTURE, 0, 0};
 	else
 		print_error(COLOR_PL, rt);
 	free_ptrptr(&rt->color);
@@ -80,8 +86,6 @@ static void	validate_cylinder_aux(t_rt *rt, int cy)
 		set_color(&rt->cylinders[cy].color, rt->color);
 	else if (!ft_strncmp(rt->element[5], "cb", 3))
 		rt->cylinders[cy].color = (t_color){CB, 0, 0};
-	else if (!ft_strncmp(rt->element[5], "texture", 8))
-		rt->cylinders[cy].color = (t_color){TEXTURE, 0, 0};
 	else
 		print_error(COLOR_CY, rt);
 	free_ptrptr(&rt->color);
