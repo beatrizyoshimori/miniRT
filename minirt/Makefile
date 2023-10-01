@@ -78,7 +78,7 @@ RAY_CASTING_B	=		discriminant_cone_bonus.c \
 						intersections_bonus.c \
 						list_utils_bonus.c \
 						normal_reflecting_bonus.c
-RENDER_B		=		checkerboard_bonus.c \
+RENDER_B		=		checkerboard_texture_bonus.c \
 						lightning_bonus.c
 UTILS_B			=		error_bonus.c \
 						free_bonus.c
