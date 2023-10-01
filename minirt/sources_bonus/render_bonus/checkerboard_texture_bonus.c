@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 22:18:07 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/30 22:11:00 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/30 22:28:27 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ t_color	draw_texture(t_intersections *hit)
 	t_coordinates	u_v;
 
 	u_v = calculate_map(hit);
-	pixel = (u_v.x * 450 * 4 + u_v.y * 225 * 450) * 4;
-	printf("%f %f %d\n", u_v.x, u_v.y, pixel);
+	u_v.z = round(u_v.x * (hit->sphere->texture->width - 1));
+	u_v.y = 1 - u_v.y;
+	u_v.w = round(u_v.y * (hit->sphere->texture->height - 1));
+	pixel = (u_v.w * hit->sphere->texture->width + u_v.z) * 4;
 	return ((t_color){hit->sphere->texture->pixels[pixel], hit->sphere->texture->pixels[pixel + 1], hit->sphere->texture->pixels[pixel + 2]});
 }
