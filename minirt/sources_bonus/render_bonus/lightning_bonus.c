@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/30 14:53:18 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:50:50 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ static t_color	get_object_color(t_rt *rt)
 		color = rt->hit->cylinder->color;
 	else
 		color = rt->hit->cone->color;
-	if (color.red == TEXTURE)
-		color = (t_color){0, 0, 0};
 	if (color.red == CB)
 		color = draw_checkerboard(rt->hit);
+	else if (color.red == EARTH || color.red == MOON)
+		color = draw_texture(rt->hit);
 	return (color);
 }
 
