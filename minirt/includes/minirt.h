@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 20:39:46 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:14:23 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_sphere
 	t_color			color;
 	double			**inverse;
 	double			**transpose;
+	t_mlx_texture	*texture;
 }	t_sphere;
 
 typedef struct s_plane
