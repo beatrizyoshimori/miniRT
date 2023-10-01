@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 20:15:27 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/30 22:06:41 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static void	validate_cone_aux(t_rt *rt, int co)
 		set_color(&rt->cones[co].color, rt->color);
 	else if (!ft_strncmp(rt->element[4], "cb", 3))
 		rt->cones[co].color = (t_color){CB, 0, 0};
-	else if (!ft_strncmp(rt->element[4], "texture", 8))
-		rt->cones[co].color = (t_color){TEXTURE, 0, 0};
 	else
 		print_error(COLOR_CO, rt);
 	free_ptrptr(&rt->color);
