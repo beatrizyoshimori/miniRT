@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 22:19:34 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:53:27 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@
 # define CY 3
 # define CO 4
 # define CB -1
-# define TEXTURE - 2
+# define EARTH -2
+# define MOON -3
+# define PATH_EARTH "textures/earth.png"
+# define PATH_MOON "textures/moon.png"
 
 typedef struct s_coordinates
 {
@@ -85,6 +88,7 @@ typedef struct s_sphere
 	t_color			color;
 	double			**inverse;
 	double			**transpose;
+	t_mlx_texture	*texture;
 }	t_sphere;
 
 typedef struct s_plane
@@ -345,8 +349,9 @@ t_coordinates	calculate_reflecting_vector(t_coordinates light, \
 					t_coordinates normal);
 
 // render_bonus folder
-// checkerboard_bonus.c function
+// checkerboard_texture_bonus.c function
 t_color			draw_checkerboard(t_intersections *hit);
+t_color			draw_texture(t_intersections *hit);
 
 // lightning_bonus.c function
 t_color			lightning(t_rt *rt);
