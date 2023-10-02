@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/27 18:18:58 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:18:05 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,13 @@ static int	is_shadowed(t_rt *rt, int i)
 {
 	double			distance;
 	t_coordinates	vector;
-	t_coordinates	over_point;
 	t_ray			ray;
 	t_intersections	*hit;
 
-	over_point = add_tuples(rt->hit->hit_point, \
-		multiply_tuple(EPSILON, rt->hit->normal));
-	vector = subtract_tuples(rt->lights[i].point, over_point);
+	vector = subtract_tuples(rt->lights[i].point, rt->hit->over_point);
 	distance = calculate_vector_magnitude(vector);
 	vector = normalize_vector(vector);
-	ray = (t_ray){over_point, vector};
+	ray = (t_ray){rt->hit->over_point, vector};
 	intersections(rt, ray, &rt->shadows);
 	hit = get_hit(rt->shadows);
 	if (hit && hit->t < distance)

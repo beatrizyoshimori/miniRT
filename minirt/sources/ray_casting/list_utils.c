@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:20:58 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/25 12:07:53 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:16:41 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_intersections	*new_intersection(t_intersection new, \
 	calculate_normal(head);
 	if (calculate_dot_product(head->eye_vector, head->normal) < 0)
 		head->normal = negate_tuple(head->normal);
+	head->over_point = add_tuples(head->hit_point, \
+		multiply_tuple(EPSILON, head->normal));
 	head->next = NULL;
 	return (head);
 }

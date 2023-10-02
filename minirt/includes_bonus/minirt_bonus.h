@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/30 19:53:27 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:15:27 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ typedef struct s_intersections
 	t_color					color;
 	t_coordinates			eye_vector;
 	t_coordinates			normal;
+	t_coordinates			over_point;
 	struct s_intersections	*next;
 }	t_intersections;
 
