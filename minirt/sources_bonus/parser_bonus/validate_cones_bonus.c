@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/10/02 21:32:56 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:40:26 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	validate_cone_aux(t_rt *rt, int co)
 	if (!validate_double(rt->element[3]))
 		print_error(D_HEIGHT_CO, rt);
 	rt->cones[co].height = ft_atod(rt->element[3]);
-	if (rt->cones[co].height <= 0)
+	if (rt->cones[co].height <= EPSILON)
 		print_error(R_HEIGHT_CO, rt);
 	rt->cones[co].max = rt->cones[co].height / 2;
 	rt->cones[co].min = -rt->cones[co].max;

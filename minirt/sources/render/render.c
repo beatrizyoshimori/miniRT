@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:28:08 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/29 18:14:01 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:36:55 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	calculate_pixel_size(t_rt *rt)
 
 	half_view = tan(rt->camera.fov * M_PI / 360);
 	aspect = (double)WIDTH / (double)HEIGHT;
-	if (aspect >= 1)
+	if (aspect >= 1 - EPSILON)
 	{
 		rt->render.half_width = half_view;
 		rt->render.half_height = half_view / aspect;

@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:11:39 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/27 18:43:12 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:35:13 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_intersection	calculate_ray_sphere_intersections(t_ray ray_in, \
 	disc = calculate_discriminant_ray_sphere(ray);
 	if (disc.discriminant < 0)
 		return (inter);
-	if (disc.discriminant == 0)
+	if (are_equals(disc.discriminant, 0))
 	{
 		inter.count = 1;
 		inter.t[0] = disc.t[0];
@@ -66,7 +66,7 @@ static int	check_cap(t_ray ray, double t)
 	x = ray.point.x + t * ray.vector.x;
 	z = ray.point.z + t * ray.vector.z;
 	point = x * x + z * z;
-	if (point <= 1)
+	if (point <= 1 + EPSILON)
 		return (1);
 	return (0);
 }
@@ -106,7 +106,7 @@ t_intersection	calculate_ray_cylinder_intersections(t_ray ray_in, \
 	ray = transform_ray(ray_in, cylinder->inverse);
 	inter = (t_intersection){CY, 0, .cylinder = cylinder};
 	disc = calculate_discriminant_ray_cylinder(ray);
-	if (disc.discriminant >= 0)
+	if (disc.discriminant >= -EPSILON)
 	{
 		i = -1;
 		while (++i < 2)

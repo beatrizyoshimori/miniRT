@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 22:18:07 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/10/02 19:40:44 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:34:26 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ t_color	draw_checkerboard(t_intersections *hit, t_color color, t_color color1)
 		u_v = calculate_map(hit);
 		u_v.z = floor(u_v.x);
 		u_v.w = floor(u_v.y);
-		if (fmod(u_v.z + u_v.w, 2) == 0)
+		if (are_equals(fmod(u_v.z + u_v.w, 2), 0))
 			return (color);
 		else
 			return (color1);
 	}
 	point = create_point(floor(4 * hit->o_point.x), \
 		floor(4 * hit->o_point.y), floor(4 * hit->o_point.z));
-	if (fmod(point.x + point.y + point.z, 2) == 0)
+	if (are_equals(fmod(point.x + point.y + point.z, 2), 0))
 		return (color);
 	return (color1);
 }

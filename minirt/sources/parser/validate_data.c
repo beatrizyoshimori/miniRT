@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:19:14 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/05 21:21:59 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:39:13 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	validate_normalized_vector(t_coordinates coordinates)
 
 int	validate_angle(char *angle)
 {
-	return (angle && validate_int(angle) && ft_atoi(angle) >= 0 \
-		&& ft_atoi(angle) <= 180);
+	return (angle && validate_int(angle) && ft_atoi(angle) >= -EPSILON \
+		&& ft_atoi(angle) <= 180 + EPSILON);
 }

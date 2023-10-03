@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/10/02 15:18:05 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:36:49 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_color	calculate_diffuse(t_rt *rt, t_color effective_color, int i)
 	light_vector = normalize_vector(subtract_tuples(rt->lights[i].point, \
 		rt->hit->hit_point));
 	light_dot_normal = calculate_dot_product(light_vector, rt->hit->normal);
-	if (light_dot_normal >= 0)
+	if (light_dot_normal >= -EPSILON)
 		aux_color = multiply_color_by_scalar(rt->material.diffuse \
 			* light_dot_normal, effective_color);
 	return (aux_color);

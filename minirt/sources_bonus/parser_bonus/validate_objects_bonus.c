@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/10/02 21:32:42 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:40:50 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	validate_sphere(t_rt *rt, int sp)
 	if (!validate_double(rt->element[2]))
 		print_error(D_DIAM_SP, rt);
 	rt->spheres[sp].diameter = ft_atod(rt->element[2]);
-	if (rt->spheres[sp].diameter <= 0)
+	if (rt->spheres[sp].diameter <= EPSILON)
 		print_error(R_DIAM_SP, rt);
 	rt->spheres[sp].color1.red = NORMAL;
 	rt->color = ft_split(rt->element[3], ':');
@@ -71,7 +71,7 @@ static void	validate_cylinder_aux(t_rt *rt, int cy)
 	if (!validate_double(rt->element[4]))
 		print_error(D_HEIGHT_CY, rt);
 	rt->cylinders[cy].height = ft_atod(rt->element[4]);
-	if (rt->cylinders[cy].height <= 0)
+	if (rt->cylinders[cy].height <= EPSILON)
 		print_error(R_HEIGHT_CY, rt);
 	rt->cylinders[cy].max = rt->cylinders[cy].height / 2;
 	rt->cylinders[cy].min = -rt->cylinders[cy].max;
@@ -101,7 +101,7 @@ void	validate_cylinder(t_rt *rt, int cy)
 	if (!validate_double(rt->element[3]))
 		print_error(D_DIAM_CY, rt);
 	rt->cylinders[cy].diameter = ft_atod(rt->element[3]);
-	if (rt->cylinders[cy].diameter <= 0)
+	if (rt->cylinders[cy].diameter <= EPSILON)
 		print_error(R_DIAM_CY, rt);
 	validate_cylinder_aux(rt, cy);
 }

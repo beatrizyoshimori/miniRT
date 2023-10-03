@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 18:42:36 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/27 19:09:13 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:41:13 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_cap(t_ray ray, double t)
 	y = ray.point.y + t * ray.vector.y;
 	z = ray.point.z + t * ray.vector.z;
 	point = x * x + z * z;
-	if (point <= y * y)
+	if (point <= y * y + EPSILON)
 		return (1);
 	return (0);
 }
@@ -63,7 +63,7 @@ t_intersection	calculate_ray_cone_intersections(t_ray ray_in, \
 	ray = transform_ray(ray_in, cone->inverse);
 	inter = (t_intersection){CO, 0, .cone = cone};
 	disc = calculate_discriminant_ray_cone(ray);
-	if (disc.discriminant >= 0)
+	if (disc.discriminant >= -EPSILON)
 	{
 		i = -1;
 		while (++i < 2)
