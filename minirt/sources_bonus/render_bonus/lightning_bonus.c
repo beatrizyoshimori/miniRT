@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 18:49:38 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/10/02 15:18:25 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:16:03 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,45 @@ static int	is_shadowed(t_rt *rt, int i)
 	return (0);
 }
 
+static void	get_cylinder_cone_color(t_rt *rt, t_color *color, t_color *color1)
+{
+	if (rt->hit->type == CY)
+	{
+		*color = rt->hit->cylinder->color;
+		*color1 = rt->hit->cylinder->color1;
+	}
+	else if (rt->hit->type == CO)
+	{
+		*color = rt->hit->cone->color;
+		*color1 = rt->hit->cone->color1;
+	}
+}
+
 static t_color	get_object_color(t_rt *rt)
 {
 	t_color	color;
+	t_color	color1;
 
 	if (rt->hit->type == SP)
+	{
 		color = rt->hit->sphere->color;
+		color1 = rt->hit->sphere->color1;
+	}
 	else if (rt->hit->type == PL)
 	{
 		color = rt->hit->plane->color;
-		if (color.red == CB)
+		color1 = rt->hit->plane->color1;
+		if (color.red != NORMAL)
 		{
 			rt->hit->o_point = multiply_matrix_tuple(rt->hit->plane->inverse, \
 				rt->hit->hit_point);
 			rt->hit->o_point.y = 0;
 		}
 	}
-	else if (rt->hit->type == CY)
-		color = rt->hit->cylinder->color;
-	else
-		color = rt->hit->cone->color;
-	if (color.red == CB)
-		color = draw_checkerboard(rt->hit);
-	else if (color.red == EARTH || color.red == MOON)
+	get_cylinder_cone_color(rt, &color, &color1);
+	if (color1.red != NORMAL)
+		color = draw_checkerboard(rt->hit, color, color1);
+	else if (color.red == TEXTURE)
 		color = draw_texture(rt->hit);
 	return (color);
 }
