@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/10/02 15:15:27 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 20:02:09 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@
 # define PL 2
 # define CY 3
 # define CO 4
-# define CB -1
-# define EARTH -2
-# define MOON -3
-# define PATH_EARTH "textures/earth.png"
-# define PATH_MOON "textures/moon.png"
+# define TEXTURE -1
+# define NORMAL -2
 
 typedef struct s_coordinates
 {
@@ -86,6 +83,7 @@ typedef struct s_sphere
 	t_coordinates	point;
 	double			diameter;
 	t_color			color;
+	t_color			color1;
 	double			**inverse;
 	double			**transpose;
 	t_mlx_texture	*texture;
@@ -96,8 +94,10 @@ typedef struct s_plane
 	t_coordinates	point;
 	t_coordinates	vector;
 	t_color			color;
+	t_color			color1;
 	double			**inverse;
 	double			**transpose;
+	t_mlx_texture	*texture;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -109,6 +109,7 @@ typedef struct s_cylinder
 	double			min;
 	double			max;
 	t_color			color;
+	t_color			color1;
 	double			**inverse;
 	double			**transpose;
 }	t_cylinder;
@@ -121,6 +122,7 @@ typedef struct s_cone
 	double			min;
 	double			max;
 	t_color			color;
+	t_color			color1;
 	double			**inverse;
 	double			**transpose;
 }	t_cone;
@@ -259,11 +261,6 @@ void			validate_light(t_rt *rt, int lights);
 int				validate_double(char *number);
 int				validate_int(char *number);
 
-// validate_objects.c functions
-void			validate_sphere(t_rt *rt, int sp);
-void			validate_plane(t_rt *rt, int pl);
-void			validate_cylinder(t_rt *rt, int cy);
-
 // ray_casting folder
 // discriminant.c functions
 t_discriminant	calculate_discriminant_ray_sphere(t_ray ray);
@@ -324,6 +321,14 @@ void			parser(t_rt *rt);
 // validate_cones_bonus.c function
 void			validate_cone(t_rt *rt, int co);
 
+// validate_object_color_bonus.c function
+int				validate_object_color(t_rt *rt, int type, int i);
+
+// validate_objects_bonus.c functions
+void			validate_sphere(t_rt *rt, int sp);
+void			validate_plane(t_rt *rt, int pl);
+void			validate_cylinder(t_rt *rt, int cy);
+
 // ray_casting_bonus folder
 // discriminant_cone_bonus.c function
 t_discriminant	calculate_discriminant_ray_cone(t_ray ray);
@@ -351,7 +356,8 @@ t_coordinates	calculate_reflecting_vector(t_coordinates light, \
 
 // render_bonus folder
 // checkerboard_texture_bonus.c function
-t_color			draw_checkerboard(t_intersections *hit);
+t_color			draw_checkerboard(t_intersections *hit, t_color color, \
+					t_color color1);
 t_color			draw_texture(t_intersections *hit);
 
 // lightning_bonus.c function
