@@ -72,6 +72,7 @@ SOURCES			=		minirt.c \
 MATRICES_B		=		transformations_matrices_objects_bonus.c
 PARSER_B		=		parser_bonus.c \
 						validate_cones_bonus.c \
+						validate_object_color_bonus.c \
 						validate_objects_bonus.c
 RAY_CASTING_B	=		discriminant_cone_bonus.c \
 						intersection_ray_cone_bonus.c \
