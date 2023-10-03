@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:14:43 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/29 18:11:56 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:48:55 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void	free_sphere_plane_matrices(t_rt *rt)
 		{
 			free_matrix(&rt->spheres[i].inverse);
 			free_matrix(&rt->spheres[i].transpose);
+			if (rt->spheres[i].texture)
+				mlx_delete_texture(rt->spheres[i].texture);
 		}
 	}
 	if (rt->planes)
