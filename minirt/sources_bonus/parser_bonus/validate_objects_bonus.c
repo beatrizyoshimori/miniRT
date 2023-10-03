@@ -6,11 +6,21 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/30 22:06:23 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:32:42 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_bonus.h"
+
+static int	validate_sphere_texture(t_rt *rt, int sp)
+{
+	rt->spheres[sp].texture = mlx_load_png(rt->element[3]);
+	if (!rt->spheres[sp].texture)
+		return (0);
+	rt->spheres[sp].color.red = TEXTURE;
+	rt->spheres[sp].color1.red = NORMAL;
+	return (1);
+}
 
 void	validate_sphere(t_rt *rt, int sp)
 {
@@ -26,22 +36,9 @@ void	validate_sphere(t_rt *rt, int sp)
 	rt->spheres[sp].diameter = ft_atod(rt->element[2]);
 	if (rt->spheres[sp].diameter <= 0)
 		print_error(R_DIAM_SP, rt);
-	rt->color = ft_split(rt->element[3], ',');
-	if (validate_color(rt->color))
-		set_color(&rt->spheres[sp].color, rt->color);
-	else if (!ft_strncmp(rt->element[3], "cb", 3))
-		rt->spheres[sp].color = (t_color){CB, 0, 0};
-	else if (!ft_strncmp(rt->element[3], "Earth", 6))
-	{
-		rt->spheres[sp].color = (t_color){EARTH, 0, 0};
-		rt->spheres[sp].texture = mlx_load_png(PATH_EARTH);
-	}
-	else if (!ft_strncmp(rt->element[3], "Moon", 5))
-	{
-		rt->spheres[sp].color = (t_color){MOON, 0, 0};
-		rt->spheres[sp].texture = mlx_load_png(PATH_MOON);
-	}
-	else
+	rt->spheres[sp].color1.red = NORMAL;
+	rt->color = ft_split(rt->element[3], ':');
+	if (!validate_object_color(rt, SP, sp) && !validate_sphere_texture(rt, sp))
 		print_error(COLOR_SP, rt);
 	free_ptrptr(&rt->color);
 }
@@ -62,12 +59,9 @@ void	validate_plane(t_rt *rt, int pl)
 	if (!validate_normalized_vector(rt->planes[pl].vector))
 		print_error(N_NORMAL_PL, rt);
 	free_ptrptr(&rt->coordinates);
-	rt->color = ft_split(rt->element[3], ',');
-	if (validate_color(rt->color))
-		set_color(&rt->planes[pl].color, rt->color);
-	else if (!ft_strncmp(rt->element[3], "cb", 3))
-		rt->planes[pl].color = (t_color){CB, 0, 0};
-	else
+	rt->planes[pl].color1.red = NORMAL;
+	rt->color = ft_split(rt->element[3], ':');
+	if (!validate_object_color(rt, PL, pl))
 		print_error(COLOR_PL, rt);
 	free_ptrptr(&rt->color);
 }
@@ -81,12 +75,9 @@ static void	validate_cylinder_aux(t_rt *rt, int cy)
 		print_error(R_HEIGHT_CY, rt);
 	rt->cylinders[cy].max = rt->cylinders[cy].height / 2;
 	rt->cylinders[cy].min = -rt->cylinders[cy].max;
-	rt->color = ft_split(rt->element[5], ',');
-	if (validate_color(rt->color))
-		set_color(&rt->cylinders[cy].color, rt->color);
-	else if (!ft_strncmp(rt->element[5], "cb", 3))
-		rt->cylinders[cy].color = (t_color){CB, 0, 0};
-	else
+	rt->cylinders[cy].color1.red = NORMAL;
+	rt->color = ft_split(rt->element[5], ':');
+	if (!validate_object_color(rt, CY, cy))
 		print_error(COLOR_CY, rt);
 	free_ptrptr(&rt->color);
 }
