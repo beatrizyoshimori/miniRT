@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:57:17 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/27 14:37:49 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:37:19 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ static void	read_rt(t_rt *rt, char *file)
 	char	*buffer;
 
 	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		print_error(INV_FILE, rt);
 	rd = read(fd, &c, 1);
 	if (rd == -1)
-		print_error(INV_FILE, rt);
+		print_error(INV_READ, rt);
 	while (read(fd, &c, 1))
 		rd++;
 	close(fd);

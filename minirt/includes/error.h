@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 16:04:27 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/01 19:47:35 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:38:55 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define USAGE "Wrong number of arguments.\nUsage: ./miniRT scene.rt"
 # define FORMAT "Wrong scene format.\nUsage: ./miniRT scene.rt"
 # define INV_FILE "Can't open file."
+# define INV_READ "Can't read file."
 # define NUM_ELEMENTS "Invalid numbers of elements."
 # define INV_ELEMENT "Invalid element."
 # define MISS_ELEMENT "Some element (ambient light, camera, light) is missing."

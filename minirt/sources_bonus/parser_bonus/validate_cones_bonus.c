@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/10/03 17:40:26 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:11:57 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	validate_cone_aux(t_rt *rt, int co)
 
 void	validate_cone(t_rt *rt, int co)
 {
-	if (rt->element[5])
+	if (!rt->element[1] || !rt->element[2] || !rt->element[3] \
+		|| !rt->element[4] || rt->element[5])
 		print_error(ARG_CO, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))

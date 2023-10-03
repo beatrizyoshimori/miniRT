@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:21:50 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/09/14 14:55:45 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:08:06 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	validate_amb_light(t_rt *rt)
 {
 	if (rt->amb_light.amb_light)
 		print_error(NUM_AMB_LIGHT, rt);
-	if (rt->element[3])
+	if (!rt->element[1] || !rt->element[2] || rt->element[3])
 		print_error(ARG_AMB_LIGHT, rt);
 	if (!validate_double(rt->element[1]))
 		print_error(D_RATIO_AMB_LIGHT, rt);
@@ -35,7 +35,7 @@ void	validate_camera(t_rt *rt)
 {
 	if (rt->camera.camera)
 		print_error(NUM_CAM, rt);
-	if (rt->element[4])
+	if (!rt->element[1] || !rt->element[2] || !rt->element[3] || rt->element[4])
 		print_error(ARG_CAM, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
@@ -57,7 +57,7 @@ void	validate_camera(t_rt *rt)
 
 void	validate_light(t_rt *rt, int lights)
 {
-	if (rt->element[4])
+	if (!rt->element[1] || !rt->element[2] || !rt->element[3] || rt->element[4])
 		print_error(ARG_LIGHT, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))

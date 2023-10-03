@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:16 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/10/03 17:33:16 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:11:18 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	validate_sphere(t_rt *rt, int sp)
 {
-	if (rt->element[4])
+	if (!rt->element[1] || !rt->element[2] || !rt->element[3] || rt->element[4])
 		print_error(ARG_SP, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
@@ -35,7 +35,7 @@ void	validate_sphere(t_rt *rt, int sp)
 
 void	validate_plane(t_rt *rt, int pl)
 {
-	if (rt->element[4])
+	if (!rt->element[1] || !rt->element[2] || !rt->element[3] || rt->element[4])
 		print_error(ARG_PL, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
@@ -74,7 +74,8 @@ static void	validate_cylinder_aux(t_rt *rt, int cy)
 
 void	validate_cylinder(t_rt *rt, int cy)
 {
-	if (rt->element[6])
+	if (!rt->element[1] || !rt->element[2] || !rt->element[3] \
+		|| !rt->element[4] || !rt->element[5] || rt->element[6])
 		print_error(ARG_CY, rt);
 	rt->coordinates = ft_split(rt->element[1], ',');
 	if (!validate_coordinates(rt->coordinates))
