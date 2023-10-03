@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:02:11 by byoshimo          #+#    #+#             */
-/*   Updated: 2023/10/02 15:15:10 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:32:48 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_sphere
 	t_coordinates	point;
 	double			diameter;
 	t_color			color;
+	t_color			color1;
 	double			**inverse;
 	double			**transpose;
 	t_mlx_texture	*texture;
@@ -90,8 +91,10 @@ typedef struct s_plane
 	t_coordinates	point;
 	t_coordinates	vector;
 	t_color			color;
+	t_color			color1;
 	double			**inverse;
 	double			**transpose;
+	t_mlx_texture	*texture;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -103,6 +106,7 @@ typedef struct s_cylinder
 	double			min;
 	double			max;
 	t_color			color;
+	t_color			color1;
 	double			**inverse;
 	double			**transpose;
 }	t_cylinder;
@@ -115,6 +119,7 @@ typedef struct s_cone
 	double			min;
 	double			max;
 	t_color			color;
+	t_color			color1;
 	double			**inverse;
 	double			**transpose;
 }	t_cone;
