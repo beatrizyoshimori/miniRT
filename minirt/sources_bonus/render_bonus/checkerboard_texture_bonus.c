@@ -6,7 +6,7 @@
 /*   By: lucade-s <lucade-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 22:18:07 by lucade-s          #+#    #+#             */
-/*   Updated: 2023/09/30 22:28:27 by lucade-s         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:40:44 by lucade-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static t_coordinates	calculate_map(t_intersections *hit)
 		return ((t_coordinates){20 * (1 - (raw_u + 0.5)), \
 			4 * hit->o_point.y, 0, 0});
 	phi = acos(hit->o_point.y);
-	if (hit->sphere->color.red == EARTH || hit->sphere->color.red == MOON)
+	if (hit->sphere->color.red == TEXTURE)
 		return ((t_coordinates){1 - (raw_u + 0.5), \
 			1 - phi / M_PI, 0, 0});
 	return ((t_coordinates){16 * (1 - (raw_u + 0.5)), \
 		8 * (1 - phi / M_PI), 0, 0});
 }
 
-t_color	draw_checkerboard(t_intersections *hit)
+t_color	draw_checkerboard(t_intersections *hit, t_color color, t_color color1)
 {
 	t_coordinates	point;
 	t_coordinates	u_v;
@@ -41,27 +41,30 @@ t_color	draw_checkerboard(t_intersections *hit)
 		u_v = calculate_map(hit);
 		u_v.z = floor(u_v.x);
 		u_v.w = floor(u_v.y);
-		if ((int)(u_v.z + u_v.w) % 2 == 0)
-			return ((t_color){0, 0, 0});
+		if (fmod(u_v.z + u_v.w, 2) == 0)
+			return (color);
 		else
-			return ((t_color){255, 255, 255});
+			return (color1);
 	}
 	point = create_point(floor(4 * hit->o_point.x), \
 		floor(4 * hit->o_point.y), floor(4 * hit->o_point.z));
-	if ((int)(point.x + point.y + point.z) % 2 == 0)
-		return ((t_color){0, 0, 0});
-	return ((t_color){255, 255, 255});
+	if (fmod(point.x + point.y + point.z, 2) == 0)
+		return (color);
+	return (color1);
 }
 
 t_color	draw_texture(t_intersections *hit)
 {
 	int				pixel;
 	t_coordinates	u_v;
+	t_mlx_texture	*texture;
 
 	u_v = calculate_map(hit);
 	u_v.z = round(u_v.x * (hit->sphere->texture->width - 1));
 	u_v.y = 1 - u_v.y;
 	u_v.w = round(u_v.y * (hit->sphere->texture->height - 1));
-	pixel = (u_v.w * hit->sphere->texture->width + u_v.z) * 4;
-	return ((t_color){hit->sphere->texture->pixels[pixel], hit->sphere->texture->pixels[pixel + 1], hit->sphere->texture->pixels[pixel + 2]});
+	texture = hit->sphere->texture;
+	pixel = (u_v.w * texture->width + u_v.z) * 4;
+	return ((t_color){texture->pixels[pixel], texture->pixels[pixel + 1], \
+		texture->pixels[pixel + 2]});
 }
